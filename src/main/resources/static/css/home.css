@@ -1,0 +1,77 @@
+html, body{
+    margin : 0;
+    padding : 0;
+}
+
+#wrapper{
+    min-height : 100vh;
+    position : ralative;
+    width : 100%;
+}
+
+.innerwapper{
+    margin-top : 100px;
+    margin-left : 100px;
+    margin-right : 100px;
+}
+
+.person{
+    width : 150px;
+}
+
+button{
+    border : none;
+    background-color : transparent;
+    float : right;
+}
+
+.content{
+    padding-top : 30px;
+}
+
+.text{
+    font-size : 100px;
+}
+
+.money{
+    font-size : 100px;
+}
+
+.top3{
+    margin : 5px;
+    font-size : 100px;
+    list-style : none;
+    margin-bottom : 100px;
+}
+
+.appimg{
+    width : 100px;
+    border-radius : 20%;
+    margin-right : 15px;
+}
+
+.danger{
+    width : 70px;
+    margin-left : 15px;
+}
+
+.progress{
+    width : 100%;
+}
+
+footer{
+    height : 150px;
+    bottom : 0px;
+    position : absolute;
+}
+
+.footerimg{
+    width : 120px;
+}
+
+.footerBtn{
+    width : 150px;
+    margin-left : auto;
+    margin-right : auto;
+    float : left;
+}
