@@ -7,18 +7,18 @@
 </head>
 
 <body>
-    <div id="wrapper">
+    <div class="wrapper">
         <div class="innerwapper">
-            <button><img class=person src="../static/person.png"></button>
+            <button class="person"><ion-icon name="person-circle-outline"></ion-icon></button>
             <div class="content">
                 <div class="testDiv">
                     <p class="text">누적 금액</p>
                     <p class="money">100,000,000원</p>
                 </div>
 
-                <div>
+                <div class="subscribeList">
                     <div class="top3">
-                        <li><img class="appimg" src="../static/pocketcamp.png">포켓캠프<img class="danger" src="../static/alarm.svg"></li>
+                        <li><img class="appimg" src="../static/pocketcamp.png">포켓캠프<ion-icon class="danger" name="alert-outline"></ion-icon></ion-icon></li>
                         <progress class="progress" value="50" min="0" max="100"></progress>
                     </div>
                     <div class="top3">
@@ -31,20 +31,56 @@
                     </div>
                 </div>
             </div>
+        </div>
 
-            <footer>
-                <div class="footerDiv">
-                    <button class="footerBtn"><img class=footerimg src="../static/home.svg"></button>
-                    <button class="footerBtn"><img class=footerimg src="../static/calendar.svg"></button>
-                    <button class="footerBtn"><img class=footerimg src="../static/refer.svg"></button>
-                    <button class="footerBtn"><img class=footerimg src="../static/commend.svg"></button>
-                    <button class="footerBtn"><img class=footerimg src="../static/more.svg"></button>
-                </div>
-            </footer>
+        <div class="navigation">
+            <ul>
+                <li class="list">
+                    <a href="#">
+                            <span class="icon">
+                                <ion-icon name="home-outline"></ion-icon>
+                            </span>
+                        <span class="text">홈</span>
+                    </a>
+                </li>
+                <li class="list">
+                    <a href="#">
+                            <span class="icon">
+                                <ion-icon name="calendar-outline"></ion-icon>
+                            </span>
+                        <span class="text">구독 일정</span>
+                    </a>
+                </li>
+                <li class="mainlist">
+                    <a href="#">
+                            <span class="icon">
+                                <ion-icon name="logo-google-playstore"></ion-icon>
+                            </span>
+                        <span class="maintext">조회</span>
+                    </a>
+                </li>
+                <li class="list">
+                    <a href="#">
+                            <span class="icon">
+                                <ion-icon name="thumbs-up-outline"></ion-icon>
+                            </span>
+                        <span class="text">추천</span>
+                    </a>
+                </li>
+                <li class="list">
+                    <a href="#">
+                            <span class="icon">
+                                <ion-icon name="reorder-four-outline"></ion-icon>
+                            </span>
+                        <span class="text">더보기</span>
+                    </a>
+                </li>
+            </ul>
         </div>
 
     </div>
 
-
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
 </body>
 </html>
