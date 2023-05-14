@@ -1,0 +1,97 @@
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  background: #e8e8e8;
+}
+
+.container{
+  max-width: 350px;
+  width: 100%;
+  padding: 25px 30px;
+}
+
+.container form .title{
+  font-size: 30px;
+  font-weight: 600;
+  margin: 20px 0 10px 0;
+  position: relative;
+}
+
+.container form .input-box{
+  width: 100%;
+  height: 45px;
+  margin-top: 25px;
+  position: relative;
+}
+
+.container form .input-box input{
+  width: 100%;
+  height: 100%;
+  outline: none;
+  font-size: 16px;
+  border: none;
+}
+
+.container form .underline::before{
+  content: '';
+  position: absolute;
+  height: 2px;
+  width: 100%;
+  background: #ccc;
+  left: 0;
+  bottom: 0;
+}
+
+.container form .button{
+  margin: 40px 0 20px 0;
+}
+
+.container .input-box input[type="submit"]{
+  background: #2d2d2d;
+  font-size: 17px;
+  color: #fff;
+  border-radius: 5px;
+}
+
+.container .option{
+  text-align: center;
+}
+
+.container .join{
+  text-align: center;
+  padding-bottom : 15px;
+}
+
+.container .join a{
+    font-size: 14px;
+    color : #2d2d2d;
+    text-decoration : none;
+    padding : 0px 20px;
+}
+
+.container .option a{
+    font-size: 14px;
+    color : #2d2d2d;
+    text-decoration : none;
+    padding : 0px 20px;
+}
+
+.container .google a{
+  display: block;
+  height: 45px;
+  width: 100%;
+  font-size: 15px;
+  text-decoration: none;
+  padding-left: 20px;
+  line-height: 45px;
+  color: #2d2d2d;
+  border : 3px solid #ccc;
+  border-radius: 5px;
+  margin: 40px 0 15px 0;
+}
+
+.container .google i{
+  padding-right: 12px;
+  font-size: 20px;
+}
