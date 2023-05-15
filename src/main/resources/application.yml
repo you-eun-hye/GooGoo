@@ -1,0 +1,6 @@
+spring:
+  datasource:
+    url: "jdbc:mysql://localhost/googoo"
+    username: "root"
+    password: "zx@13579598"
+    driver-class-name: com.mysql.cj.jdbc.Driver
