@@ -1,6 +1,15 @@
 spring:
   datasource:
-    url: "jdbc:mysql://localhost/googoo"
-    username: "root"
-    password: "zx@13579598"
+    url: "jdbc:mysql://localhost:3306/googoo?serverTimezone=Asia/Seoul&characterEncoding=UTF-8"
+    username: "eunhye"
+    password: "0719"
     driver-class-name: com.mysql.cj.jdbc.Driver
+  thymeleaf:
+    cache: false
+
+  jpa:
+    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+    open-in-view: false
+    show-sql: true
+    hibernate:
+      ddl-auto: create
