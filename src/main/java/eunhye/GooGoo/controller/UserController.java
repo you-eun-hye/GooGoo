@@ -21,5 +21,6 @@ public class UserController {
     @PostMapping("/user/join")
     public String join(@ModelAttribute UserDTO userDTO){
         userService.save(userDTO);
+        return "index";
     }
 }
