@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>mypage</title>
+    <link rel="stylesheet" type="text/css" href="/css/mypage.css">
+</head>
+<body>
+    <div class="wrapper">
+        <div class="innerwapper">
+            <span id="person" class="icon">
+                <ion-icon name="person-circle-outline" ></ion-icon>
+                <p>My Page</p>
+            </span>
+            <button class="btn"><a href="/user/mypage/editEmail">이메일 수정</a></button>
+            <button class="btn"><a href="/user/mypage/board">Q&A</a></button>
+            <button class="btn"><a href="/user/mypage/logout">로그아웃</a></button>
+            <button class="btn" id="red">회원 탈퇴</button>
+<!--            <button class="btn" id="red"><a th:href="@{|/user/delete/${user.id}|}">회원 탈퇴</a></button>-->
+        </div>
+
+
+        <div class="navigation">
+            <ul>
+                <li class="list">
+                    <a href="#">
+                        <span class="icon">
+                            <ion-icon name="home-outline"></ion-icon>
+                        </span>
+                        <span class="text">홈</span>
+                    </a>
+                </li>
+                <li class="list">
+                    <a href="#">
+                        <span class="icon">
+                            <ion-icon name="calendar-outline"></ion-icon>
+                        </span>
+                        <span class="text">구독 일정</span>
+                    </a>
+                </li>
+                <li class="mainlist">
+                    <a href="#">
+                        <span class="icon">
+                            <ion-icon name="logo-google-playstore"></ion-icon>
+                        </span>
+                        <span class="maintext">조회</span>
+                    </a>
+                </li>
+                <li class="list">
+                    <a href="#">
+                        <span class="icon">
+                            <ion-icon name="thumbs-up-outline"></ion-icon>
+                        </span>
+                        <span class="text">추천</span>
+                    </a>
+                </li>
+                <li class="list">
+                    <a href="/user/mypage">
+                        <span class="icon">
+                            <ion-icon name="person-outline"></ion-icon>
+                        </span>
+                        <span class="text">내정보</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+    </div>
+
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+</body>
+</html>

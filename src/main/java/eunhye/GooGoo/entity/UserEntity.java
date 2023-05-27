@@ -1,5 +1,6 @@
 package eunhye.GooGoo.entity;
 
+import eunhye.GooGoo.dto.UserDTO;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -19,4 +20,19 @@ public class UserEntity {
 
     @Column(unique = true)
     private String userPassword;
+
+    public static UserEntity toUserEntity(UserDTO userDTO){
+        UserEntity userEntity = new UserEntity();
+        userEntity.setUserEmail(userDTO.getUserEmail());
+        userEntity.setUserPassword(userDTO.getUserPassword());
+        return userEntity;
+    }
+
+    public static UserEntity toEditUserEntity(UserDTO userDTO){
+        UserEntity userEntity = new UserEntity();
+        userEntity.setId(userDTO.getId());
+        userEntity.setUserEmail(userDTO.getUserEmail());
+        userEntity.setUserPassword(userDTO.getUserPassword());
+        return userEntity;
+    }
 }

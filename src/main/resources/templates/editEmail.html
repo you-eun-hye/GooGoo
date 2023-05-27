@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>이메일 수정</title>
+    <link rel="stylesheet" type="text/css" href="/css/editEmail.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+    <div class="container">
+        <form action="/user/mypage/editEmail" method="post">
+            <div class="title">이메일 수정</div>
+            <input type="hidden" th:value="${editUser.id}" name="id"><br>
+            <div class="input-box underline">
+                <span class="subtitle">이메일: </span>
+                <input type="text" th:value="${editUser.userEmail}" name="userEmail"><br>
+                <div class="underline"></div>
+            </div>
+            <div class="input-box underline">
+                <span class="subtitle">비밀번호: </span>
+                <input type="text" th:value="${editUser.userPassword}" name="userPassword"><br>
+                <div class="underline"></div>
+            </div>
+            <button type="submit" id="editBtn">정보 수정</button>
+        </form>
+    </div>
+</body>
+</html>

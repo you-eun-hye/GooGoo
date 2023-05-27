@@ -1,0 +1,123 @@
+*{
+    margin : 0;
+    padding : 0;
+    box-sizing : border-box;
+}
+
+:root{
+    --clr : #e8e8e8;
+}
+
+body{
+    display : flex;
+    justify-content : center;
+    align_items : center;
+    min-height : 100vh;
+    background : var(--clr);
+}
+
+.innerwapper{
+    margin-top : 100px;
+}
+
+.btn{
+    width: 100%;
+    height: 60px;
+    margin-top: 100px;
+    position: relative;
+    background: #2d2d2d;
+    font-size: 17px;
+    color: #fff;
+    border-radius: 5px;
+    border: none;
+}
+
+.btn a{
+    color: #fff;
+    text-decoration: none;
+}
+
+#red{
+    background: #db0000;
+    border: none;
+}
+
+#person{
+    font-size : 150px;
+    background : transparent;
+    color : #2b2b2b;
+}
+
+#person p{
+    font-size: 80px;
+}
+
+/*하단 내비바*/
+.navigation{
+    position : fixed;
+    bottom : 0;
+    left : 0;
+    right : 0;
+    background : #2b2b2b;
+    display : flex;
+    justify-content : center;
+    align-align_items : center;
+    border-radius : 10px;
+}
+
+.navigation ul{
+    display : flex;
+    width : 100%;
+}
+
+.navigation ul li{
+    position : relative;
+    list-style : none;
+    width : 20%;
+    height : 100px;
+    z-index : 1;
+}
+
+.navigation ul li a{
+    position : relative;
+    display : flex;
+    justify-content : center;
+    align-items : center;
+    flex-direction : column;
+    width : 100%;
+    text-align : center;
+    font-weight : 500;
+}
+
+.navigation ul li a .icon{
+    position : relative;
+    display : block;
+    line-height : 75px;
+    font-size : 60px;;
+    text-align : center;
+    color : var(--clr);
+}
+
+.navigation ul li a .text{
+    position : absolute;
+    color : var(--clr);
+    font-weight : 400;
+    font-size : 25px;
+    bottom : -20px;
+}
+
+.mainlist{
+    position : absolute;
+    top : -50%;
+    background : #2b2b2b;
+    border-radius : 50%;
+    border : 15px solid var(--clr);
+}
+
+.navigation ul li a .maintext{
+    position : absolute;
+    color : var(--clr);
+    font-weight : 400;
+    font-size : 25px;
+    bottom : -60px;
+}
