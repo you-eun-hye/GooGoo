@@ -1,10 +1,13 @@
 package eunhye.GooGoo.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import eunhye.GooGoo.dto.UserDTO;
 import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Setter
@@ -20,6 +23,10 @@ public class UserEntity {
 
     @Column(unique = true)
     private String userPassword;
+
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+    @JsonIgnore
+    private List<BoardEntity> boards = new ArrayList<>();
 
     public static UserEntity toUserEntity(UserDTO userDTO){
         UserEntity userEntity = new UserEntity();
