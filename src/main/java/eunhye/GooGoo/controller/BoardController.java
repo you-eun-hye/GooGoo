@@ -1,7 +1,6 @@
 package eunhye.GooGoo.controller;
 
 import eunhye.GooGoo.dto.BoardDTO;
-import eunhye.GooGoo.dto.UserDTO;
 import eunhye.GooGoo.service.BoardService;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
