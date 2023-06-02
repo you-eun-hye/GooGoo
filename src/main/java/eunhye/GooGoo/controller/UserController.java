@@ -83,10 +83,4 @@ public class UserController {
         session.invalidate();
         return "login";
     }
-
-    // Q&A
-    @GetMapping("/user/mypage/board")
-    public String boardForm(){
-        return "board";
-    }
 }

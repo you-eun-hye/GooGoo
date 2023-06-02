@@ -3,13 +3,11 @@ package eunhye.GooGoo.entity;
 import eunhye.GooGoo.dto.BoardDTO;
 import eunhye.GooGoo.dto.UserDTO;
 import lombok.Getter;
-import lombok.Setter;
 
 import javax.persistence.*;
 
 @Entity
 @Getter
-@Setter
 @Table(name = "board")
 public class BoardEntity extends BaseEntity{
     @Id
@@ -17,21 +15,19 @@ public class BoardEntity extends BaseEntity{
     private Long id;
 
     @Column(nullable = false)
+    private String boardWriter;
+
+    @Column(nullable = false)
     private String boardTitle;
 
     @Column(length = 500, nullable = false)
     private String boardContent;
 
-    @ManyToOne
-    @JoinColumn(name = "user_id")
-    private UserEntity userEntity;
-
-    public static BoardEntity toSaveEntity(BoardDTO boardDTO, UserDTO userDTO){
+    public static BoardEntity toSaveEntity(BoardDTO boardDTO){
         BoardEntity boardEntity = new BoardEntity();
-        UserEntity userEntity = new UserEntity();
-        boardEntity.setBoardTitle(boardDTO.getBoardTitle());
-        boardEntity.setBoardContent(boardDTO.getBoardContent());
-        boardEntity.setUserEntity(userDTO.getId());
+        boardEntity.boardWriter = boardDTO.getBoardWriter();
+        boardEntity.boardTitle = boardDTO.getBoardTitle();
+        boardEntity.boardContent = boardDTO.getBoardContent();
         return boardEntity;
     }
 }
