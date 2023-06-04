@@ -30,4 +30,13 @@ public class BoardEntity extends BaseEntity{
         boardEntity.boardContent = boardDTO.getBoardContent();
         return boardEntity;
     }
+
+    public static BoardEntity toEditEntity(BoardDTO boardDTO) {
+        BoardEntity boardEntity = new BoardEntity();
+        boardEntity.id = boardDTO.getId();
+        boardEntity.boardWriter = boardDTO.getBoardWriter();
+        boardEntity.boardTitle = boardDTO.getBoardTitle();
+        boardEntity.boardContent = boardDTO.getBoardContent();
+        return boardEntity;
+    }
 }

@@ -20,19 +20,19 @@ public class UserController {
     // 회원가입
     @GetMapping("/user/join")
     public String joinForm(){
-        return "join";
+        return "user/join";
     }
 
     @PostMapping("/user/join")
     public String join(@ModelAttribute UserDTO userDTO){
         userService.save(userDTO);
-        return "login";
+        return "user/login";
     }
 
     // 로그인
     @GetMapping("/user/login")
     public String loginForm(){
-        return "login";
+        return "user/login";
     }
 
     @PostMapping("/user/login")
@@ -44,29 +44,29 @@ public class UserController {
             return "home";
         }else{
             // login 실패..
-            return "login";
+            return "user/login";
         }
     }
 
     // 마이페이지
     @GetMapping("/user/mypage")
     public String mypageForm(){
-        return "mypage";
+        return "user/mypage";
     }
 
     // 이메일 수정
-    @GetMapping("/user/mypage/editEmail")
+    @GetMapping("/user/mypage/edit")
     public String editEmailForm(HttpSession session, Model model){
         String myEmail = (String) session.getAttribute("loginEmail");
         UserDTO userDTO = userService.editEmailForm(myEmail);
         model.addAttribute("editUser", userDTO);
-        return "editEmail";
+        return "user/editEmail";
     }
 
-    @PostMapping("/user/mypage/editEmail")
+    @PostMapping("/user/mypage/edit")
     public String editEmail(@ModelAttribute UserDTO userDTO){
         userService.edit(userDTO);
-        return "mypage";
+        return "user/mypage";
     }
 
     // 회원 탈퇴
@@ -74,13 +74,13 @@ public class UserController {
     @GetMapping("/user/delete/{id}")
     public String deleteById(@PathVariable Long id){
         userService.deleteById(id);
-        return "login";
+        return "user/login";
     }
 
     // 로그아웃
     @GetMapping("/user/mypage/logout")
     public String logout(HttpSession session){
         session.invalidate();
-        return "login";
+        return "user/login";
     }
 }

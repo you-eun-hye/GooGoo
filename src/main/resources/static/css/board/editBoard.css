@@ -1,0 +1,69 @@
+*{
+    margin : 0;
+    padding : 0;
+    box-sizing : border-box;
+}
+
+:root{
+    --clr : #e8e8e8;
+}
+
+body{
+    display : flex;
+    align_items : center;
+    min-height : 100vh;
+    background : var(--clr);
+}
+
+.container{
+    max-width: 350px;
+    width: 100%;
+    padding: 25px 30px;
+}
+
+.container form .title{
+    font-size: 30px;
+    font-weight: 600;
+    margin: 20px 0 10px 0;
+    position: relative;
+}
+
+.container form .subtitle{
+    font-size: 20px;
+    font-weight: 600;
+    position: relative;
+}
+
+.container form .input-box{
+    width: 100%;
+    height: 45px;
+    margin-top: 50px;
+    position: relative;
+}
+
+.container form .input-box input{
+    width: 100%;
+    height: 100%;
+    outline: none;
+    font-size: 16px;
+    border: none;
+}
+
+#boardContent{
+    height: 150px;
+}
+
+.container form .button{
+    margin: 40px 0 20px 0;
+}
+
+#editBtn{
+    width: 100%;
+    height: 45px;
+    margin-top: 180px;
+    position: relative;
+    background: #2d2d2d;
+    font-size: 17px;
+    color: #fff;
+    border-radius: 5px;
+}
