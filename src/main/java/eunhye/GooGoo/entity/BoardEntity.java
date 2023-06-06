@@ -1,7 +1,6 @@
 package eunhye.GooGoo.entity;
 
 import eunhye.GooGoo.dto.BoardDTO;
-import eunhye.GooGoo.dto.UserDTO;
 import lombok.Getter;
 
 import javax.persistence.*;

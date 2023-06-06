@@ -1,11 +1,8 @@
 package eunhye.GooGoo.service;
 
 import eunhye.GooGoo.dto.BoardDTO;
-import eunhye.GooGoo.dto.UserDTO;
 import eunhye.GooGoo.entity.BoardEntity;
-import eunhye.GooGoo.entity.UserEntity;
 import eunhye.GooGoo.repository.BoardRepository;
-import eunhye.GooGoo.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -47,5 +44,9 @@ public class BoardService {
         BoardEntity boardEntity = BoardEntity.toEditEntity(boardDTO);
         boardRepository.save(boardEntity);
         return findById(boardDTO.getId());
+    }
+
+    public void delete(Long id) {
+        boardRepository.deleteById(id);
     }
 }
