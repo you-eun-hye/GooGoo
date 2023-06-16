@@ -45,12 +45,25 @@
                     <tbody>
                     <tr th:each="board: ${boardList}">
                         <td th:text="${board.id}"></td>
-                        <td><a th:href="@{|/user/mypage/board/${board.id}|}" th:text="${board.boardTitle}"></a></td>
+                        <td><a th:href="@{|/user/mypage/board/${board.id}}" th:text="${board.boardTitle}"></a></td>
                         <td th:text="${board.boardWriter}"></td>
                         <td th:text="*{#temporals.format(board.boardCreatedTime, 'yyyy-MM-dd HH:mm:ss')}"></td>
                     </tr>
                     </tbody>
                 </table>
+
+<!--                <a th:href="${boardList.first} ? '#' : @{/user/mypage/board/board(page=${boardList.number})}">prev</a>-->
+<!--                &lt;!&ndash; 페이지 번호 링크(현재 페이지는 숫자만)&ndash;&gt;-->
+<!--                <span th:each="page: ${#numbers.sequence(startPage, endPage)}">-->
+<!--                    &lt;!&ndash; 현재페이지는 링크 없이 숫자만 &ndash;&gt;-->
+<!--                    <span th:if="${page == boardList.number + 1}" th:text="${page}"></span>-->
+<!--                    &lt;!&ndash; 현재페이지 번호가 아닌 다른 페이지번호에는 링크를 보여줌 &ndash;&gt;-->
+<!--                    <span th:unless="${page == boardList.number + 1}">-->
+<!--                        <a th:href="@{/user/mypage/board/board(page=${page})}" th:text="${page}"></a>-->
+<!--                    </span>-->
+<!--                </span>-->
+<!--                <a th:href="${boardList.last} ? '#' : @{/user/mypage/board/board(page=${boardList.number + 2})}">next</a>-->
+
             </div>
         </div>
         <button class="btn btn-dark" id="plus"><a href="/user/mypage/board/save">글 작성</a></button>

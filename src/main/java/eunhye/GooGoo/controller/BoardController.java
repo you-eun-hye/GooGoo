@@ -3,6 +3,9 @@ package eunhye.GooGoo.controller;
 import eunhye.GooGoo.dto.BoardDTO;
 import eunhye.GooGoo.service.BoardService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -36,6 +39,21 @@ public class BoardController {
         model.addAttribute("boardList", boardDTOList);
         return "board/board";
     }
+
+//    // 게시물 페이징 조회
+//    // /user/mypage/board/board?page=1
+//    @GetMapping("/user/mypage/board")
+//    public String paging(@PageableDefault(page = 1) Pageable pageable, Model model){
+//        Page<BoardDTO> boardList = boardService.paging(pageable);
+//        int blockLimit = 5;
+//        int startPage = (((int)(Math.ceil((double)pageable.getPageNumber() / blockLimit)))-1) * blockLimit + 1;
+//        int endPage = ((startPage + blockLimit -1) < boardList.getTotalPages()) ? startPage + blockLimit -1 : boardList.getTotalPages();
+//
+//        model.addAttribute("boardList", boardList);
+//        model.addAttribute("startPage", startPage);
+//        model.addAttribute("endPage", endPage);
+//        return "board/board";
+//    }
 
     // 게시물 상세 조회
     @GetMapping("/user/mypage/board/{id}")
