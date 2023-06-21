@@ -22,11 +22,15 @@ public class BoardEntity extends BaseEntity{
     @Column(length = 500, nullable = false)
     private String boardContent;
 
+    @Column
+    private int fileAttached;
+
     public static BoardEntity toSaveEntity(BoardDTO boardDTO){
         BoardEntity boardEntity = new BoardEntity();
         boardEntity.boardWriter = boardDTO.getBoardWriter();
         boardEntity.boardTitle = boardDTO.getBoardTitle();
         boardEntity.boardContent = boardDTO.getBoardContent();
+        boardEntity.fileAttached = 0;
         return boardEntity;
     }
 

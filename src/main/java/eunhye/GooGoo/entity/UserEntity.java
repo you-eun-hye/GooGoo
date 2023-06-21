@@ -4,6 +4,8 @@ import eunhye.GooGoo.dto.UserDTO;
 import lombok.Getter;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter
@@ -18,6 +20,9 @@ public class UserEntity {
 
     @Column(unique = true)
     private String userPassword;
+
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<BoardEntity> boardList = new ArrayList<>();
 
     public static UserEntity toUserEntity(UserDTO userDTO){
         UserEntity userEntity = new UserEntity();

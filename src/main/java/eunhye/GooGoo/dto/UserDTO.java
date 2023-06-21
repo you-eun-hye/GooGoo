@@ -1,7 +1,11 @@
 package eunhye.GooGoo.dto;
 
+import eunhye.GooGoo.entity.BoardEntity;
 import eunhye.GooGoo.entity.UserEntity;
 import lombok.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @Setter
@@ -12,6 +16,7 @@ public class UserDTO {
     private Long id;
     private String userEmail;
     private String userPassword;
+    private List<BoardEntity> boardList = new ArrayList<>();
 
     public static UserDTO toUserDTO(UserEntity userEntity){
         UserDTO userDTO = new UserDTO();
