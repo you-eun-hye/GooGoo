@@ -21,8 +21,8 @@ public class UserEntity {
     @Column(unique = true)
     private String userPassword;
 
-    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private List<BoardEntity> boardList = new ArrayList<>();
+//    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+//    private List<BoardEntity> boardList = new ArrayList<>();
 
     public static UserEntity toUserEntity(UserDTO userDTO){
         UserEntity userEntity = new UserEntity();

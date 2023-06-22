@@ -4,6 +4,8 @@ import eunhye.GooGoo.dto.BoardDTO;
 import lombok.Getter;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter
@@ -25,6 +27,9 @@ public class BoardEntity extends BaseEntity{
     @Column
     private int fileAttached;
 
+    @OneToMany(mappedBy = "boardEntity", cascade = CascadeType.REMOVE, orphanRemoval = true, fetch = FetchType.LAZY)
+    private List<BoardFileEntity> boardFileEntityList = new ArrayList<>();
+
     public static BoardEntity toSaveEntity(BoardDTO boardDTO){
         BoardEntity boardEntity = new BoardEntity();
         boardEntity.boardWriter = boardDTO.getBoardWriter();
@@ -40,6 +45,15 @@ public class BoardEntity extends BaseEntity{
         boardEntity.boardWriter = boardDTO.getBoardWriter();
         boardEntity.boardTitle = boardDTO.getBoardTitle();
         boardEntity.boardContent = boardDTO.getBoardContent();
+        return boardEntity;
+    }
+
+    public static BoardEntity toSaveFileEntity(BoardDTO boardDTO) {
+        BoardEntity boardEntity = new BoardEntity();
+        boardEntity.boardWriter = boardDTO.getBoardWriter();
+        boardEntity.boardTitle = boardDTO.getBoardTitle();
+        boardEntity.boardContent = boardDTO.getBoardContent();
+        boardEntity.fileAttached = 1;
         return boardEntity;
     }
 }

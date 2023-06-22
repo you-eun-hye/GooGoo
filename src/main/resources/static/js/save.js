@@ -1,18 +1,21 @@
 $(document).ready(function(){
     var fileTarget = $('.filebox .upload-hidden');
+    var index = 0;
 
     fileTarget.on('change', function(){
         if(window.FileReader){
             // 파일명 추출
-            var filename = $(this)[0].files[0].name;
+            for(index = 0; index < $(this).length; index++){
+                var filename = $(this)[index].files[index].name;
+                $(this).siblings('.upload-name').val(filename);
+            }
         }
 
         else {
             // Old IE 파일명 추출
             var filename = $(this).val().split('/').pop().split('\\').pop();
+            $(this).siblings('.upload-name').val(filename);
         };
-
-        $(this).siblings('.upload-name').val(filename);
     });
 
     //preview image
