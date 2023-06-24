@@ -16,13 +16,14 @@ public class BoardEntity extends BaseEntity{
     private Long id;
 
     @Column(nullable = false)
-    private String boardWriter;
-
-    @Column(nullable = false)
     private String boardTitle;
 
     @Column(length = 500, nullable = false)
     private String boardContent;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
+    private UserEntity userEntity;
 
     @Column
     private int fileAttached;
@@ -32,9 +33,9 @@ public class BoardEntity extends BaseEntity{
 
     public static BoardEntity toSaveEntity(BoardDTO boardDTO){
         BoardEntity boardEntity = new BoardEntity();
-        boardEntity.boardWriter = boardDTO.getBoardWriter();
         boardEntity.boardTitle = boardDTO.getBoardTitle();
         boardEntity.boardContent = boardDTO.getBoardContent();
+        boardEntity.userEntity = boardDTO.getUserEntity();
         boardEntity.fileAttached = 0;
         return boardEntity;
     }
@@ -42,17 +43,17 @@ public class BoardEntity extends BaseEntity{
     public static BoardEntity toEditEntity(BoardDTO boardDTO) {
         BoardEntity boardEntity = new BoardEntity();
         boardEntity.id = boardDTO.getId();
-        boardEntity.boardWriter = boardDTO.getBoardWriter();
         boardEntity.boardTitle = boardDTO.getBoardTitle();
         boardEntity.boardContent = boardDTO.getBoardContent();
+        boardEntity.userEntity = boardDTO.getUserEntity();
         return boardEntity;
     }
 
     public static BoardEntity toSaveFileEntity(BoardDTO boardDTO) {
         BoardEntity boardEntity = new BoardEntity();
-        boardEntity.boardWriter = boardDTO.getBoardWriter();
         boardEntity.boardTitle = boardDTO.getBoardTitle();
         boardEntity.boardContent = boardDTO.getBoardContent();
+        boardEntity.userEntity = boardDTO.getUserEntity();
         boardEntity.fileAttached = 1;
         return boardEntity;
     }

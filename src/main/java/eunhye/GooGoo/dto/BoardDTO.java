@@ -2,6 +2,7 @@ package eunhye.GooGoo.dto;
 
 import eunhye.GooGoo.entity.BoardEntity;
 import eunhye.GooGoo.entity.BoardFileEntity;
+import eunhye.GooGoo.entity.UserEntity;
 import lombok.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -21,6 +22,8 @@ public class BoardDTO {
     private String boardContent;
     private LocalDateTime boardCreatedTime;
 
+    private UserEntity userEntity;
+
     private List<MultipartFile> boardFile; // save.html -> controller 파일 담는 용도
     private List<String> originalFileName; // 원본 파일 이름
     private List<String> storedFileName; // 서버 저장용 파일 이름
@@ -36,10 +39,10 @@ public class BoardDTO {
     public static BoardDTO toBoardDTO(BoardEntity boardEntity){
         BoardDTO boardDTO = new BoardDTO();
         boardDTO.setId(boardEntity.getId());
-        boardDTO.setBoardWriter(boardEntity.getBoardWriter());
         boardDTO.setBoardTitle(boardEntity.getBoardTitle());
         boardDTO.setBoardContent(boardEntity.getBoardContent());
         boardDTO.setBoardCreatedTime(boardEntity.getCreatedTime());
+        boardDTO.setUserEntity(boardEntity.getUserEntity());
 
         if(boardEntity.getFileAttached() == 0){ // 파일 없을 때
             boardDTO.setFileAttached(boardEntity.getFileAttached()); // 0
