@@ -21,9 +21,6 @@ public class UserEntity {
     @Column(unique = true)
     private String userPassword;
 
-    @Column
-    private int boardAttached;
-
     @OneToMany(mappedBy = "userEntity", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     private List<BoardEntity> boardEntityList = new ArrayList<>();
 
@@ -31,7 +28,6 @@ public class UserEntity {
         UserEntity userEntity = new UserEntity();
         userEntity.userEmail = userDTO.getUserEmail();
         userEntity.userPassword = userDTO.getUserPassword();
-        userEntity.boardAttached = 0;
         return userEntity;
     }
 
@@ -40,7 +36,6 @@ public class UserEntity {
         userEntity.id = userDTO.getId();
         userEntity.userEmail = userDTO.getUserEmail();
         userEntity.userPassword = userDTO.getUserPassword();
-        userEntity.boardAttached = userDTO.get
         return userEntity;
     }
 }
