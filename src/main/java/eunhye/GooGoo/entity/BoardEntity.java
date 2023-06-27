@@ -21,10 +21,6 @@ public class BoardEntity extends BaseEntity{
     @Column(length = 500, nullable = false)
     private String boardContent;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id")
-    private UserEntity userEntity;
-
     @Column
     private int fileAttached;
 
@@ -35,7 +31,6 @@ public class BoardEntity extends BaseEntity{
         BoardEntity boardEntity = new BoardEntity();
         boardEntity.boardTitle = boardDTO.getBoardTitle();
         boardEntity.boardContent = boardDTO.getBoardContent();
-        boardEntity.userEntity = boardDTO.getUserEntity();
         boardEntity.fileAttached = 0;
         return boardEntity;
     }
@@ -45,7 +40,6 @@ public class BoardEntity extends BaseEntity{
         boardEntity.id = boardDTO.getId();
         boardEntity.boardTitle = boardDTO.getBoardTitle();
         boardEntity.boardContent = boardDTO.getBoardContent();
-        boardEntity.userEntity = boardDTO.getUserEntity();
         return boardEntity;
     }
 
@@ -53,7 +47,6 @@ public class BoardEntity extends BaseEntity{
         BoardEntity boardEntity = new BoardEntity();
         boardEntity.boardTitle = boardDTO.getBoardTitle();
         boardEntity.boardContent = boardDTO.getBoardContent();
-        boardEntity.userEntity = boardDTO.getUserEntity();
         boardEntity.fileAttached = 1;
         return boardEntity;
     }

@@ -21,9 +21,6 @@ public class UserEntity {
     @Column(unique = true)
     private String userPassword;
 
-    @OneToMany(mappedBy = "userEntity", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<BoardEntity> boardEntityList = new ArrayList<>();
-
     public static UserEntity toUserEntity(UserDTO userDTO){
         UserEntity userEntity = new UserEntity();
         userEntity.userEmail = userDTO.getUserEmail();

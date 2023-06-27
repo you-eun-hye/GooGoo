@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.servlet.http.HttpSession;
+import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
@@ -40,7 +41,7 @@ public class UserController {
         UserDTO loginResult = userService.login(userDTO);
         if(loginResult != null){
             // login 성공!
-            session.setAttribute("loginEmail", loginResult.getUserEmail());
+            session.setAttribute("loginId", loginResult.getId());
             return "home";
         }else{
             // login 실패..
@@ -57,23 +58,25 @@ public class UserController {
     // 이메일 수정
     @GetMapping("/user/mypage/edit")
     public String editEmailForm(HttpSession session, Model model){
-        String myEmail = (String) session.getAttribute("loginEmail");
-        UserDTO userDTO = userService.editEmailForm(myEmail);
-        model.addAttribute("editUser", userDTO);
+        Long loginId = (Long) session.getAttribute("loginId");
+        UserDTO userDTO = userService.selectUser(loginId);
+        model.addAttribute("userDTO", userDTO);
         return "user/editEmail";
     }
 
     @PostMapping("/user/mypage/edit")
-    public String editEmail(@ModelAttribute UserDTO userDTO){
+    public String editEmail(HttpSession session, @ModelAttribute UserDTO userDTO){
+        Long loginId = (Long)session.getAttribute("loginId");
+        userDTO.setId(loginId);
         userService.edit(userDTO);
         return "user/mypage";
     }
 
     // 회원 탈퇴
-    // id null error
-    @GetMapping("/user/delete/{id}")
-    public String deleteById(@PathVariable Long id){
-        userService.deleteById(id);
+    @GetMapping("/user/mypage/delete")
+    public String deleteById(HttpSession session){
+        Long loginId = (Long)session.getAttribute("loginId");
+        userService.deleteById(loginId);
         return "user/login";
     }
 

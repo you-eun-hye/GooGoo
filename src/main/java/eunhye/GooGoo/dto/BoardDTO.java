@@ -17,12 +17,9 @@ import java.util.List;
 @AllArgsConstructor
 public class BoardDTO {
     private Long id;
-    private String boardWriter;
     private String boardTitle;
     private String boardContent;
     private LocalDateTime boardCreatedTime;
-
-    private UserEntity userEntity;
 
     private List<MultipartFile> boardFile; // save.html -> controller 파일 담는 용도
     private List<String> originalFileName; // 원본 파일 이름
@@ -42,7 +39,6 @@ public class BoardDTO {
         boardDTO.setBoardTitle(boardEntity.getBoardTitle());
         boardDTO.setBoardContent(boardEntity.getBoardContent());
         boardDTO.setBoardCreatedTime(boardEntity.getCreatedTime());
-        boardDTO.setUserEntity(boardEntity.getUserEntity());
 
         if(boardEntity.getFileAttached() == 0){ // 파일 없을 때
             boardDTO.setFileAttached(boardEntity.getFileAttached()); // 0

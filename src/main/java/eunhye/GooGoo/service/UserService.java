@@ -6,6 +6,8 @@ import eunhye.GooGoo.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -45,20 +47,45 @@ public class UserService {
         }
     }
 
-    public UserDTO editEmailForm(String myEmail) {
-        Optional<UserEntity> optionalUserEntity = userRepository.findByUserEmail(myEmail);
-        if(optionalUserEntity.isPresent()){
-            return UserDTO.toUserDTO((optionalUserEntity.get()));
-        }else{
-            return null;
-        }
+//    public UserDTO findById(Long id) {
+//        Optional<UserEntity> optionalUserEntity = userRepository.findById(id);
+//        if(optionalUserEntity.isPresent()){
+//            return UserDTO.toUserDTO(optionalUserEntity.get());
+//        }else{
+//            return null;
+//        }
+//    }
+
+//    public List<UserDTO> findAll(){
+//        List<UserEntity> userEntityList = userRepository.findAll();
+//        List<UserDTO> userDTOList = new ArrayList<>();
+//        for(UserEntity userEntity: userEntityList){
+//            userDTOList.add(UserDTO.toUserDTO(userEntity));
+//        }
+//        return userDTOList;
+//    }
+
+    public UserDTO selectUser(Long id){
+        Optional<UserEntity> optionalUserEntity = userRepository.findById(id);
+        return UserDTO.toUserDTO((optionalUserEntity.get()));
     }
 
+//    public UserDTO editEmailForm(Long id) {
+//        Optional<UserEntity> optionalUserEntity = userRepository.findByUserEmail(myEmail);
+//        if(optionalUserEntity.isPresent()){
+//            return UserDTO.toUserDTO((optionalUserEntity.get()));
+//        }else{
+//            return null;
+//        }
+//    }
+
     public void edit(UserDTO userDTO) {
+
         userRepository.save(UserEntity.toEditUserEntity(userDTO));
     }
 
     public void deleteById(Long id) {
+
         userRepository.deleteById(id);
     }
 }
