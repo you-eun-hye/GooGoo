@@ -2,11 +2,11 @@ package eunhye.GooGoo.entity;
 
 import eunhye.GooGoo.dto.UserDTO;
 import lombok.*;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 @Entity
 @Getter
@@ -19,24 +19,22 @@ public class UserEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(unique = true, name = "userEmail")
+    @Column(unique = true)
     private String userEmail;
 
-    @Column(unique = true, name = "userPassword")
     private String userPassword;
 
-    @Column(name = "userRole")
     @Enumerated(EnumType.STRING)
-    private Role authority;
+    private UserRole role;
 
     @OneToMany(mappedBy = "userEntity", cascade = CascadeType.REMOVE, orphanRemoval = true, fetch = FetchType.LAZY)
     private List<BoardEntity> boardEntityList = new ArrayList<>();
 
-    public static UserEntity toUserEntity(UserDTO userDTO){
+    public static UserEntity toUserEntity(UserDTO userDTO, PasswordEncoder passwordEncoder){
         UserEntity userEntity = new UserEntity();
         userEntity.userEmail = userDTO.getUserEmail();
-        userEntity.userPassword = userDTO.getUserPassword();
-        userEntity.authority = Role.USER;
+        userEntity.userPassword = passwordEncoder.encode((userDTO.getUserPassword()));
+        userEntity.role = UserRole.USER;
         return userEntity;
     }
 
