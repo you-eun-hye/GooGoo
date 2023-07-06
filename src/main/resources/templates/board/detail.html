@@ -22,7 +22,7 @@
         </div>
         <div th:if="${board.fileAttached == 1}">
             <div th:each="filename: ${board.storedFileName}">
-                <img th:src="@{|/upload/${filename}|}" alt="이미지">
+                <img th:src="@{|/upload/${filename}|}" alt="image">
             </div>
         </div>
         <div class="input-box underline">

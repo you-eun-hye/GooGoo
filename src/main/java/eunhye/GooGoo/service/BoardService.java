@@ -5,20 +5,24 @@ import eunhye.GooGoo.entity.BoardEntity;
 import eunhye.GooGoo.entity.BoardFileEntity;
 import eunhye.GooGoo.repository.BoardFileRepository;
 import eunhye.GooGoo.repository.BoardRepository;
+import eunhye.GooGoo.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
 public class BoardService {
+    private final UserRepository userRepository;
     private final BoardRepository boardRepository;
     private final BoardFileRepository boardFileRepository;
 
@@ -45,14 +49,25 @@ public class BoardService {
         }
     }
 
-    @Transactional
-    public List<BoardDTO> findAll() {
-        List<BoardEntity> boardEntityList = boardRepository.findAll();
-        List<BoardDTO> boardDTOList = new ArrayList<>();
-        for(BoardEntity boardEntity: boardEntityList){
-            boardDTOList.add(BoardDTO.toBoardDTO(boardEntity));
-        }
-        return boardDTOList;
+//    // 부모가 자식을 호출할 때 해당 어노테이션 붙여주어야 함
+//    @Transactional
+//    public List<BoardDTO> findAll() {
+//        List<BoardEntity> boardEntityList = boardRepository.findAll();
+//        List<BoardDTO> boardDTOList = new ArrayList<>();
+//        for(BoardEntity boardEntity: boardEntityList){
+//            boardDTOList.add(BoardDTO.toBoardDTO(boardEntity));
+//        }
+//        return boardDTOList;
+//    }
+
+    public Page<BoardDTO> paging(Pageable pageable) {
+        int page = pageable.getPageNumber() -1;
+        int pageLimit = 5;
+        // page 위치에 있는 값은 0부터 시작
+        Page<BoardEntity> boardEntities =
+                boardRepository.findAll(PageRequest.of(page, pageLimit, Sort.by(Sort.Direction.DESC, "id")));
+        Page<BoardDTO> boardDTOS = boardEntities.map(board -> new BoardDTO(board.getId(), board.getBoardTitle(), board.getCreatedTime()));
+        return boardDTOS;
     }
 
     @Transactional
@@ -77,13 +92,4 @@ public class BoardService {
         boardRepository.deleteById(id);
     }
 
-//    public Page<BoardDTO> paging(Pageable pageable) {
-//        int page = pageable.getPageNumber() -1;
-//        int pageLimit = 5;
-//        Page<BoardEntity> boardEntities =
-//                boardRepository.findAll(PageRequest.of(page, pageLimit, Sort.by(Sort.Direction.DESC, "id")));
-//
-//        Page<BoardDTO> boardDTOS = boardEntities.map(board -> new BoardDTO(board.getId(), board.getBoardWriter(), board.getBoardTitle(), board.getCreatedTime()));
-//        return boardDTOS;
-//    }
 }

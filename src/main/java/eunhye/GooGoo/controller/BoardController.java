@@ -8,13 +8,9 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
-import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
@@ -30,31 +26,31 @@ public class BoardController {
     @PostMapping("/user/mypage/board/save")
     public String save(@ModelAttribute BoardDTO boardDTO) throws IOException {
         boardService.save(boardDTO);
-        return "user/mypage";
+        return "redirect:/user/mypage/board/";
     }
 
-    // 게시물 조회
-    @GetMapping("/user/mypage/board")
-    public String findAll(Model model){
-        List<BoardDTO> boardDTOList = boardService.findAll();
-        model.addAttribute("boardList", boardDTOList);
-        return "board/board";
-    }
-
-//    // 게시물 페이징 조회
-//    // /user/mypage/board/board?page=1
+//    // 게시물 조회
 //    @GetMapping("/user/mypage/board")
-//    public String paging(@PageableDefault(page = 1) Pageable pageable, Model model){
-//        Page<BoardDTO> boardList = boardService.paging(pageable);
-//        int blockLimit = 5;
-//        int startPage = (((int)(Math.ceil((double)pageable.getPageNumber() / blockLimit)))-1) * blockLimit + 1;
-//        int endPage = ((startPage + blockLimit -1) < boardList.getTotalPages()) ? startPage + blockLimit -1 : boardList.getTotalPages();
-//
-//        model.addAttribute("boardList", boardList);
-//        model.addAttribute("startPage", startPage);
-//        model.addAttribute("endPage", endPage);
+//    public String findAll(Model model){
+//        List<BoardDTO> boardDTOList = boardService.findAll();
+//        model.addAttribute("boardList", boardDTOList);
 //        return "board/board";
 //    }
+
+    // 게시물 페이징 조회
+    // /user/mypage/board/board?page=1
+    @GetMapping("/user/mypage/board")
+    public String paging(@PageableDefault(page = 1) Pageable pageable, Model model){
+        Page<BoardDTO> boardList = boardService.paging(pageable);
+        int blockLimit = 5;
+        int startPage = (((int)(Math.ceil((double)pageable.getPageNumber() / blockLimit)))-1) * blockLimit + 1;
+        int endPage = ((startPage + blockLimit -1) < boardList.getTotalPages()) ? startPage + blockLimit -1 : boardList.getTotalPages();
+
+        model.addAttribute("boardList", boardList);
+        model.addAttribute("startPage", startPage);
+        model.addAttribute("endPage", endPage);
+        return "board/board";
+    }
 
     // 게시물 상세 조회
     @GetMapping("/user/mypage/board/{id}")
@@ -83,6 +79,6 @@ public class BoardController {
     @GetMapping("/user/mypage/board/delete/{id}")
     public String delete(@PathVariable Long id){
         boardService.delete(id);
-        return "board/board";
+        return "redirect:/user/mypage/board/";
     }
 }
