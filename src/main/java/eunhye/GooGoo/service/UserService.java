@@ -1,6 +1,5 @@
 package eunhye.GooGoo.service;
 
-import eunhye.GooGoo.config.security.SecurityUser;
 import eunhye.GooGoo.dto.UserDTO;
 import eunhye.GooGoo.entity.UserEntity;
 import eunhye.GooGoo.repository.UserRepository;
@@ -14,24 +13,14 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.Optional;
 
 @Service
+@Transactional
 @RequiredArgsConstructor
 public class  UserService {
     private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
 
-    public void save(UserDTO userDTO){
-        UserEntity userEntity = UserEntity.toUserEntity(userDTO);
-        userRepository.save(userEntity);
-    }
-
-    public UserDetails loadUserByUserEmail(String userEmail) throws UsernameNotFoundException {
-        Optional<UserEntity> optional = userRepository.findByUserEmail(userEmail);
-        if(!optional.isPresent()) {
-            throw new UsernameNotFoundException(userEmail + " 사용자 없음");
-        } else {
-            UserEntity userEntity = optional.get();
-            return new SecurityUser(userEntity);
-        }
-
+    public UserEntity save(UserEntity userEntity){
+        return userRepository.save(userEntity);
     }
 
 //    public UserDTO login(UserDTO userDTO) {
@@ -58,18 +47,18 @@ public class  UserService {
 //        }
 //    }
 
-//    public UserDTO selectUser(Long id){
-//        Optional<UserEntity> optionalUserEntity = userRepository.findById(id);
-//        return UserDTO.toUserDTO((optionalUserEntity.get()));
-//    }
+    public UserDTO selectUser(Long id){
+        Optional<UserEntity> optionalUserEntity = userRepository.findById(id);
+        return UserDTO.toUserDTO((optionalUserEntity.get()));
+    }
 
     public void edit(UserDTO userDTO) {
 
         userRepository.save(UserEntity.toEditUserEntity(userDTO));
     }
 
-//    public void deleteById(Long id) {
-//
-//        userRepository.deleteById(id);
-//    }
+    public void deleteById(Long id) {
+
+        userRepository.deleteById(id);
+    }
 }
