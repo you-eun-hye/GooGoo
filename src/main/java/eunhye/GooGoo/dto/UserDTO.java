@@ -13,14 +13,14 @@ public class UserDTO {
     private Long id;
     private String userEmail;
     private String userPassword;
-    private UserRole role;
+    private UserRole authority;
 
     public static UserDTO toUserDTO(UserEntity userEntity){
         UserDTO userDTO = new UserDTO();
         userDTO.setId(userEntity.getId());
         userDTO.setUserEmail(userEntity.getUserEmail());
         userDTO.setUserPassword(userEntity.getUserPassword());
-        userDTO.setRole(UserRole.USER);
+        userDTO.setAuthority(UserRole.USER);
         return userDTO;
     }
 }

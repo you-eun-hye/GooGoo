@@ -25,7 +25,7 @@ public class UserEntity {
     private String userPassword;
 
     @Enumerated(EnumType.STRING)
-    private UserRole role;
+    private UserRole authority;
 
     @OneToMany(mappedBy = "userEntity", cascade = CascadeType.REMOVE, orphanRemoval = true, fetch = FetchType.LAZY)
     private List<BoardEntity> boardEntityList = new ArrayList<>();
@@ -34,7 +34,7 @@ public class UserEntity {
         UserEntity userEntity = new UserEntity();
         userEntity.userEmail = userDTO.getUserEmail();
         userEntity.userPassword = passwordEncoder.encode((userDTO.getUserPassword()));
-        userEntity.role = UserRole.USER;
+        userEntity.authority = UserRole.USER;
         return userEntity;
     }
 

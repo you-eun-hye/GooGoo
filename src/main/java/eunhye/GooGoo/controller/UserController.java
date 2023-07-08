@@ -22,17 +22,26 @@ public class UserController {
 
     // 회원가입
     @GetMapping("/user/join")
-    public String joinForm(Model model){
-        model.addAttribute("userFormDTO", new UserDTO());
+    public String joinForm(Model model) {
+        model.addAttribute("userFormDto", new UserDTO());
         return "user/join";
     }
 
-    @PostMapping("/user/join")
-    public String join(@Valid UserDTO userDTO){
+    @PostMapping( "/user/join")
+    public String memberForm(@Valid UserDTO userDTO, BindingResult bindingResult, Model model) {
+        if (bindingResult.hasErrors()) {
+            return "user/join";
+        }
+
+        try {
             UserEntity userEntity = UserEntity.toUserEntity(userDTO, passwordEncoder);
             userService.save(userEntity);
+        } catch (IllegalStateException e) {
+            model.addAttribute("errorMessage", e.getMessage());
+            return "user/join";
+        }
 
-        return "user/login";
+        return "redirect:/user/login";
     }
 
     // 로그인
