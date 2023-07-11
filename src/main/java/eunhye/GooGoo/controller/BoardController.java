@@ -1,7 +1,10 @@
 package eunhye.GooGoo.controller;
 
 import eunhye.GooGoo.dto.BoardDTO;
+import eunhye.GooGoo.dto.UserDTO;
+import eunhye.GooGoo.entity.UserEntity;
 import eunhye.GooGoo.service.BoardService;
+import eunhye.GooGoo.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -10,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 @Controller
@@ -81,4 +85,5 @@ public class BoardController {
         boardService.delete(id);
         return "redirect:/user/mypage/board/";
     }
+
 }

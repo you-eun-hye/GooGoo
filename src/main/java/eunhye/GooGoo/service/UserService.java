@@ -4,8 +4,13 @@ import eunhye.GooGoo.dto.UserDTO;
 import eunhye.GooGoo.entity.UserEntity;
 import eunhye.GooGoo.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -19,8 +24,24 @@ public class  UserService {
     private final UserRepository userRepository;
 
     public UserEntity save(UserEntity userEntity){
+
         return userRepository.save(userEntity);
     }
+
+//    @Override
+//    public UserDetails loadUserByUsername(String userEmail) throws UsernameNotFoundException {
+//        UserEntity userEntity = userRepository.findByUserEmail(userEmail);
+//
+//        if (userEntity == null) {
+//            throw new UsernameNotFoundException(userEmail);
+//        }
+//
+//        return User.builder()
+//                .username(userEntity.getUserEmail())
+//                .password(userEntity.getUserPassword())
+//                .roles(userEntity.getAuthority().toString())
+//                .build();
+//    }
 
 //    public UserDTO login(UserDTO userDTO) {
 //        /*

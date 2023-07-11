@@ -34,7 +34,8 @@ public class UserEntity {
         UserEntity userEntity = new UserEntity();
         userEntity.userEmail = userDTO.getUserEmail();
         userEntity.userPassword = passwordEncoder.encode((userDTO.getUserPassword()));
-        userEntity.authority = UserRole.USER;
+        if(userDTO.getUserEmail().equals("ADMIN@gmail.com")) userEntity.authority = UserRole.ADMIN;
+        else userEntity.authority = UserRole.USER;
         return userEntity;
     }
 

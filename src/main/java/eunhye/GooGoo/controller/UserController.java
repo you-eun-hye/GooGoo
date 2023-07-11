@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
+
 @Controller
 @RequiredArgsConstructor
 public class UserController {
@@ -21,47 +22,28 @@ public class UserController {
     private final PasswordEncoder passwordEncoder;
 
     // 회원가입
-    @GetMapping("/user/join")
-    public String joinForm(Model model) {
-        model.addAttribute("userFormDto", new UserDTO());
+    @GetMapping("/join")
+    public String joinForm() {
         return "user/join";
     }
 
-    @PostMapping( "/user/join")
-    public String memberForm(@Valid UserDTO userDTO, BindingResult bindingResult, Model model) {
-        if (bindingResult.hasErrors()) {
-            return "user/join";
-        }
-
-        try {
-            UserEntity userEntity = UserEntity.toUserEntity(userDTO, passwordEncoder);
-            userService.save(userEntity);
-        } catch (IllegalStateException e) {
-            model.addAttribute("errorMessage", e.getMessage());
-            return "user/join";
-        }
-
-        return "redirect:/user/login";
+    @PostMapping( "/join")
+    public String join(@Valid UserDTO userDTO) {
+        UserEntity userEntity = UserEntity.toUserEntity(userDTO, passwordEncoder);
+        userService.save(userEntity);
+        return "redirect:/login";
     }
 
     // 로그인
-    @GetMapping("/user/login")
+    @GetMapping("/login")
     public String loginForm(){
         return "user/login";
     }
 
-//    @PostMapping("/user/login")
-//    public String login(@ModelAttribute UserDTO userDTO, HttpSession session){
-//        UserDTO loginResult = userService.login(userDTO);
-//        if(loginResult != null){
-//            // login 성공!
-//            session.setAttribute("loginId", loginResult.getId());
-//            return "home";
-//        }else{
-//            // login 실패..
-//            return "user/login";
-//        }
-//    }
+    @GetMapping("/home")
+    public String successLogin() {
+        return "home";
+    }
 
     // 마이페이지
     @GetMapping("/user/mypage")

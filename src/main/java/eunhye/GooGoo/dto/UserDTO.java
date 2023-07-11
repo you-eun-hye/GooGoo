@@ -20,7 +20,8 @@ public class UserDTO {
         userDTO.setId(userEntity.getId());
         userDTO.setUserEmail(userEntity.getUserEmail());
         userDTO.setUserPassword(userEntity.getUserPassword());
-        userDTO.setAuthority(UserRole.USER);
+        if(userEntity.getUserEmail().equals("ADMIN@gmail.com")) userDTO.setAuthority(UserRole.ADMIN);
+        else userDTO.setAuthority(UserRole.USER);
         return userDTO;
     }
 }
