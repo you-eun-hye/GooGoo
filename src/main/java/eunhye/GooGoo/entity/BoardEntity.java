@@ -2,6 +2,7 @@ package eunhye.GooGoo.entity;
 
 import eunhye.GooGoo.dto.BoardDTO;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -10,6 +11,7 @@ import java.util.List;
 @Entity
 @Getter
 @Table(name = "board")
+@NoArgsConstructor
 public class BoardEntity extends BaseEntity{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

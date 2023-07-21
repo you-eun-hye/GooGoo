@@ -4,81 +4,54 @@ import eunhye.GooGoo.dto.UserDTO;
 import eunhye.GooGoo.entity.UserEntity;
 import eunhye.GooGoo.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.Optional;
 
 @Service
 @Transactional
 @RequiredArgsConstructor
 public class  UserService {
     private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
+    private final EmailService emailService;
 
+    // 닉네임 중복 체크
+    @Transactional(readOnly = true)
+    public boolean checkUserNicknameDuplication(String userNickname) {
+        boolean nicknameDuplicate = userRepository.existsByUserNickname(userNickname);
+        return nicknameDuplicate;
+
+    }
+
+    // 이메일 중복 체크
+    @Transactional(readOnly = true)
+    public boolean checkUserEmailDuplication(String userEmail) {
+        boolean emailDuplicate = userRepository.existsByUserEmail(userEmail);
+        return emailDuplicate;
+    }
+
+    // 이메일 찾기
+    public String findUserEmail(String userNickname){
+        UserEntity findUserNickname = userRepository.findByUserNickname(userNickname);
+        return "사용자의 이메일은 " + findUserNickname.getUserEmail() + "입니다.";
+
+    }
+
+    // 비밀번호 재설정
+    public void editPassword(UserDTO userDTO, String mail) {
+        String newPassword = emailService.sendNewPassword(mail);
+        userDTO.setUserPassword(newPassword);
+        userRepository.save(UserEntity.toEditUserEntity(userDTO, passwordEncoder));
+    }
+
+    // 회원가입
     public UserEntity save(UserEntity userEntity){
-
         return userRepository.save(userEntity);
     }
 
-//    @Override
-//    public UserDetails loadUserByUsername(String userEmail) throws UsernameNotFoundException {
-//        UserEntity userEntity = userRepository.findByUserEmail(userEmail);
+//    public void deleteById(Long id) {
 //
-//        if (userEntity == null) {
-//            throw new UsernameNotFoundException(userEmail);
-//        }
-//
-//        return User.builder()
-//                .username(userEntity.getUserEmail())
-//                .password(userEntity.getUserPassword())
-//                .roles(userEntity.getAuthority().toString())
-//                .build();
+//        userRepository.deleteById(id);
 //    }
-
-//    public UserDTO login(UserDTO userDTO) {
-//        /*
-//            1. 회원이 입력한 이메일로 DB에서 조회
-//            2. DB에서 조회한 비밀번호와 사용자가 입력한 비밀번호가 일치하는지 판단
-//        */
-//        Optional<UserEntity> byUserEmail = userRepository.findByUserEmail(userDTO.getUserEmail());
-//        if(byUserEmail.isPresent()){
-//            // 조회 결과가 있다(해당 이메일을 가진 회원 정보가 있다)
-//            UserEntity userEntity = byUserEmail.get();
-//            if(userEntity.getUserPassword().equals(userDTO.getUserPassword())){
-//                // 비밀번호 일치
-//                // Entity -> DTO 변환 후 리턴
-//                UserDTO dto = UserDTO.toUserDTO(userEntity);
-//                return dto;
-//            }else{
-//                // 비밀번호 불일치
-//                return null;
-//            }
-//        }else{
-//            // 조회 결과가 없다(해당 이메일을 가진 회원이 없다)
-//            return null;
-//        }
-//    }
-
-    public UserDTO selectUser(Long id){
-        Optional<UserEntity> optionalUserEntity = userRepository.findById(id);
-        return UserDTO.toUserDTO((optionalUserEntity.get()));
-    }
-
-    public void edit(UserDTO userDTO) {
-
-        userRepository.save(UserEntity.toEditUserEntity(userDTO));
-    }
-
-    public void deleteById(Long id) {
-
-        userRepository.deleteById(id);
-    }
 }

@@ -1,7 +1,6 @@
 package eunhye.GooGoo.config.security;
 
 import eunhye.GooGoo.entity.UserEntity;
-import eunhye.GooGoo.entity.UserRole;
 import eunhye.GooGoo.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;

@@ -2,7 +2,6 @@ package eunhye.GooGoo.dto;
 
 import eunhye.GooGoo.entity.BoardEntity;
 import eunhye.GooGoo.entity.BoardFileEntity;
-import eunhye.GooGoo.entity.UserEntity;
 import lombok.*;
 import org.springframework.web.multipart.MultipartFile;
 

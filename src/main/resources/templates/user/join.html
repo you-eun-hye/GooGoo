@@ -11,21 +11,38 @@
 <body>
     <div class="container">
         <form action="/join" method="post">
-<!--        <form action="/user/join" method="post" th:object="${userFormDto}">-->
-<!--            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">-->
             <div class="title">회원가입</div>
+
+            <div class="input-box underline">
+                <input type="text" id="userNickname" name="userNickname" placeholder="닉네임" required>
+                <div class="underline"></div>
+            </div>
+
             <div class="input-box underline">
                 <input type="email" id="userEmail" name="userEmail" placeholder="이메일" required>
-<!--                <input type="email" id="userEmail" name="userEmail" th:field="*{userEmail}" placeholder="이메일" required>-->
                 <div class="underline"></div>
+                <button id="sendBtn" name="sendBtn" class="btn" onclick="sendNumber()">인증번호</button>
             </div>
+
+            <div class="input-box underline">
+                <input type="text" name="number" id="number" placeholder="인증번호 입력">
+               <div class="underline"></div>
+                <button name="confirmBtn" id="confirmBtn" class="btn" onclick="confirmNumber()">이메일 인증</button>
+            </div>
+
+            <br>
+            <input type="text" id="Confirm" name="Confirm" style="display: none" value="">
+
             <div class="input-box">
                 <input type="password" id="userPassword" name="userPassword" placeholder="비밀번호" required>
-<!--                <input type="password" id="userPassword" name="userPassword" th:field="*{userPassword}" placeholder="비밀번호" required>-->
                 <div class="underline"></div>
             </div>
-            <button type="submit" id="signUp"> 회원가입</button>
+
+            <button type="submit" class="btn"> 회원가입</button>
         </form>
     </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script rel="script" type="text/javascript" src="/js/join.js"></script>
 </body>
 </html>

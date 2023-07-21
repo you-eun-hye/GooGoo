@@ -6,21 +6,28 @@ import lombok.*;
 
 @Getter
 @Setter
+@ToString
 @NoArgsConstructor
 @AllArgsConstructor
-@ToString
 public class UserDTO {
+
     private Long id;
+    private String userNickname;
     private String userEmail;
     private String userPassword;
     private UserRole authority;
 
+//    // google 관련
+//    private String provider;
+//    private String providerId;
+
     public static UserDTO toUserDTO(UserEntity userEntity){
         UserDTO userDTO = new UserDTO();
         userDTO.setId(userEntity.getId());
+        userDTO.setUserNickname(userEntity.getUserNickname());
         userDTO.setUserEmail(userEntity.getUserEmail());
         userDTO.setUserPassword(userEntity.getUserPassword());
-        if(userEntity.getUserEmail().equals("ADMIN@gmail.com")) userDTO.setAuthority(UserRole.ADMIN);
+        if(userEntity.getUserEmail().equals("dkfvktorco@gmail.com")) userDTO.setAuthority(UserRole.ADMIN);
         else userDTO.setAuthority(UserRole.USER);
         return userDTO;
     }
