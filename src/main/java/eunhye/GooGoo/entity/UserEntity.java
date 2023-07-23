@@ -33,8 +33,8 @@ public class UserEntity {
     private String provider;
     private String providerId;
 
-    @OneToMany(mappedBy = "userEntity", cascade = CascadeType.REMOVE, orphanRemoval = true, fetch = FetchType.LAZY)
-    private List<BoardEntity> boardEntityList = new ArrayList<>();
+//    @OneToMany(mappedBy = "userEntity", cascade = CascadeType.REMOVE, orphanRemoval = true, fetch = FetchType.LAZY)
+//    private List<BoardEntity> boardEntityList = new ArrayList<>();
 
     public static UserEntity toUserEntity(UserDTO userDTO, PasswordEncoder passwordEncoder){
         UserEntity userEntity = new UserEntity();

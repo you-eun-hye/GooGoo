@@ -1,11 +1,13 @@
 package eunhye.GooGoo.controller;
 
+import eunhye.GooGoo.config.security.SecurityDetails;
 import eunhye.GooGoo.dto.UserDTO;
 import eunhye.GooGoo.entity.UserEntity;
 import eunhye.GooGoo.repository.UserRepository;
 import eunhye.GooGoo.service.EmailService;
 import eunhye.GooGoo.service.UserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -93,6 +95,27 @@ public class UserController {
     @GetMapping("/user/mypage")
     public String mypageForm(){
         return "user/mypage";
+    }
+
+    // 이메일 수정
+    @GetMapping("/user/mypage/editUser")
+    public String editUserForm(@AuthenticationPrincipal SecurityDetails securityDetails, Model model){
+        UserDTO userDTO = userService.findById(securityDetails.getUserEntity().getId());
+        model.addAttribute("userDTO", userDTO);
+        return "user/editUser";
+    }
+
+    @PostMapping("/user/mypage/editUserEmail")
+    public String MailSend(String mail){
+        String message = "";
+        int number = emailService.sendMail(mail);
+        message = "" + number;
+        return message;
+    }
+
+    @PutMapping("/user/mypage/editUser")
+    public void editUser(UserDTO userDTO, String userEmail, String userNickname){
+        userService.editUser(userDTO, userEmail, userNickname);
     }
 
 //    // 회원 탈퇴

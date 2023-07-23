@@ -1,8 +1,10 @@
 package eunhye.GooGoo.controller;
 
+import eunhye.GooGoo.config.security.SecurityDetails;
 import eunhye.GooGoo.dto.BoardDTO;
 import eunhye.GooGoo.service.BoardService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -22,15 +24,15 @@ public class BoardController {
     }
 
     @PostMapping("/user/mypage/board/save")
-    public String save(@ModelAttribute BoardDTO boardDTO) throws IOException {
-        boardService.save(boardDTO);
+    public String save(@ModelAttribute BoardDTO boardDTO, @AuthenticationPrincipal SecurityDetails securityDetails) throws IOException {
+        boardService.save(boardDTO, securityDetails.getUserEntity());
         return "redirect:/user/mypage/board/";
     }
 
-//    // 게시물 조회
+    // 게시물 조회
     @GetMapping("/user/mypage/board")
-    public String findAll(Model model){
-        List<BoardDTO> boardDTOList = boardService.findAll();
+    public String findAll(Model model, @AuthenticationPrincipal SecurityDetails securityDetails){
+        List<BoardDTO> boardDTOList = boardService.findAll(securityDetails.getUserEntity());
         model.addAttribute("boardList", boardDTOList);
         return "board/board";
     }

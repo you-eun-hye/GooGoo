@@ -2,6 +2,7 @@ package eunhye.GooGoo.dto;
 
 import eunhye.GooGoo.entity.BoardEntity;
 import eunhye.GooGoo.entity.BoardFileEntity;
+import eunhye.GooGoo.entity.UserEntity;
 import lombok.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -19,6 +20,7 @@ public class BoardDTO {
     private String boardTitle;
     private String boardContent;
     private LocalDateTime boardCreatedTime;
+    private UserEntity userEntity;
 
     private List<MultipartFile> boardFile; // save.html -> controller 파일 담는 용도
     private List<String> originalFileName; // 원본 파일 이름

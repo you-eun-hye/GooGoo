@@ -8,6 +8,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Optional;
+
 @Service
 @Transactional
 @RequiredArgsConstructor
@@ -15,6 +17,11 @@ public class  UserService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
     private final EmailService emailService;
+
+    // 회원가입
+    public UserEntity save(UserEntity userEntity){
+        return userRepository.save(userEntity);
+    }
 
     // 닉네임 중복 체크
     @Transactional(readOnly = true)
@@ -45,10 +52,25 @@ public class  UserService {
         userRepository.save(UserEntity.toEditUserEntity(userDTO, passwordEncoder));
     }
 
-    // 회원가입
-    public UserEntity save(UserEntity userEntity){
-        return userRepository.save(userEntity);
+    // 회원 정보 수정
+    public UserDTO findById(Long id){
+        Optional<UserEntity> optionalUserEntity = userRepository.findById(id);
+        if(optionalUserEntity.isPresent()){
+            UserEntity userEntity = optionalUserEntity.get();
+            UserDTO userDTO = UserDTO.toUserDTO(userEntity);
+            return userDTO;
+        }else{
+            return null;
+        }
     }
+
+    public void editUser(UserDTO userDTO, String userEmail, String userNickname){
+        userDTO.setUserNickname(userNickname);
+        userDTO.setUserEmail(userEmail);
+        userRepository.save(UserEntity.toEditUserEntity(userDTO, passwordEncoder));
+
+    }
+
 
 //    public void deleteById(Long id) {
 //

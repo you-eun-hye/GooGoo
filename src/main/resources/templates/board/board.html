@@ -22,7 +22,6 @@
                     <tr>
                         <th scope="col" class="th-num">번호</th>
                         <th scope="col" class="th-title">제목</th>
-                        <th scope="col" class="th-writer">작성자</th>
                         <th scope="col" class="th-date">등록일</th>
                     </tr>
                     </thead>
@@ -31,7 +30,6 @@
                     <tr th:each="board: ${boardList}">
                         <td th:text="${board.id}"></td>
                         <td><a th:href="@{|/user/mypage/board/${board.id}}" th:text="${board.boardTitle}"></a></td>
-                        <td>작성자에요</td>
                         <td th:text="*{#temporals.format(board.boardCreatedTime, 'yyyy-MM-dd HH:mm:ss')}"></td>
                     </tr>
                     </tbody>

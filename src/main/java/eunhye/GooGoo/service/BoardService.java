@@ -3,6 +3,7 @@ package eunhye.GooGoo.service;
 import eunhye.GooGoo.dto.BoardDTO;
 import eunhye.GooGoo.entity.BoardEntity;
 import eunhye.GooGoo.entity.BoardFileEntity;
+import eunhye.GooGoo.entity.UserEntity;
 import eunhye.GooGoo.repository.BoardFileRepository;
 import eunhye.GooGoo.repository.BoardRepository;
 import lombok.RequiredArgsConstructor;
@@ -22,14 +23,16 @@ public class BoardService {
     private final BoardRepository boardRepository;
     private final BoardFileRepository boardFileRepository;
 
-    public void save(BoardDTO boardDTO) throws IOException {
+    public void save(BoardDTO boardDTO, UserEntity userEntity) throws IOException {
         // 파일 첨부 여부에 따라 로직 분리
         if(boardDTO.getBoardFile().isEmpty()){
             // 첨부 파일 없음
+            boardDTO.setUserEntity(userEntity);
             BoardEntity boardEntity = BoardEntity.toSaveEntity(boardDTO);
             boardRepository.save(boardEntity);
 
         }else{
+            boardDTO.setUserEntity(userEntity);
             BoardEntity boardEntity = BoardEntity.toSaveFileEntity(boardDTO);
             Long saveId = boardRepository.save(boardEntity).getId(); // board_table에 해당 데이터 save 처리
             BoardEntity board = boardRepository.findById(saveId).get(); // 부모 객체를 가져옴
@@ -47,11 +50,13 @@ public class BoardService {
     }
 
     @Transactional
-    public List<BoardDTO> findAll() {
+    public List<BoardDTO> findAll(UserEntity userEntity) {
         List<BoardEntity> boardEntityList = boardRepository.findAll();
         List<BoardDTO> boardDTOList = new ArrayList<>();
         for(BoardEntity boardEntity: boardEntityList){
-            boardDTOList.add(BoardDTO.toBoardDTO(boardEntity));
+            if(boardEntity.getUserEntity().getId() == userEntity.getId()){
+                boardDTOList.add(BoardDTO.toBoardDTO(boardEntity));
+            }
         }
         return boardDTOList;
     }
@@ -75,6 +80,7 @@ public class BoardService {
     }
 
     public void delete(Long id) {
+
         boardRepository.deleteById(id);
     }
 
