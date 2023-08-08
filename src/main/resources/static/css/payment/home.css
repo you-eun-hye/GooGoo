@@ -52,12 +52,17 @@ body{
     margin-top : 150px;
 }
 
-.top3{
-    margin : 5px;
-    font-size : 100px;
-    color : #2b2b2b;
-    list-style : none;
-    margin-bottom : 100px;
+.paddingClass{
+    margin-bottom: 100px;
+}
+
+.parent{
+    display: flex;
+    justify-content: space-between;
+}
+
+.displayRight{
+    float: right;
 }
 
 .appimg{
@@ -66,16 +71,27 @@ body{
     margin-right : 15px;
 }
 
+.paymentText{
+    font-size: 35px;
+}
+
+.paymentTextBig{
+    font-size: 40px;
+    color: red;
+}
+
 .danger{
     border : 3px #2b2b2b solid;
     border-radius : 50%;
     font-size : 40px;
     margin-left : 20px;
+    float: right;
 }
 
 .progress {
     width : 100%;
     appearance: none;
+    margin-top: 30px;
 }
 
 .progress::-webkit-progress-bar {

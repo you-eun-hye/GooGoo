@@ -61,11 +61,6 @@ public class UserController {
         return "user/login";
     }
 
-    @GetMapping("/home")
-    public String home() {
-        return "home";
-    }
-
     // 이메일 찾기
     @GetMapping("/findUserEmail")
     public String findUserEmailForm(){

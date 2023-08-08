@@ -1,10 +1,7 @@
 package eunhye.GooGoo.config.security;
 
 import eunhye.GooGoo.entity.UserEntity;
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.oauth2.core.user.OAuth2User;
@@ -15,7 +12,6 @@ import java.util.Map;
 
 @Data
 public class SecurityDetails implements UserDetails, OAuth2User {
-//public class SecurityDetails implements UserDetails {
 
     // 일반 로그인
     private final UserEntity userEntity;

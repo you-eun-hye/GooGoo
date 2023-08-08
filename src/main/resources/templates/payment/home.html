@@ -3,36 +3,38 @@
 <head>
     <meta charset="UTF-8">
     <title>GooGoo</title>
-    <link rel="stylesheet" type="text/css" href="/css/home.css">
+    <link rel="stylesheet" type="text/css" href="/css/payment/home.css">
 
 </head>
 
 <body>
     <div class="wrapper">
         <div class="innerwapper">
-            <a class="person" href="#">
+            <a class="person" href="/user/mypage">
                 <span class="icon">
                     <ion-icon name="person-circle-outline"></ion-icon>
+
                 </span>
             </a>
             <div class="content">
                 <div class="testDiv">
-                    <p th:text="${session.loginEmail}"></p>
                     <p class="text">누적 금액</p>
-                    <p class="money">100,000,000원</p>
+                    <p class="money" th:text="${sumPrice + '원'}"></p>
                 </div>
 
                 <div class="subscribeList">
-                    <div class="top3">
-                        <li><img class="appimg" src="/image/pocketcamp.png">포켓캠프<ion-icon class="danger" name="alert-outline"></ion-icon></ion-icon></li>
-                        <progress class="progress" value="50" min="0" max="100"></progress>
-                    </div>
-                    <div class="top3">
-                        <li><img class="appimg" src="/image/pocketcamp.png">포켓캠프</li>
-                        <progress class="progress" value="50" min="0" max="100"></progress>
-                    </div>
-                    <div class="top3">
-                        <li><img class="appimg" src="/image/pocketcamp.png">포켓캠프</li>
+                    <div class="paddingClass" th:each="payment: ${top3}">
+                        <div class="parent">
+                            <img class="appimg" src="/image/pocketcamp.png">
+                            <div>
+                                <p th:text="${payment.name}" id="paymentName" class="paymentText"></p>
+                                <p th:text="${payment.year + '년 ' + payment.month + '월' + payment.date + '일'}" class="paymentText"></p>
+                            </div>
+                            <div class="displayRight">
+                                <ion-icon class="danger" name="alert-outline"></ion-icon></ion-icon>
+                                <p th:text="${'₩' + payment.price}" class="paymentTextBig"></p>
+                            </div>
+                        </div>
                         <progress class="progress" value="50" min="0" max="100"></progress>
                     </div>
                 </div>
@@ -50,7 +52,7 @@
                     </a>
                 </li>
                 <li class="list">
-                    <a href="#">
+                    <a href="/calendar">
                             <span class="icon">
                                 <ion-icon name="calendar-outline"></ion-icon>
                             </span>
@@ -58,7 +60,7 @@
                     </a>
                 </li>
                 <li class="mainlist">
-                    <a href="#">
+                    <a href="/buyList">
                             <span class="icon">
                                 <ion-icon name="logo-google-playstore"></ion-icon>
                             </span>
@@ -71,14 +73,6 @@
                                 <ion-icon name="thumbs-up-outline"></ion-icon>
                             </span>
                         <span class="text">추천</span>
-                    </a>
-                </li>
-                <li class="list">
-                    <a href="/user/mypage">
-                            <span class="icon">
-                                <ion-icon name="person-outline"></ion-icon>
-                            </span>
-                        <span class="text">내정보</span>
                     </a>
                 </li>
             </ul>

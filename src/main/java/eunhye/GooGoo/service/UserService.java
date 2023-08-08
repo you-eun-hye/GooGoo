@@ -28,7 +28,6 @@ public class  UserService {
     public boolean checkUserNicknameDuplication(String userNickname) {
         boolean nicknameDuplicate = userRepository.existsByUserNickname(userNickname);
         return nicknameDuplicate;
-
     }
 
     // 이메일 중복 체크
@@ -42,7 +41,6 @@ public class  UserService {
     public String findUserEmail(String userNickname){
         UserEntity findUserNickname = userRepository.findByUserNickname(userNickname);
         return "사용자의 이메일은 " + findUserNickname.getUserEmail() + "입니다.";
-
     }
 
     // 비밀번호 재설정
@@ -68,9 +66,7 @@ public class  UserService {
         userDTO.setUserNickname(userNickname);
         userDTO.setUserEmail(userEmail);
         userRepository.save(UserEntity.toEditUserEntity(userDTO, passwordEncoder));
-
     }
-
 
 //    public void deleteById(Long id) {
 //
