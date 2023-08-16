@@ -1,10 +1,10 @@
 package eunhye.GooGoo.entity;
 
 import eunhye.GooGoo.dto.BoardDTO;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 

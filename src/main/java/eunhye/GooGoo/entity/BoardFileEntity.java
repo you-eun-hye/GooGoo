@@ -1,8 +1,7 @@
 package eunhye.GooGoo.entity;
 
+import jakarta.persistence.*;
 import lombok.Getter;
-
-import javax.persistence.*;
 
 @Entity
 @Getter

@@ -6,13 +6,13 @@ import eunhye.GooGoo.entity.UserEntity;
 import eunhye.GooGoo.repository.UserRepository;
 import eunhye.GooGoo.service.EmailService;
 import eunhye.GooGoo.service.UserService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import javax.validation.Valid;
 
 
 @Controller
@@ -57,7 +57,11 @@ public class UserController {
 
     // 로그인
     @GetMapping("/login")
-    public String loginForm(){
+    public String loginForm(@RequestParam(value="error", required = false) String error,
+                            @RequestParam(value = "exception", required = false) String exception,
+                            Model model){
+        model.addAttribute("error", error);
+        model.addAttribute("exception", exception);
         return "user/login";
     }
 
@@ -108,9 +112,10 @@ public class UserController {
         return message;
     }
 
-    @PutMapping("/user/mypage/editUser")
-    public void editUser(UserDTO userDTO, String userEmail, String userNickname){
+    @PostMapping("/user/mypage/editUser")
+    public String editUser(UserDTO userDTO, String userEmail, String userNickname){
         userService.editUser(userDTO, userEmail, userNickname);
+        return "user/mypage";
     }
 
 //    // 회원 탈퇴

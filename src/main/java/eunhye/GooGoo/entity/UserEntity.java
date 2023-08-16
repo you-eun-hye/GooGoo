@@ -1,10 +1,10 @@
 package eunhye.GooGoo.entity;
 
 import eunhye.GooGoo.dto.UserDTO;
+import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,8 +33,11 @@ public class UserEntity {
     private String provider;
     private String providerId;
 
-//    @OneToMany(mappedBy = "userEntity", cascade = CascadeType.REMOVE, orphanRemoval = true, fetch = FetchType.LAZY)
-//    private List<BoardEntity> boardEntityList = new ArrayList<>();
+    @OneToMany(mappedBy = "userEntity", cascade = CascadeType.REMOVE, orphanRemoval = true, fetch = FetchType.LAZY)
+    private List<BoardEntity> boardEntityList = new ArrayList<>();
+
+    @OneToMany(mappedBy = "userEntity", cascade = CascadeType.REMOVE, orphanRemoval = true, fetch = FetchType.LAZY)
+    private List<PaymentEntity> paymentEntityList = new ArrayList<>();
 
     public static UserEntity toUserEntity(UserDTO userDTO, PasswordEncoder passwordEncoder){
         UserEntity userEntity = new UserEntity();

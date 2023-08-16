@@ -1,11 +1,10 @@
 package eunhye.GooGoo.entity;
 
 import eunhye.GooGoo.dto.PaymentDTO;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-
-import javax.persistence.*;
 
 @Entity
 @Getter
@@ -17,6 +16,7 @@ public class PaymentEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    private String imgSrc;
     private String name;
     private int price;
     private int year;
@@ -24,11 +24,12 @@ public class PaymentEntity {
     private int date;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_email")
+    @JoinColumn(name = "user_id")
     private UserEntity userEntity;
 
     public static PaymentEntity toSaveEntity(PaymentDTO paymentDTO){
         PaymentEntity paymentEntity = new PaymentEntity();
+        paymentEntity.imgSrc = paymentDTO.getImgSrc();
         paymentEntity.name = paymentDTO.getName();
         paymentEntity.price = paymentDTO.getPrice();
         paymentEntity.year = paymentDTO.getYear();

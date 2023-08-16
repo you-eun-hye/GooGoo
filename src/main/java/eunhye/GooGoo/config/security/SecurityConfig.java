@@ -6,6 +6,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
@@ -21,25 +22,27 @@ public class SecurityConfig{
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
-                .csrf().disable()
-                .authorizeRequests()
-                .antMatchers("/user/**").authenticated()
-                .antMatchers("/admin/**").access("hasRole('ADMIN')")
-                .anyRequest().permitAll()
-                .and()
-                .formLogin()
-                .loginPage("/login")
-                .loginProcessingUrl("/login")
-                .defaultSuccessUrl("/home")
-                .usernameParameter("userEmail").passwordParameter("userPassword")
-                .failureHandler(customFailureHandler)
-                .and()
-                .logout()
-                .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-                .logoutSuccessUrl("/login")
-                .and().oauth2Login()
-                .loginPage("/login").defaultSuccessUrl("/home")
-                .userInfoEndpoint().userService(oauth2UserService);
+                .csrf(AbstractHttpConfigurer::disable)
+                .authorizeRequests(requests -> requests
+                        .requestMatchers("/user/**").authenticated()
+                        .requestMatchers("/admin/**").access("hasRole('ADMIN')")
+                        .anyRequest().permitAll()
+                )
+                .formLogin(form->form
+                        .loginPage("/login")
+                        .loginProcessingUrl("/login")
+                        .defaultSuccessUrl("/home")
+                        .usernameParameter("userEmail").passwordParameter("userPassword")
+                        .failureHandler(customFailureHandler)
+                )
+                .logout(logout->logout
+                        .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+                        .logoutSuccessUrl("/login")
+                )
+                .oauth2Login(oauth2->oauth2
+                        .loginPage("/login").defaultSuccessUrl("/home")
+                        .userInfoEndpoint(userInfoEndpointConfig -> userInfoEndpointConfig.userService(oauth2UserService))
+                );
         return http.build();
     }
 }

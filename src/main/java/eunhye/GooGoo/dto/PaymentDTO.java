@@ -13,6 +13,7 @@ import lombok.*;
 public class PaymentDTO {
 
     private Long id;
+    private String imgSrc;
     private String name;
     private int price;
     private int year;
@@ -23,6 +24,7 @@ public class PaymentDTO {
     public static PaymentDTO toPaymentDTO(PaymentEntity paymentEntity){
         PaymentDTO paymentDTO = new PaymentDTO();
         paymentDTO.setId(paymentEntity.getId());
+        paymentDTO.setImgSrc(paymentEntity.getImgSrc());
         paymentDTO.setName(paymentEntity.getName());
         paymentDTO.setPrice(paymentEntity.getPrice());
         paymentDTO.setYear(paymentEntity.getYear());

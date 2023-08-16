@@ -18,19 +18,19 @@ public class BoardController {
     private final BoardService boardService;
 
     // 게시물 작성
-    @GetMapping("/user/mypage/board/save")
+    @GetMapping("/board/save")
     public String saveForm(){
         return "board/save";
     }
 
-    @PostMapping("/user/mypage/board/save")
+    @PostMapping("/board/save")
     public String save(@ModelAttribute BoardDTO boardDTO, @AuthenticationPrincipal SecurityDetails securityDetails) throws IOException {
         boardService.save(boardDTO, securityDetails.getUserEntity());
-        return "redirect:/user/mypage/board/";
+        return "redirect:/board/";
     }
 
     // 게시물 조회
-    @GetMapping("/user/mypage/board")
+    @GetMapping("/board")
     public String findAll(Model model, @AuthenticationPrincipal SecurityDetails securityDetails){
         List<BoardDTO> boardDTOList = boardService.findAll(securityDetails.getUserEntity());
         model.addAttribute("boardList", boardDTOList);
@@ -38,7 +38,7 @@ public class BoardController {
     }
 
     // 게시물 상세 조회
-    @GetMapping("/user/mypage/board/{id}")
+    @GetMapping("/board/{id}")
     public String findById(@PathVariable Long id, Model model){
         BoardDTO boardDTO = boardService.findById(id);
         model.addAttribute("board", boardDTO);
@@ -46,14 +46,14 @@ public class BoardController {
     }
 
     // 게시물 수정
-    @GetMapping("/user/mypage/board/edit/{id}")
+    @GetMapping("/board/edit/{id}")
     public String editForm(@PathVariable Long id, Model model){
         BoardDTO boardDTO = boardService.findById(id);
         model.addAttribute("editBoard", boardDTO);
         return "board/editBoard";
     }
 
-    @PostMapping("/user/mypage/board/edit")
+    @PostMapping("/board/edit")
     public String edit(@ModelAttribute BoardDTO boardDTO, Model model){
         BoardDTO board = boardService.edit(boardDTO);
         model.addAttribute("board", board);
@@ -61,10 +61,10 @@ public class BoardController {
     }
 
     // 게시물 삭제
-    @GetMapping("/user/mypage/board/delete/{id}")
+    @GetMapping("/board/delete/{id}")
     public String delete(@PathVariable Long id){
         boardService.delete(id);
-        return "redirect:/user/mypage/board/";
+        return "redirect:/board/";
     }
 
 }

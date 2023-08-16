@@ -12,7 +12,6 @@
                 <p>My Page</p>
             </span>
             <button class="btn"><a href="/user/mypage/editUser">회원 정보 수정</a></button>
-            <button class="btn"><a href="/user/mypage/board">Q&A</a></button>
             <button class="btn"><a href="/logout">로그아웃</a></button>
             <button class="btn" id="red"><a href="/user/mypage/delete">회원 탈퇴</a></button>
         </div>
@@ -21,41 +20,39 @@
         <div class="navigation">
             <ul>
                 <li class="list">
-                    <a href="#">
-                        <span class="icon">
-                            <ion-icon name="home-outline"></ion-icon>
-                        </span>
+                    <a href="/home">
+                            <span class="icon">
+                                <ion-icon name="home-outline"></ion-icon>
+                            </span>
                         <span class="text">홈</span>
                     </a>
                 </li>
                 <li class="list">
-                    <a href="#">
-                        <span class="icon">
-                            <ion-icon name="calendar-outline"></ion-icon>
-                        </span>
-                        <span class="text">구독 일정</span>
-                    </a>
-                </li>
-                <li class="mainlist">
-                    <a href="#">
-                        <span class="icon">
-                            <ion-icon name="logo-google-playstore"></ion-icon>
-                        </span>
-                        <span class="maintext">조회</span>
+                    <a href="/calendar">
+                            <span class="icon">
+                                <ion-icon name="calendar-outline"></ion-icon>
+                            </span>
+                        <span class="text">조회</span>
                     </a>
                 </li>
                 <li class="list">
-                    <a href="#">
-                        <span class="icon">
-                            <ion-icon name="thumbs-up-outline"></ion-icon>
-                        </span>
+                    <a href="/recommend">
+                            <span class="icon">
+                                <ion-icon name="thumbs-up-outline"></ion-icon>
+                            </span>
                         <span class="text">추천</span>
+                    </a>
+                </li>
+                <li class="mainlist">
+                    <a href="/board">
+                            <span class="icon">
+                                <ion-icon name="help-outline"></ion-icon>
+                            </span>
+                        <span class="maintext">Q&A</span>
                     </a>
                 </li>
             </ul>
         </div>
-
-    </div>
 
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>

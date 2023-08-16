@@ -205,7 +205,7 @@ section.notice {
 .navigation ul li{
     position : relative;
     list-style : none;
-    width : 20%;
+    width : 230%;
     height : 100px;
     z-index : 1;
 }
@@ -236,20 +236,4 @@ section.notice {
     font-weight : 400;
     font-size : 25px;
     bottom : -20px;
-}
-
-.mainlist{
-    position : absolute;
-    top : -50%;
-    background : #2b2b2b;
-    border-radius : 50%;
-    border : 15px solid var(--clr);
-}
-
-.navigation ul li a .maintext{
-    position : absolute;
-    color : var(--clr);
-    font-weight : 400;
-    font-size : 25px;
-    bottom : -60px;
 }

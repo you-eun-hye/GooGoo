@@ -13,18 +13,18 @@
         <form action="/join" method="post">
             <div class="title">회원가입</div>
 
-            <div class="input-box underline">
+            <div class="input-box underline bottom1">
                 <input type="text" id="userNickname" name="userNickname" placeholder="닉네임" required>
                 <div class="underline"></div>
             </div>
 
-            <div class="input-box underline">
+            <div class="input-box underline bottom2">
                 <input type="email" id="userEmail" name="userEmail" placeholder="이메일" required>
                 <div class="underline"></div>
                 <button id="sendBtn" name="sendBtn" class="btn" onclick="sendNumber()">인증번호</button>
             </div>
 
-            <div class="input-box underline">
+            <div class="input-box underline bottom3">
                 <input type="text" name="number" id="number" placeholder="인증번호 입력">
                <div class="underline"></div>
                 <button name="confirmBtn" id="confirmBtn" class="btn" onclick="confirmNumber()">이메일 인증</button>
@@ -33,7 +33,7 @@
             <br>
             <input type="text" id="Confirm" name="Confirm" style="display: none" value="">
 
-            <div class="input-box">
+            <div class="input-box bottom4">
                 <input type="password" id="userPassword" name="userPassword" placeholder="비밀번호" required>
                 <div class="underline"></div>
             </div>

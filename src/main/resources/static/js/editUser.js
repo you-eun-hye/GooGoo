@@ -8,7 +8,7 @@ function sendNumber(){
             alert("인증번호 발송");
             $("#Confirm").attr("value",data);
         }
-    });
+    })
 }
 
 function confirmNumber(){

@@ -11,4 +11,6 @@ public interface PaymentRepository extends JpaRepository<PaymentEntity, Long> {
 
     @Query("SELECT SUM(p.price) FROM PaymentEntity p")
     Integer sumPrice();
+
+    Long countBy();
 }

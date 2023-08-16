@@ -2,13 +2,11 @@ package eunhye.GooGoo.service;
 
 import eunhye.GooGoo.dto.PaymentDTO;
 import eunhye.GooGoo.entity.PaymentEntity;
-import eunhye.GooGoo.entity.UserEntity;
 import eunhye.GooGoo.repository.PaymentRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.persistence.criteria.CriteriaBuilder;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,14 +17,14 @@ public class PaymentService {
 
     private final PaymentRepository paymentRepository;
 
+
     // 누적 금액
-    @Transactional
-    public Integer sumPrice(){
+    public Integer sumPrice() {
         return paymentRepository.sumPrice();
     }
 
+
     // 결제 금액 TOP3 조회
-    @Transactional
     public List<PaymentDTO> findTop3(){
         List<PaymentEntity> paymentEntityList = paymentRepository.findTop3ByOrderByPriceDesc();
         List<PaymentDTO> paymentDTOList = new ArrayList<>();
@@ -38,7 +36,6 @@ public class PaymentService {
 
 
     // 전체 조회
-    @Transactional
     public List<PaymentDTO> findAll(){
         List<PaymentEntity> paymentEntityList = paymentRepository.findAll();
         List<PaymentDTO> paymentDTOList = new ArrayList<>();

@@ -18,5 +18,4 @@ public class GooGooApplication {
 
 		SpringApplication.run(GooGooApplication.class, args);
 	}
-
 }

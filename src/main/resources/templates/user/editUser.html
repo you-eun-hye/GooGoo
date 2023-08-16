@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>이메일 수정</title>
-    <link rel="stylesheet" type="text/css" href="/css/user/editUser.css">
+    <link rel="stylesheet" type="text/css" href="../../static/css/user/editUser.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
@@ -18,20 +18,20 @@
                 <div class="underline"></div>
             </div>
 
-            <div class="input-box underline">
+            <div class="input-box underline bottom1">
                 <span class="subtitle">이메일: </span>
                 <input type="text" th:value="${userDTO.userEmail}" id="userEmail" name="userEmail"><br>
                 <button id="sendBtn" name="sendBtn" class="btn" onclick="sendNumber()">인증번호</button>
                 <div class="underline"></div>
             </div>
 
-            <div class="input-box underline">
+            <div class="input-box underline bottom2">
                 <input type="text" name="number" id="number" placeholder="인증번호 입력">
                 <div class="underline"></div>
-                <button name="confirmBtn" id="confirmBtn" class="btn" onclick="confirmNumber()">이메일 인증</button>
+                <button name="confirmBtn" id="confirmBtn" onclick="confirmNumber()">이메일 인증</button>
             </div>
 
-            <div class="input-box underline">
+            <div class="input-box underline bottom3">
                 <span class="subtitle">비밀번호: </span>
                 <input type="password" th:value="${userDTO.userPassword}" name="userPassword" readonly><br>
                 <div class="underline"></div>
