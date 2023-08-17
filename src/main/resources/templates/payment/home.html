@@ -30,7 +30,6 @@
                             <img class="appimg" th:src="${payment.imgSrc}">
                             <div>
                                 <p th:text="${payment.name}" id="paymentName" class="paymentText"></p>
-                                <p th:text="${payment.year + '년 ' + payment.month + '월' + payment.date + '일'}" class="paymentText"></p>
                             </div>
                             <div class="displayRight">
                                 <p th:text="${'₩' + payment.price}" class="paymentTextBig"></p>

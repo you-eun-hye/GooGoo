@@ -63,7 +63,7 @@ public class BoardController {
     // 게시물 삭제
     @GetMapping("/board/delete/{id}")
     public String delete(@PathVariable Long id){
-        boardService.delete(id);
+        boardService.deleteById(id);
         return "redirect:/board/";
     }
 

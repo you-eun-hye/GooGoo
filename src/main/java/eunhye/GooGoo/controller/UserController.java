@@ -1,10 +1,14 @@
 package eunhye.GooGoo.controller;
 
 import eunhye.GooGoo.config.security.SecurityDetails;
+import eunhye.GooGoo.dto.BoardDTO;
+import eunhye.GooGoo.dto.PaymentDTO;
 import eunhye.GooGoo.dto.UserDTO;
 import eunhye.GooGoo.entity.UserEntity;
 import eunhye.GooGoo.repository.UserRepository;
+import eunhye.GooGoo.service.BoardService;
 import eunhye.GooGoo.service.EmailService;
+import eunhye.GooGoo.service.PaymentService;
 import eunhye.GooGoo.service.UserService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -14,6 +18,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 
 @Controller
 @RequiredArgsConstructor
@@ -22,6 +29,8 @@ public class UserController {
     private final UserRepository userRepository;
     private final UserService userService;
     private final EmailService emailService;
+    private final BoardService boardService;
+    private final PaymentService paymentService;
     private final PasswordEncoder passwordEncoder;
 
     // 회원가입
@@ -118,13 +127,23 @@ public class UserController {
         return "user/mypage";
     }
 
-//    // 회원 탈퇴
-//    @GetMapping("/user/mypage/delete")
-//    public String deleteById(HttpSession session){
-//        Long loginId = (Long)session.getAttribute("loginId");
-//        userService.deleteById(loginId);
-//        return "user/login";
-//    }
+    // 회원 탈퇴
+    @GetMapping("/user/mypage/delete")
+    public String deleteById(@AuthenticationPrincipal SecurityDetails securityDetails){
+        userService.deleteById(securityDetails.getUserEntity().getId());
+
+        List<BoardDTO> boardList = boardService.findAll(securityDetails.getUserEntity());
+        for(long i = 0; i < boardList.size(); i++){
+            boardService.deleteById(i);
+        }
+
+        List<PaymentDTO> paymentList = paymentService.findAll(securityDetails.getUserEntity());
+        for(long i = 0; i < paymentList.size(); i++){
+            paymentService.deleteById(i);
+        }
+
+        return "user/login";
+    }
 
     // 로그아웃
     @GetMapping("/logout")

@@ -69,8 +69,9 @@ public class  UserService {
         userRepository.save(UserEntity.toEditUserEntity(userDTO, passwordEncoder));
     }
 
-//    public void deleteById(Long id) {
-//
-//        userRepository.deleteById(id);
-//    }
+    // 회원 탈퇴
+    public void deleteById(Long id) {
+
+        userRepository.deleteById(id);
+    }
 }
