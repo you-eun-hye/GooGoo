@@ -1,10 +1,58 @@
+*{
+  margin : 0;
+  padding : 0;
+  box-sizing : border-box;
+}
+
 :root{
   --clr : #e8e8e8;
 }
 
 body{
+  display : flex;
+  justify-content : center;
+  align_items : center;
+  min-height : 100vh;
   background : var(--clr);
 }
+
+.content{
+  padding-top : 30px;
+}
+
+.subscribeList{
+  margin-top : 150px;
+}
+
+.paddingClass{
+  margin-bottom: 100px;
+}
+
+.parent{
+  display: flex;
+  justify-content: space-between;
+}
+
+.displayRight{
+  float: right;
+}
+
+.appimg{
+  width : 100px;
+  border-radius : 20%;
+  margin-right : 15px;
+}
+
+.paymentText{
+  font-size: 35px;
+}
+
+.paymentTextBig{
+  font-size: 40px;
+  color: red;
+}
+
+
 
 .navigation{
   position : fixed;
