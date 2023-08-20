@@ -11,9 +11,13 @@
         <div class="page-title">
             <div class="container">
                 <h3>Q&A</h3>
+                <a href="/board/save">
+                    <span class="icon">
+                        <ion-icon name="pencil-outline"></ion-icon>
+                    </span>
+                </a>
             </div>
         </div>
-
         <!-- board list area -->
         <div id="board-list">
             <div class="container">
@@ -35,55 +39,48 @@
                     </tbody>
                 </table>
 
-<!--                <a th:href="${boardList.first} ? '#' : @{/user/mypage/board/board(page=${boardList.number})}">prev</a>-->
-<!--                &lt;!&ndash; 페이지 번호 링크(현재 페이지는 숫자만)&ndash;&gt;-->
-<!--                <span th:each="page: ${#numbers.sequence(startPage, endPage)}">-->
-<!--                    &lt;!&ndash; 현재페이지는 링크 없이 숫자만 &ndash;&gt;-->
-<!--                    <span th:if="${page == boardList.number + 1}" th:text="${page}"></span>-->
-<!--                    &lt;!&ndash; 현재페이지 번호가 아닌 다른 페이지번호에는 링크를 보여줌 &ndash;&gt;-->
-<!--                    <span th:unless="${page == boardList.number + 1}">-->
-<!--                        <a th:href="@{/user/mypage/board/board(page=${page})}" th:text="${page}"></a>-->
-<!--                    </span>-->
-<!--                </span>-->
-<!--                <a th:href="${boardList.last} ? '#' : @{/user/mypage/board/board(page=${boardList.number + 2})}">next</a>-->
-
+                <th:block th:each="page : ${#numbers.sequence(startPage, endPage)}">
+                    <div class="pagination">
+                        <a class="pageText" th:if="${page != nowPage}" th:href="@{/board(page = ${page -1})}" th:text="${page}"></a>
+                        <strong class="pageText" th:if="${page == nowPage}" th:text="${page}"></strong>
+                    </div>
+                </th:block>
             </div>
         </div>
-        <button class="btn btn-dark" id="plus"><a href="/board/save">글 작성</a></button>
     </section>
 
     <div class="navigation">
         <ul>
             <li class="list">
                 <a href="/home">
-                                <span class="icon">
-                                    <ion-icon name="home-outline"></ion-icon>
-                                </span>
+                            <span class="icon">
+                                <ion-icon name="home-outline"></ion-icon>
+                            </span>
                     <span class="text">홈</span>
                 </a>
             </li>
             <li class="list">
                 <a href="/calendar">
-                                <span class="icon">
-                                    <ion-icon name="calendar-outline"></ion-icon>
-                                </span>
+                            <span class="icon">
+                                <ion-icon name="calendar-outline"></ion-icon>
+                            </span>
                     <span class="text">조회</span>
                 </a>
             </li>
             <li class="list">
                 <a href="/recommend">
-                                <span class="icon">
-                                    <ion-icon name="thumbs-up-outline"></ion-icon>
-                                </span>
+                            <span class="icon">
+                                <ion-icon name="thumbs-up-outline"></ion-icon>
+                            </span>
                     <span class="text">추천</span>
                 </a>
             </li>
-            <li class="mainlist">
+            <li class="list">
                 <a href="/board">
-                                <span class="icon">
-                                    <ion-icon name="help-outline"></ion-icon>
-                                </span>
-                    <span class="maintext">Q&A</span>
+                            <span class="icon">
+                                <ion-icon name="help-outline"></ion-icon>
+                            </span>
+                    <span class="text">Q&A</span>
                 </a>
             </li>
         </ul>

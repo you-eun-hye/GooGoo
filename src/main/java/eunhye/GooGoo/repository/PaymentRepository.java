@@ -1,9 +1,11 @@
 package eunhye.GooGoo.repository;
 
 import eunhye.GooGoo.entity.PaymentEntity;
+import eunhye.GooGoo.entity.UserEntity;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
@@ -15,7 +17,5 @@ public interface PaymentRepository extends JpaRepository<PaymentEntity, Long> {
     Integer sumPrice();
 
     @Query("SELECT p FROM PaymentEntity p where p.userEntity.id = ?1")
-    List<PaymentEntity> findUserInfo(Long id);
-
-    Long countBy();
+    Page<PaymentEntity> pagingList(Long id, Pageable pageable);
 }

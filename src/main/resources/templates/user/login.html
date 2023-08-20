@@ -20,22 +20,23 @@
         <input type="password" id="userPassword" name="userPassword" placeholder="비밀번호" required>
         <div class="underline"></div>
       </div>
+
+      <div class="option">
+        <a href="/join" class="join">회원 가입 |</a>
+        <a href="/findUserEmail">이메일 찾기 |</a>
+        <a href="/findUserPassword">비밀번호 찾기</a>
+      </div>
+
       <button type="submit" id="signIn"> 로그인 </button>
+      <p th:text="${error}" class="errorMessage"></p>
     </form>
 
-    <div class="option">
-      <a href="/findUserEmail">이메일 찾기</a>
-      <a href="/findUserPassword">비밀번호 찾기</a>
-    </div>
-
     <div>
-      <hr>
-      <div id="google">
-        <a href="/oauth2/authorization/google">
-          <img src="/image/btn_google_signin_light_pressed_web.png">
+      <div class="login-box">
+        <a href="/oauth2/authorization/google" class="social-button" id="google-connect">
+          <span>Connect with Google</span>
         </a>
       </div>
-      <button class="join"><a href="/join">회원 가입</a></button>
     </div>
   </div>
 </body>

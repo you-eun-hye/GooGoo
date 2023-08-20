@@ -5,10 +5,31 @@
   background: #e8e8e8;
 }
 
+.nicknameOk{
+  color: blue;
+  display: none;
+}
+
+.nicknackNo{
+  color: red;
+  display: none;
+}
+
+.emailOk{
+  color: blue;
+  display: none;
+}
+
+.emailNo{
+  color: red;
+  display: none;
+}
+
+
 .container{
   max-width: 350px;
   width: 100%;
-  padding: 25px 30px;
+  padding: 60px 30px;
 }
 
 .container form .title{

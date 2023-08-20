@@ -38,13 +38,19 @@ body{
 }
 
 .text{
-    font-size : 100px;
+    font-size : 50px;
     color : #2b2b2b;
 }
 
 .money{
     margin-top : 20px;
     font-size : 100px;
+    color : #2b2b2b;
+}
+
+.googlePassword{
+    float: right;
+    font-size : 70px;
     color : #2b2b2b;
 }
 

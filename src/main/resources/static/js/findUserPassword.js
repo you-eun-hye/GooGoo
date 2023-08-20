@@ -1,8 +1,8 @@
-function find(){
+function findPassword(){
     $.ajax({
         url:"/findUserPassword",
         type:"post",
-        dataType:"json",
+        dataType:"text",
         data:{"mail" : $("#userEmail").val()},
         success: function(){
             alert("비밀번호 발송");

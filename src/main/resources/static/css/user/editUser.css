@@ -2,17 +2,13 @@
     margin : 0;
     padding : 0;
     box-sizing : border-box;
-}
-
-:root{
-    --clr : #e8e8e8;
+    background: #e8e8e8;
 }
 
 body{
     display : flex;
     align_items : center;
     min-height : 100vh;
-    background : var(--clr);
 }
 
 .container{
@@ -21,24 +17,43 @@ body{
     padding: 25px 30px;
 }
 
-.container form .title{
+.title{
     font-size: 30px;
     font-weight: 600;
     margin: 20px;
     position: relative;
 }
 
-.container form .subtitle{
+.subtitle{
     font-size: 20px;
     font-weight: 600;
     position: relative;
 }
 
-.container form .input-box{
+.input-box{
     width: 100%;
     height: 45px;
-    /*margin-top: 100px;*/
     position: relative;
+}
+
+.nicknameOk{
+    color: blue;
+    display: none;
+}
+
+.nicknackNo{
+    color: red;
+    display: none;
+}
+
+.emailOk{
+    color: blue;
+    display: none;
+}
+
+.emailNo{
+    color: red;
+    display: none;
 }
 
 .bottom1{
@@ -53,7 +68,7 @@ body{
     margin-top: 100px;
 }
 
-.container form .input-box input{
+.input-box input{
     width: 100%;
     height: 100%;
     outline: none;

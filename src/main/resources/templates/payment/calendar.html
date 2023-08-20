@@ -30,8 +30,15 @@
                     </div>
                 </div>
             </div>
+            <th:block th:each="page : ${#numbers.sequence(startPage, endPage)}">
+                <div class="pagination">
+                    <a th:if="${page != nowPage}" th:href="@{/calendar(page = ${page -1})}" th:text="${page}"></a>
+                    <strong th:if="${page == nowPage}" th:text="${page}"></strong>
+                </div>
+            </th:block>
         </div>
     </div>
+
 
         <div class="navigation">
             <ul>

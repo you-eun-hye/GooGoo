@@ -17,10 +17,7 @@
             <p th:text="${board.boardCreatedTime}"></p>
         </div>
         <div th:if="${board.fileAttached == 1}">
-            <div th:each="filename: ${board.storedFileName}">
-                <img th:src="@{|/upload/${filename}|}" alt="image">
-            </div>
-        </div>
+            <img th:src="@{|/upload/${board.storedFileName}|}" alt="image">
         <div class="input-box underline">
             <b>내용</b>
             <p th:text="${board.boardContent}"></p>
@@ -41,7 +38,7 @@
 </body>
 <script th:inline="javascript">
     const listReq = () => {
-        location.href = "/board/";
+        location.href = "/board";
     }
 
     const updateReq = () => {

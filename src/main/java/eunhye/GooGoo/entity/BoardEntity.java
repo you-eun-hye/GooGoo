@@ -42,6 +42,15 @@ public class BoardEntity extends BaseEntity{
         return boardEntity;
     }
 
+    public static BoardEntity toSaveFileEntity(BoardDTO boardDTO) {
+        BoardEntity boardEntity = new BoardEntity();
+        boardEntity.boardTitle = boardDTO.getBoardTitle();
+        boardEntity.boardContent = boardDTO.getBoardContent();
+        boardEntity.userEntity = boardDTO.getUserEntity();
+        boardEntity.fileAttached = 1;
+        return boardEntity;
+    }
+
     public static BoardEntity toEditEntity(BoardDTO boardDTO) {
         BoardEntity boardEntity = new BoardEntity();
         boardEntity.id = boardDTO.getId();
@@ -49,15 +58,6 @@ public class BoardEntity extends BaseEntity{
         boardEntity.boardContent = boardDTO.getBoardContent();
         boardEntity.userEntity = boardDTO.getUserEntity();
         boardEntity.fileAttached = boardDTO.getFileAttached();
-        return boardEntity;
-    }
-
-    public static BoardEntity toSaveFileEntity(BoardDTO boardDTO) {
-        BoardEntity boardEntity = new BoardEntity();
-        boardEntity.boardTitle = boardDTO.getBoardTitle();
-        boardEntity.boardContent = boardDTO.getBoardContent();
-        boardEntity.userEntity = boardDTO.getUserEntity();
-        boardEntity.fileAttached = 1;
         return boardEntity;
     }
 }

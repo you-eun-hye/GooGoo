@@ -6,9 +6,9 @@ import eunhye.GooGoo.entity.UserEntity;
 import eunhye.GooGoo.repository.PaymentRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -50,6 +50,12 @@ public class PaymentService {
             }
         }
         return paymentDTOList;
+    }
+
+    // 페이징 조회
+    public Page<PaymentEntity> paging(Pageable pageable, UserEntity userEntity){
+        Page<PaymentEntity> paymentEntityList = paymentRepository.pagingList(userEntity.getId(), pageable);
+        return paymentEntityList;
     }
 
 

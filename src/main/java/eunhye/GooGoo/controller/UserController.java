@@ -26,7 +26,6 @@ import java.util.List;
 @RequiredArgsConstructor
 public class UserController {
 
-    private final UserRepository userRepository;
     private final UserService userService;
     private final EmailService emailService;
     private final BoardService boardService;
@@ -46,21 +45,41 @@ public class UserController {
         return "redirect:/login";
     }
 
+    // 회원가입 -> 닉네임 중복 체크
+    @PostMapping("/checkNickname")
+    @ResponseBody
+    public boolean checkNickname(@RequestParam("userNickname") String userNickname){
+        return userService.checkUserNicknameDuplication(userNickname);
+    }
+
+    // 회원가입 -> 이메일 중복 체크
+    @PostMapping("/checkEmail")
+    @ResponseBody
+    public boolean checkEmail(@RequestParam("userEmail") String userEmail){
+        return userService.checkUserEmailDuplication(userEmail);
+    }
+
+    // 정보수정 -> 닉네임 중복 체크
+    @PostMapping("/user/mypage/checkNickname")
+    @ResponseBody
+    public boolean correctionNickname(@RequestParam("userNickname") String userNickname){
+        return userService.checkUserNicknameDuplication(userNickname);
+    }
+
+    // 정보수정 -> 이메일 중복 체크
+    @PostMapping("/user/mypage/checkEmail")
+    @ResponseBody
+    public boolean correctionEmail(@RequestParam("userEmail") String userEmail){
+        return userService.checkUserEmailDuplication(userEmail);
+    }
+
     // 이메일 인증
     @ResponseBody
     @PostMapping("/mail")
-    public String MailSend(String mail, String nickname){
+    public String joinMail(String mail){
         String message = "";
-        if(userService.checkUserEmailDuplication(mail)){
-            message = "이미 가입된 메일입니다.";
-        }
-        else if(userService.checkUserNicknameDuplication(nickname)){
-            message = "이미 가입된 닉네임입니다.";
-        }
-        else{
             int number = emailService.sendMail(mail);
             message = "" + number;
-        }
         return message;
     }
 
@@ -94,9 +113,10 @@ public class UserController {
     }
 
     @PostMapping("/findUserPassword")
+    @ResponseBody
     public void sendNewPassword(String mail){
-        UserDTO userDTO = UserDTO.toUserDTO(userRepository.findByUserEmail(mail));
-        userService.editPassword(userDTO, mail);
+        String newPassword = emailService.sendNewPassword(mail);
+        userService.editPassword(mail, newPassword);
     }
 
     // 마이페이지
@@ -105,7 +125,7 @@ public class UserController {
         return "user/mypage";
     }
 
-    // 이메일 수정
+    // 회원 정보 수정
     @GetMapping("/user/mypage/editUser")
     public String editUserForm(@AuthenticationPrincipal SecurityDetails securityDetails, Model model){
         UserDTO userDTO = userService.findById(securityDetails.getUserEntity().getId());
@@ -114,6 +134,7 @@ public class UserController {
     }
 
     @PostMapping("/user/mypage/editUserEmail")
+    @ResponseBody
     public String MailSend(String mail){
         String message = "";
         int number = emailService.sendMail(mail);
@@ -122,8 +143,9 @@ public class UserController {
     }
 
     @PostMapping("/user/mypage/editUser")
-    public String editUser(UserDTO userDTO, String userEmail, String userNickname){
-        userService.editUser(userDTO, userEmail, userNickname);
+    public String editUser(@AuthenticationPrincipal SecurityDetails securityDetails, String userEmail, String userNickname, String userPassword){
+        UserDTO userDTO = userService.findById(securityDetails.getUserEntity().getId());
+        userService.editUser(userDTO, userEmail, userNickname, userPassword);
         return "user/mypage";
     }
 

@@ -16,18 +16,22 @@
             <div class="title">회원가입</div>
 
             <div class="input-box underline bottom1">
-                <input type="text" id="userNickname" name="userNickname" placeholder="닉네임" required>
+                <input type="text" id="userNickname" name="userNickname" placeholder="닉네임" onchange="checkNickname()" required>
+                <span class="nicknameOk">사용 가능한 닉네임입니다.</span>
+                <span class="nicknackNo">중복되는 닉네임입니다.</span>
                 <div class="underline"></div>
             </div>
 
             <div class="input-box underline bottom2">
-                <input type="email" id="userEmail" name="userEmail" placeholder="이메일" required>
+                <input type="email" id="userEmail" name="userEmail" placeholder="이메일" onchange="checkEmail()" required>
+                <span class="emailOk">사용 가능한 이메일입니다.</span>
+                <span class="emailNo">중복되는 이메일입니다.</span>
                 <div class="underline"></div>
                 <button id="sendBtn" name="sendBtn" class="btn" onclick="sendNumber()">인증번호</button>
             </div>
 
             <div class="input-box underline bottom3">
-                <input type="text" name="number" id="number" placeholder="인증번호 입력">
+                <input type="text" name="number" id="number" placeholder="인증번호 입력" required>
                <div class="underline"></div>
                 <button name="confirmBtn" id="confirmBtn" class="btn" onclick="confirmNumber()">이메일 인증</button>
             </div>

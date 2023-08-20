@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.w3.org/1999/html">
 <head>
     <meta charset="UTF-8">
     <title>GooGoo</title>
@@ -10,21 +10,29 @@
 <body>
     <div class="wrapper">
         <div class="innerwapper">
+            <div class="testDiv">
+                <th:block th:if="${not #strings.isEmpty(sumPrice)}">
+                    <p class="text">누적 금액</p>
+                    <p class="money" th:utext="${sumPrice + '원'}"></p>
+                </th:block>
+            </div>
+
             <a class="person" href="/user/mypage">
                 <span class="icon">
                     <ion-icon name="person-circle-outline"></ion-icon>
                 </span>
             </a>
-            <a href="/googlePassword">
-                <ion-icon name="reload-outline"></ion-icon>
-            </a>
-            <div class="testDiv">
-                <p class="text">누적 금액</p>
-                <p class="money" th:utext="${sumPrice + '원'}"></p>
-            </div>
 
             <div class="content">
                 <div class="subscribeList">
+                    <a href="/googlePassword" class="googlePassword">
+                        <ion-icon name="reload-outline"></ion-icon>
+                    </a>
+                    <th:block th:if="${#strings.isEmpty(sumPrice)}">
+                        <p class="text">환영합니다👋</p>
+                        <p class="text">로딩 버튼으로</p>
+                        <p class="text">결제 내역을 확인하세요🤩</p>
+                    </th:block>
                     <div class="paddingClass" th:each="payment: ${top3}">
                         <div class="parent">
                             <img class="appimg" th:src="${payment.imgSrc}">

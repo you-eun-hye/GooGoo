@@ -2,21 +2,19 @@ package eunhye.GooGoo.controller;
 
 import eunhye.GooGoo.config.security.SecurityDetails;
 import eunhye.GooGoo.dto.PaymentDTO;
+import eunhye.GooGoo.entity.PaymentEntity;
 import eunhye.GooGoo.service.PaymentService;
 import lombok.RequiredArgsConstructor;
-import net.minidev.json.JSONArray;
-import net.minidev.json.JSONObject;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.awt.print.Pageable;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @Controller
 @RequiredArgsConstructor
@@ -27,9 +25,18 @@ public class PaymentController {
 
     // 조회
     @GetMapping("/calendar")
-    public String calendarForm(@PageableDefault(page = 1) Pageable pageable, @AuthenticationPrincipal SecurityDetails securityDetails, Model model){
-        List<PaymentDTO> paymentDTOList = paymentService.findAll(securityDetails.getUserEntity());
-        model.addAttribute("paymentList", paymentDTOList);
+    public String calendarForm(@PageableDefault(page = 0, size = 5, sort = "id", direction = Sort.Direction.ASC) Pageable pageable, @AuthenticationPrincipal SecurityDetails securityDetails, Model model){
+        Page<PaymentEntity> list = paymentService.paging(pageable, securityDetails.getUserEntity());
+
+        int nowPage = list.getPageable().getPageNumber() +1 ;
+        int startPage = Math.max(nowPage -4, 1);
+        int endPage = Math.min(nowPage +5, list.getTotalPages());
+
+        model.addAttribute("paymentList", list);
+        model.addAttribute("nowPage", nowPage);
+        model.addAttribute("startPage", startPage);
+        model.addAttribute("endPage", endPage);
+
         return "payment/calendar";
     }
 

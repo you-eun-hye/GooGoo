@@ -52,6 +52,27 @@ body{
   color: red;
 }
 
+.pagination{
+  width: 100%;
+}
+
+.pagination a{
+  color: #2b2b2b;
+  float: left;
+  padding: 8px 16px;
+  text-decoration: none;
+}
+
+.pagination a.active {
+  background-color: #4CAF50;
+  color: white;
+  border-radius: 5px;
+}
+
+.pagination a:hover:not(.active) {
+  background-color: #ddd;
+  border-radius: 5px;
+}
 
 
 .navigation{

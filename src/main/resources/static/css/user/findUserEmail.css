@@ -47,7 +47,7 @@
     margin: 40px 0 20px 0;
 }
 
-#find{
+#findEmail{
     width: 100%;
     height: 45px;
     margin-top: 25px;
@@ -58,7 +58,7 @@
     border-radius: 5px;
 }
 
-.findEmail{
+.findedEmail{
     width: 100%;
     margin-top: 30px;
     border-radius: 5px;

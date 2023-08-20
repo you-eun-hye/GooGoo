@@ -9,37 +9,41 @@
 </head>
 <body>
     <div class="container">
-        <form action="/user/mypage/edit" method="post">
+        <form action="/user/mypage/editUser" method="post">
             <div class="title">이메일 수정</div>
-            <input type="hidden" th:value="${userDTO.id}" id="id" name="id"><br>
+
             <div class="input-box underline">
                 <span class="subtitle">닉네임: </span>
-                <input type="text" th:value="${userDTO.userNickname}" id="userNickname" name="userNickname"><br>
-                <div class="underline"></div>
+                <input type="text" th:value="${userDTO.userNickname}" id="userNickname" name="userNickname" onchange="checkNickname()"><br>
+                <span class="nicknameOk">사용 가능한 닉네임입니다.</span>
+                <span class="nicknackNo">중복되는 닉네임입니다.</span>
+                <hr>
             </div>
 
             <div class="input-box underline bottom1">
                 <span class="subtitle">이메일: </span>
-                <input type="text" th:value="${userDTO.userEmail}" id="userEmail" name="userEmail"><br>
-                <button id="sendBtn" name="sendBtn" class="btn" onclick="sendNumber()">인증번호</button>
-                <div class="underline"></div>
+                <input type="text" th:value="${userDTO.userEmail}" id="userEmail" name="userEmail" onchange="checkEmail()"><br>
+                <span class="emailOk">사용 가능한 이메일입니다.</span>
+                <span class="emailNo">중복되는 이메일입니다.</span>
+                <hr>
+                <button type="button" id="sendBtn" name="sendBtn" class="btn" onclick="sendNumber()">인증번호</button>
             </div>
 
             <div class="input-box underline bottom2">
                 <input type="text" name="number" id="number" placeholder="인증번호 입력">
-                <div class="underline"></div>
-                <button name="confirmBtn" id="confirmBtn" onclick="confirmNumber()">이메일 인증</button>
+                <hr>
+                <button type="button" name="confirmBtn" id="confirmBtn" onclick="confirmNumber()">이메일 인증</button>
             </div>
 
             <div class="input-box underline bottom3">
                 <span class="subtitle">비밀번호: </span>
-                <input type="password" th:value="${userDTO.userPassword}" name="userPassword" readonly><br>
-                <div class="underline"></div>
+                <input type="password" th:value="${userDTO.userPassword}" id="userPassword" name="userPassword"><br>
+                <hr>
             </div>
 
             <br>
-            <input type="text" id="Confirm" name="Confirm" style="display: none" value="">
-            <button type="button" id="editBtn" class="btn">정보 수정</button>
+            <input type="text" id="confirm" name="confirm" style="display: none" value="">
+            <button type="submit" id="editBtn" class="editBtn">정보 수정</button>
         </form>
     </div>
 
