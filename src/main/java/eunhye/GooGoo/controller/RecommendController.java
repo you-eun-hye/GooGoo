@@ -32,16 +32,22 @@ public class RecommendController {
         List<WebElement> appList = driver.findElements(By.className("ULeU3b"));
         List<String> imgSrc = new ArrayList<String>();
         List<String> name = new ArrayList<String>();
+        List<String> star = new ArrayList<>();
+        List<String> installLink = new ArrayList<>();
 
         for(WebElement element : appList){
             driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
             imgSrc.add(element.findElement(By.className("T75of")).getAttribute("src"));
             name.add(element.findElement(By.className("Epkrse")).getText());
+            star.add(element.findElement(By.className("LrNMN")).getText());
+            installLink.add(element.findElement(By.className("Si6A0c")).getAttribute("href"));
         }
 
         driver.quit();
         model.addAttribute("imgSrc", imgSrc);
         model.addAttribute("name", name);
+        model.addAttribute("star", star);
+        model.addAttribute("installLink", installLink);
         return "/recommend";
     }
 }

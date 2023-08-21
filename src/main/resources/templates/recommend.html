@@ -4,69 +4,73 @@
     <meta charset="UTF-8">
     <title>추천</title>
     <link rel="stylesheet" type="text/css" href="/css/recommend.css">
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
 </head>
 <body>
-    <section class="notice">
-        <div id="board-list">
-            <div class="container">
-                <table class="board-table">
-                    <thead>
-                    <tr>
-                        <th scope="col" class="th-text">이미지</th>
-                        <th scope="col" class="th-text">이름</th>
-                    </tr>
-                    </thead>
+    <div class="wrapper">
+        <div class="innerwapper">
+            <h3 class="title">이건 어때요?🤔</h3>
 
-                    <tbody>
-                    <tr>
-                        <td th:each="src : ${imgSrc}">
-                            <img class="appimg" th:src="${src}">
-                        </td>
-                        <td id="paymentName" th:each="name : ${name}">
-                            <p th:text="${name}"></p>
-                        </td>
-                    </tr>
-                    </tbody>
-                </table>
+            <div class="content">
+                <div class="subscribeList">
+                    <div class="paddingClass" th:each="link, stat : ${installLink}">
+                        <div>
+                            <a th:href="${link}">
+                                <th:block th:each="img, imgStat : ${imgSrc}" th:if="${stat.index == imgStat.index}">
+                                    <img class="appimg" th:src="${img}">
+                                </th:block>
+                            </a>
+
+                        </div>
+                        <div th:each="name, nameStat : ${name}" th:if="${stat.index == nameStat.index}">
+                            <h3 class="appText" th:text="${name}"></h3>
+                            <th:block th:each="star, starStat : ${star}" th:if="${stat.index == starStat.index}">
+                                <p class="appText" th:text="${'⭐ ' + star}"></p>
+                            </th:block>
+                        </div>
+                    </div>
+                    <hr>
+                </div>
             </div>
         </div>
-    </section>
 
-    <div class="navigation">
-        <ul>
-            <li class="list">
-                <a href="/home">
+        <div class="navigation">
+            <ul>
+                <li class="list">
+                    <a href="/home">
                                 <span class="icon">
                                     <ion-icon name="home-outline"></ion-icon>
                                 </span>
-                    <span class="text">홈</span>
-                </a>
-            </li>
-            <li class="list">
-                <a href="/calendar">
+                        <span class="text">홈</span>
+                    </a>
+                </li>
+                <li class="list">
+                    <a href="/calendar">
                                 <span class="icon">
                                     <ion-icon name="calendar-outline"></ion-icon>
                                 </span>
-                    <span class="text">조회</span>
-                </a>
-            </li>
-            <li class="list">
-                <a href="/recommend">
+                        <span class="text">조회</span>
+                    </a>
+                </li>
+                <li class="list">
+                    <a href="/recommend">
                                 <span class="icon">
                                     <ion-icon name="thumbs-up-outline"></ion-icon>
                                 </span>
-                    <span class="text">추천</span>
-                </a>
-            </li>
-            <li class="mainlist">
-                <a href="/board">
+                        <span class="text">추천</span>
+                    </a>
+                </li>
+                <li class="mainlist">
+                    <a href="/board">
                                 <span class="icon">
                                     <ion-icon name="help-outline"></ion-icon>
                                 </span>
-                    <span class="maintext">Q&A</span>
-                </a>
-            </li>
-        </ul>
+                        <span class="text">Q&A</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
     </div>
 
 </body>

@@ -33,18 +33,18 @@
                     <tbody>
                     <tr th:each="board: ${boardList}">
                         <td th:text="${board.id}"></td>
-                        <td><a th:href="@{|/board/${board.id}}" th:text="${board.boardTitle}"></a></td>
-                        <td th:text="*{#temporals.format(board.boardCreatedTime, 'yyyy-MM-dd HH:mm:ss')}"></td>
+                        <td><a th:href="@{|/board/${board.id}}" th:text="${board.boardTitle}">d</a></td>
+                        <td th:text="*{#temporals.format(board.boardCreatedTime, 'yyyy-MM-dd HH:mm:ss')}">d</td>
                     </tr>
                     </tbody>
                 </table>
 
-                <th:block th:each="page : ${#numbers.sequence(startPage, endPage)}">
-                    <div class="pagination">
+                <div class="pagination">
+                    <th:block th:each="page : ${#numbers.sequence(startPage, endPage)}">
                         <a class="pageText" th:if="${page != nowPage}" th:href="@{/board(page = ${page -1})}" th:text="${page}"></a>
-                        <strong class="pageText" th:if="${page == nowPage}" th:text="${page}"></strong>
-                    </div>
-                </th:block>
+                        <strong class="selectPage" th:if="${page == nowPage}" th:text="${page}"></strong>
+                    </th:block>
+                </div>
             </div>
         </div>
     </section>

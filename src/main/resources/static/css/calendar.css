@@ -24,13 +24,20 @@ body{
   margin-top : 150px;
 }
 
-.paddingClass{
+.title{
+  font-size : 80px;
+  color : #2b2b2b;
   margin-bottom: 100px;
+}
+
+.paddingClass{
+  margin-bottom: 120px;
 }
 
 .parent{
   display: flex;
   justify-content: space-between;
+  width: 100%;
 }
 
 .displayRight{
@@ -50,30 +57,30 @@ body{
 .paymentTextBig{
   font-size: 40px;
   color: red;
+  margin-left: 30px;
 }
 
 .pagination{
+  text-align: center;
   width: 100%;
+  list-style: none;
+  display: inline-block;
+  margin-top: 100px;
 }
 
-.pagination a{
+.pageText{
   color: #2b2b2b;
-  float: left;
-  padding: 8px 16px;
   text-decoration: none;
+  font-size: 50px;
+  margin: 0px 10px;
 }
 
-.pagination a.active {
-  background-color: #4CAF50;
-  color: white;
-  border-radius: 5px;
+.selectPage{
+  font-size: 50px;
+  color: #2b2b2b;
+  border-radius: 50%;
+  margin: 0px 10px;
 }
-
-.pagination a:hover:not(.active) {
-  background-color: #ddd;
-  border-radius: 5px;
-}
-
 
 .navigation{
   position : fixed;
@@ -84,7 +91,7 @@ body{
   display : flex;
   justify-content : center;
   align-align_items : center;
-  border-radius : 10px;
+  border-radius : 30px;
 }
 
 .navigation ul{
@@ -96,26 +103,25 @@ body{
   position : relative;
   list-style : none;
   width : 30%;
-  height : 100px;
+  height : 180px;
   z-index : 1;
 }
 
-.navigation ul li a{
-  position : relative;
-  display : flex;
-  justify-content : center;
-  align-items : center;
-  flex-direction : column;
-  width : 100%;
-  text-align : center;
-  font-weight : 500;
+.navigation ul li a {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: 100%;
+  text-align: center;
+  font-weight: 500;
 }
 
 .navigation ul li a .icon{
   position : relative;
   display : block;
-  line-height : 75px;
-  font-size : 60px;;
+  font-size : 100px;;
   text-align : center;
   color : var(--clr);
 }
@@ -124,6 +130,6 @@ body{
   position : absolute;
   color : var(--clr);
   font-weight : 400;
-  font-size : 25px;
-  bottom : -20px;
+  font-size : 45px;
+  bottom : -40px;
 }

@@ -6,10 +6,9 @@
 
 <!--    <script src="/lib/main.js" type="text/javascript"></script>-->
 <!--    <link rel="stylesheet" type="text/css" href="/lib/main.css">-->
+<!--    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/locales-all.js"></script>-->
     <script src="./js/calendar.js" type="text/javascript"></script>
     <link rel="stylesheet" type="text/css" href="/css/calendar.css">
-
-<!--    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/locales-all.js"></script>-->
 
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
@@ -18,63 +17,65 @@
 <!--    <div id='calendar'></div>-->
     <div class="content">
         <div class="subscribeList">
+            <h3 class="title">결제 내역</h3>
             <div class="paddingClass" th:each="payment: ${paymentList}">
                 <div class="parent">
                     <img class="appimg" th:src="${payment.imgSrc}">
                     <div>
-                        <p th:text="${payment.name}" id="paymentName" class="paymentText"></p>
-                        <p th:text="${payment.year + '년 ' + payment.month + '월 ' + payment.date + '일'}"></p>
+                        <h4 th:text="${payment.name}" id="paymentName" class="paymentText"></h4>
+                        <h4 th:text="${payment.year + '년 ' + payment.month + '월 ' + payment.date + '일'}" class="paymentText"></h4>
                     </div>
                     <div class="displayRight">
-                        <p th:text="${'₩' + payment.price}" class="paymentTextBig"></p>
+                        <h4 th:text="${'₩' + payment.price}" class="paymentTextBig"></h4>
                     </div>
                 </div>
             </div>
-            <th:block th:each="page : ${#numbers.sequence(startPage, endPage)}">
-                <div class="pagination">
-                    <a th:if="${page != nowPage}" th:href="@{/calendar(page = ${page -1})}" th:text="${page}"></a>
-                    <strong th:if="${page == nowPage}" th:text="${page}"></strong>
-                </div>
-            </th:block>
+
+            <div class="pagination">
+                <th:block th:each="page : ${#numbers.sequence(startPage, endPage)}">
+                    <a class="pageText" th:if="${page != nowPage}" th:href="@{/calendar(page = ${page -1})}" th:text="${page}"></a>
+                    <strong class="selectPage" th:if="${page == nowPage}" th:text="${page}"></strong>
+                </th:block>
+            </div>
         </div>
     </div>
 
 
-        <div class="navigation">
-            <ul>
-                <li class="list">
-                    <a href="/home">
-                        <span class="icon">
-                            <ion-icon name="home-outline"></ion-icon>
-                        </span>
-                        <span class="text">홈</span>
-                    </a>
-                </li>
-                <li class="list">
-                    <a href="/calendar">
-                        <span class="icon">
-                            <ion-icon name="calendar-outline"></ion-icon>
-                        </span>
-                        <span class="text">조회</span>
-                    </a>
-                </li>
-                <li class="list">
-                    <a href="/recommend">
-                        <span class="icon">
-                            <ion-icon name="thumbs-up-outline"></ion-icon>
-                        </span>
-                        <span class="text">추천</span>
-                    </a>
-                </li>
-                <li class="list">
-                    <a href="/board">
-                        <span class="icon">
-                            <ion-icon name="help-outline"></ion-icon>
-                        </span>
-                        <span class="text">Q&A</span>
-                    </a>
-                </li>
-            </ul>
-        </div>
+    <div class="navigation">
+        <ul>
+            <li class="list">
+                <a href="/home">
+                    <span class="icon">
+                        <ion-icon name="home-outline"></ion-icon>
+                    </span>
+                    <span class="text">홈</span>
+                </a>
+            </li>
+            <li class="list">
+                <a href="/calendar">
+                    <span class="icon">
+                        <ion-icon name="calendar-outline"></ion-icon>
+                    </span>
+                    <span class="text">조회</span>
+                </a>
+            </li>
+            <li class="list">
+                <a href="/recommend">
+                    <span class="icon">
+                        <ion-icon name="thumbs-up-outline"></ion-icon>
+                    </span>
+                    <span class="text">추천</span>
+                </a>
+            </li>
+            <li class="list">
+                <a href="/board">
+                    <span class="icon">
+                        <ion-icon name="help-outline"></ion-icon>
+                    </span>
+                    <span class="text">Q&A</span>
+                </a>
+            </li>
+        </ul>
+    </div>
 </body>
 </html>

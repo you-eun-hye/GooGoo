@@ -16,44 +16,41 @@ body{
     background : var(--clr);
 }
 
-table {
-    border-collapse: collapse;
-    border-spacing: 0;
+.innerwapper{
+    margin-top : 180px;
+    margin-left : 120px;
+    margin-right : 120px;
 }
 
-section.notice {
-    padding: 100px 0;
+.title{
+    font-size : 100px;
+    color : #2b2b2b;
 }
 
-.board-table {
-    font-size: 20px;
-    width: 100%;
-    border-top: 2px solid #ccc;
-    border-bottom: 2px solid #ccc;
+.subtitle{
+    margin-top: 20px;
+    font-size: 50px;
+    color: #2b2b2b;
 }
 
-.board-table th {
-    text-align: center;
+.subscribeList{
+    margin-top : 150px;
 }
 
-.board-table .th-text {
-    width: 200px;
+.paddingClass{
+    display: flex;
+    align-items: center;
+    margin-bottom: 200px;
 }
 
-.board-table th, .board-table td {
-    padding: 20px 0;
+.appimg{
+    width : 250px;
+    border-radius : 20%;
+    margin-right : 30px;
 }
 
-.board-table tbody td {
-    border-top: 1px solid #e7e7e7;
-    text-align: center;
-}
-
-.board-table tbody th {
-    padding-left: 28px;
-    padding-right: 14px;
-    border-top: 1px solid #e7e7e7;
-    text-align: left;
+.appText{
+    font-size: 50px;
 }
 
 .navigation{
@@ -65,7 +62,7 @@ section.notice {
     display : flex;
     justify-content : center;
     align-align_items : center;
-    border-radius : 10px;
+    border-radius : 30px;
 }
 
 .navigation ul{
@@ -77,7 +74,7 @@ section.notice {
     position : relative;
     list-style : none;
     width : 30%;
-    height : 100px;
+    height : 180px;
     z-index : 1;
 }
 
@@ -95,8 +92,7 @@ section.notice {
 .navigation ul li a .icon{
     position : relative;
     display : block;
-    line-height : 75px;
-    font-size : 60px;;
+    font-size : 100px;;
     text-align : center;
     color : var(--clr);
 }
@@ -105,6 +101,6 @@ section.notice {
     position : absolute;
     color : var(--clr);
     font-weight : 400;
-    font-size : 25px;
-    bottom : -20px;
+    font-size : 45px;
+    bottom : -40px;
 }

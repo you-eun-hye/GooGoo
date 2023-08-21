@@ -11,36 +11,40 @@
     <div class="wrapper">
         <div class="innerwapper">
             <div class="testDiv">
-                <th:block th:if="${not #strings.isEmpty(sumPrice)}">
-                    <p class="text">누적 금액</p>
-                    <p class="money" th:utext="${sumPrice + '원'}"></p>
-                </th:block>
-            </div>
+                <div>
+                    <th:block th:if="${not #strings.isEmpty(sumPrice)}">
+                        <h3 class="text">누적 금액</h3>
+                        <h3 class="money" th:utext="${sumPrice + '원'}"></h3>
+                    </th:block>
+                </div>
 
-            <a class="person" href="/user/mypage">
-                <span class="icon">
-                    <ion-icon name="person-circle-outline"></ion-icon>
-                </span>
-            </a>
+                <div class="imgParent">
+                    <a class="person" href="/user/mypage">
+                        <ion-icon name="person-circle-outline"></ion-icon>
+                    </a>
 
-            <div class="content">
-                <div class="subscribeList">
                     <a href="/googlePassword" class="googlePassword">
                         <ion-icon name="reload-outline"></ion-icon>
                     </a>
+                </div>
+            </div>
+
+            <div class="content">
+                <div class="subscribeList">
                     <th:block th:if="${#strings.isEmpty(sumPrice)}">
-                        <p class="text">환영합니다👋</p>
-                        <p class="text">로딩 버튼으로</p>
-                        <p class="text">결제 내역을 확인하세요🤩</p>
+                        <h3 class="text">환영합니다👋</h3>
+                        <h3 class="text">로딩 버튼으로</h3>
+                        <h3 class="text">결제 내역을 확인하세요🤩</h3>
                     </th:block>
                     <div class="paddingClass" th:each="payment: ${top3}">
                         <div class="parent">
                             <img class="appimg" th:src="${payment.imgSrc}">
                             <div>
-                                <p th:text="${payment.name}" id="paymentName" class="paymentText"></p>
+                                <h4 th:text="${payment.name}" id="paymentName" class="paymentText"></h4>
+                                <h4 th:text="${payment.year + '년 ' + payment.month + '월 ' + payment.date + '일'}" class="paymentText"></h4>
                             </div>
                             <div class="displayRight">
-                                <p th:text="${'₩' + payment.price}" class="paymentTextBig"></p>
+                                <h4 th:text="${'₩' + payment.price}" class="paymentTextBig"></h4>
                             </div>
                         </div>
                         <progress class="progress" th:value="${payment.price * 1.0/sumPrice*100.0}" min="0" max="100"></progress>

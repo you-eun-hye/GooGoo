@@ -18,6 +18,7 @@
         </div>
         <div th:if="${board.fileAttached == 1}">
             <img th:src="@{|/upload/${board.storedFileName}|}" alt="image">
+        </div>
         <div class="input-box underline">
             <b>내용</b>
             <p th:text="${board.boardContent}"></p>
@@ -28,8 +29,6 @@
             <button class="write" onclick="updateReq()">수정</button>
             <button class="write" onclick="deleteReq()">삭제</button>
         </div>
-
-
     </div>
 
     <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
