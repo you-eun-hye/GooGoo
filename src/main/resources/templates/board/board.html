@@ -27,6 +27,7 @@
                         <th scope="col" class="th-num">번호</th>
                         <th scope="col" class="th-title">제목</th>
                         <th scope="col" class="th-date">등록일</th>
+                        <th scope="col" class="th-answer">답변 여부</th>
                     </tr>
                     </thead>
 
@@ -35,6 +36,7 @@
                         <td th:text="${board.id}"></td>
                         <td><a th:href="@{|/board/${board.id}}" th:text="${board.boardTitle}">d</a></td>
                         <td th:text="*{#temporals.format(board.boardCreatedTime, 'yyyy-MM-dd HH:mm:ss')}">d</td>
+                        <td>답변 여부</td>
                     </tr>
                     </tbody>
                 </table>

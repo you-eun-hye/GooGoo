@@ -1,9 +1,9 @@
-package eunhye.GooGoo.controller;
+package eunhye.GooGoo.controller.user;
 
 import eunhye.GooGoo.config.security.SecurityDetails;
 import eunhye.GooGoo.dto.PaymentDTO;
 import eunhye.GooGoo.entity.PaymentEntity;
-import eunhye.GooGoo.service.PaymentService;
+import eunhye.GooGoo.service.user.PaymentService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

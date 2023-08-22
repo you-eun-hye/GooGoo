@@ -44,8 +44,9 @@ public class UserEntity {
         userEntity.userNickname = userDTO.getUserNickname();
         userEntity.userEmail = userDTO.getUserEmail();
         userEntity.userPassword = passwordEncoder.encode((userDTO.getUserPassword()));
-        if(userDTO.getUserEmail().equals("dkfvktorco@gmail.com")) userEntity.authority = UserRole.ADMIN;
-        else userEntity.authority = UserRole.USER;
+        userEntity.authority = UserRole.USER;
+        userEntity.provider = userDTO.getProvider();
+        userEntity.providerId = userDTO.getProviderId();
         return userEntity;
 }
 
@@ -55,6 +56,9 @@ public class UserEntity {
         userEntity.userNickname = userDTO.getUserNickname();
         userEntity.userEmail = userDTO.getUserEmail();
         userEntity.userPassword = passwordEncoder.encode((userDTO.getUserPassword()));
+        userEntity.authority = userDTO.getAuthority();
+        userEntity.provider = userDTO.getProvider();
+        userEntity.providerId = userDTO.getProviderId();
         return userEntity;
     }
 }

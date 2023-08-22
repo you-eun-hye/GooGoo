@@ -17,9 +17,9 @@ public class UserDTO {
     private String userPassword;
     private UserRole authority;
 
-//    // google 관련
-//    private String provider;
-//    private String providerId;
+    // google 관련
+    private String provider;
+    private String providerId;
 
     public static UserDTO toUserDTO(UserEntity userEntity){
         UserDTO userDTO = new UserDTO();
@@ -27,8 +27,9 @@ public class UserDTO {
         userDTO.setUserNickname(userEntity.getUserNickname());
         userDTO.setUserEmail(userEntity.getUserEmail());
         userDTO.setUserPassword(userEntity.getUserPassword());
-        if(userEntity.getUserEmail().equals("dkfvktorco@gmail.com")) userDTO.setAuthority(UserRole.ADMIN);
-        else userDTO.setAuthority(UserRole.USER);
+        userDTO.setAuthority(UserRole.USER);
+        userDTO.setProvider(userEntity.getProvider());
+        userDTO.setProviderId(userEntity.getProviderId());
         return userDTO;
     }
 }

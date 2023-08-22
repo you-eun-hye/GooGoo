@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>boardSave</title>
+  <link rel="stylesheet" type="text/css" href="/css/board/save.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+<div class="container">
+  <form action="/board/save" method="post" enctype="multipart/form-data">
+    <div class="title">문의글 작성</div>
+    <div class="input-box underline">
+      <span class="subtitle">제목: </span>
+      <input type="text" id="boardTitle" name="boardTitle" required>
+      <div class="underline"></div>
+    </div>
+    <div class="input-box">
+      <span class="subtitle">내용: </span>
+      <input type="test" id="boardContent" name="boardContent" required>
+      <div class="underline"></div>
+    </div>
+    <div class="filebox bs3-primary preview-image">
+      <input class="upload-name" value="파일선택" disabled="disabled">
+      <label for="input_file">업로드</label>
+      <input type="file" id="input_file" class="upload-hidden" name="boardFile">
+    </div>
+    <button type="submit" id="write">작성</button>
+  </form>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+<script rel="script" type="text/javascript" src="/js/save.js"></script>
+</body>
+</html>

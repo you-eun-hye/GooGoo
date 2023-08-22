@@ -1,4 +1,4 @@
-package eunhye.GooGoo.service;
+package eunhye.GooGoo.service.user;
 
 import eunhye.GooGoo.dto.BoardDTO;
 import eunhye.GooGoo.entity.BoardEntity;

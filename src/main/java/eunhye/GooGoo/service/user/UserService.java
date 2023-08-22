@@ -1,4 +1,4 @@
-package eunhye.GooGoo.service;
+package eunhye.GooGoo.service.user;
 
 import eunhye.GooGoo.dto.UserDTO;
 import eunhye.GooGoo.entity.UserEntity;
@@ -8,6 +8,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Service

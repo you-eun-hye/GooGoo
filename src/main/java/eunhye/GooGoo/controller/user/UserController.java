@@ -1,15 +1,14 @@
-package eunhye.GooGoo.controller;
+package eunhye.GooGoo.controller.user;
 
 import eunhye.GooGoo.config.security.SecurityDetails;
 import eunhye.GooGoo.dto.BoardDTO;
 import eunhye.GooGoo.dto.PaymentDTO;
 import eunhye.GooGoo.dto.UserDTO;
 import eunhye.GooGoo.entity.UserEntity;
-import eunhye.GooGoo.repository.UserRepository;
-import eunhye.GooGoo.service.BoardService;
-import eunhye.GooGoo.service.EmailService;
-import eunhye.GooGoo.service.PaymentService;
-import eunhye.GooGoo.service.UserService;
+import eunhye.GooGoo.service.user.BoardService;
+import eunhye.GooGoo.service.user.EmailService;
+import eunhye.GooGoo.service.user.PaymentService;
+import eunhye.GooGoo.service.user.UserService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -18,7 +17,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 

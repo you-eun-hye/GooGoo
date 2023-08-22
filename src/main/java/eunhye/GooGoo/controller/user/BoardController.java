@@ -1,8 +1,8 @@
-package eunhye.GooGoo.controller;
+package eunhye.GooGoo.controller.user;
 
 import eunhye.GooGoo.config.security.SecurityDetails;
 import eunhye.GooGoo.dto.BoardDTO;
-import eunhye.GooGoo.service.BoardService;
+import eunhye.GooGoo.service.user.BoardService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -69,14 +69,14 @@ public class BoardController {
     public String edit(@AuthenticationPrincipal SecurityDetails securityDetails, @ModelAttribute BoardDTO boardDTO, Model model){
         BoardDTO board = boardService.edit(boardDTO, securityDetails.getUserEntity());
         model.addAttribute("board", board);
-        return "redirect:board/detail";
+        return "board/detail";
     }
 
     // 게시물 삭제
     @GetMapping("/board/delete/{id}")
     public String delete(@PathVariable Long id){
         boardService.deleteById(id);
-        return "redirect:/board/";
+        return "redirect:/board";
     }
 
 }

@@ -25,7 +25,7 @@ public class SecurityConfig{
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeRequests(requests -> requests
                         .requestMatchers("/user/**").authenticated()
-                        .requestMatchers("/admin/**").access("hasRole('ADMIN')")
+                        .requestMatchers("/admin/**").access("hasAuthority('ADMIN')")
                         .anyRequest().permitAll()
                 )
                 .formLogin(form->form

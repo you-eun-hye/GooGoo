@@ -1,17 +1,13 @@
-package eunhye.GooGoo.controller;
+package eunhye.GooGoo.controller.user;
 
 import eunhye.GooGoo.config.security.SecurityDetails;
 import eunhye.GooGoo.dto.FlaskDTO;
-import eunhye.GooGoo.dto.PaymentDTO;
-import eunhye.GooGoo.entity.FlaskEntity;
-import eunhye.GooGoo.service.FlaskService;
-import jakarta.validation.Valid;
+import eunhye.GooGoo.service.user.FlaskService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;

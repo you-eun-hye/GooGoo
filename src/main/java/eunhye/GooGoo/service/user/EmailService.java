@@ -1,4 +1,4 @@
-package eunhye.GooGoo.service;
+package eunhye.GooGoo.service.user;
 
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;

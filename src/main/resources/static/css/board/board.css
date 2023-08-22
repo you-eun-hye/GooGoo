@@ -2,6 +2,7 @@
     margin : 0;
     padding : 0;
     box-sizing : border-box;
+    font-family: 'Noto Sans KR', sans-serif;
 }
 
 :root{
@@ -75,8 +76,12 @@ section.notice {
     width: 200px;
 }
 
-.board-table .th-date {
+.board-table .th-answer {
     width: 200px;
+}
+
+.board-table .th-date {
+    width: 150px;
 }
 
 .board-table th, .board-table td {
