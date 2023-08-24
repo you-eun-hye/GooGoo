@@ -1,4 +1,4 @@
-package eunhye.GooGoo.controller.noti;
+package eunhye.GooGoo.controller.admin;
 
 import org.springframework.web.bind.annotation.GetMapping;
 

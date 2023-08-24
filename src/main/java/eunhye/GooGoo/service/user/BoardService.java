@@ -1,6 +1,7 @@
 package eunhye.GooGoo.service.user;
 
 import eunhye.GooGoo.dto.BoardDTO;
+import eunhye.GooGoo.dto.UserDTO;
 import eunhye.GooGoo.entity.BoardEntity;
 import eunhye.GooGoo.entity.BoardFileEntity;
 import eunhye.GooGoo.entity.UserEntity;
@@ -51,11 +52,11 @@ public class BoardService {
     }
 
     @Transactional
-    public List<BoardDTO> findAll(UserEntity userEntity) {
+    public List<BoardDTO> findAll(Long id) {
         List<BoardEntity> boardEntityList = boardRepository.findAll();
         List<BoardDTO> boardDTOList = new ArrayList<>();
         for(BoardEntity boardEntity: boardEntityList){
-            if(boardEntity.getUserEntity().getId() == userEntity.getId()){
+            if(boardEntity.getUserEntity().getId() == id){
                 boardDTOList.add(BoardDTO.toBoardDTO(boardEntity));
             }
         }

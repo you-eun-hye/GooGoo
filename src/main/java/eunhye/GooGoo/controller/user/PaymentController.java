@@ -37,7 +37,7 @@ public class PaymentController {
         model.addAttribute("startPage", startPage);
         model.addAttribute("endPage", endPage);
 
-        return "payment/calendar";
+        return "user/payment/calendar";
     }
 
 //    @GetMapping("/calendar")
@@ -61,6 +61,6 @@ public class PaymentController {
         List<PaymentDTO> paymentDTOList = paymentService.findTop3(securityDetails.getUserEntity());
         model.addAttribute("top3", paymentDTOList);
         model.addAttribute("sumPrice", paymentService.sumPrice());
-        return "payment/home";
+        return "user/payment/home";
     }
 }

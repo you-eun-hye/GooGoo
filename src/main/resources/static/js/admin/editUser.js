@@ -1,7 +1,7 @@
 function checkNickname(){
     var userNickname = $("#userNickname").val();
     $.ajax({
-        url:'/user/mypage/checkNickname',
+        url:'/checkNickname',
         type: 'post',
         data:{userNickname:userNickname},
         success:function (cnt){
@@ -24,7 +24,7 @@ function checkNickname(){
 function checkEmail(){
     var userEmail = $("#userEmail").val();
     $.ajax({
-        url:'/user/mypage/checkEmail',
+        url:'/checkEmail',
         type: 'post',
         data:{userEmail:userEmail},
         success:function (cnt){
@@ -44,31 +44,6 @@ function checkEmail(){
     });
 };
 
-
-function sendNumber(){
-    $.ajax({
-        url:"/user/mypage/editUserEmail",
-        type:"post",
-        dataType:"json",
-        data:{"mail" : $("#userEmail").val()},
-        success: function(data){
-            alert("인증번호 발송");
-            $("#confirm").attr("value",data);
-        }
-    })
-}
-
-function confirmNumber(){
-    var number1 = $("#number").val();
-    var number2 = $("#confirm").val();
-
-    if(number1 == number2){
-        alert("인증되었습니다.");
-    }else{
-        alert("번호가 다릅니다.");
-    }
-}
-
 let index = {
     init: function (){
         $("#editBtn").on("click", () =>{
@@ -78,7 +53,6 @@ let index = {
 
     update: function (){
         let data = {
-            id: $("id").val(),
             userNickname: $("userNickname").val(),
             userEmail: $("userEmail").val(),
             userPassword: $("userPassword").val()
@@ -86,12 +60,12 @@ let index = {
 
         $.ajax({
             type: "PUT",
-            url: "/user/mypage/editUser",
+            url: "/admin/user/edit",
             data: JSON.stringify(data),
             dataType: "json"
         }).done(function (resp){
             alert("정보가 수정되었습니다.");
-            location.href = "/home";
+            location.href = "/admin/index";
         }).fail(function (error){
             alert("에러가 발생했습니다. 문의를 남겨주세요.");
         });

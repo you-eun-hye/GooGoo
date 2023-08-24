@@ -48,6 +48,6 @@ public class RecommendController {
         model.addAttribute("name", name);
         model.addAttribute("star", star);
         model.addAttribute("installLink", installLink);
-        return "/recommend";
+        return "/user/recommend";
     }
 }

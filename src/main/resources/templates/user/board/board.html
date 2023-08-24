@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Q&A</title>
-    <link rel="stylesheet" type="text/css" href="/css/board/board.css">
+    <link rel="stylesheet" type="text/css" href="/css/user/board/board.css">
 </head>
 <body>
 
@@ -34,7 +34,7 @@
                     <tbody>
                     <tr th:each="board: ${boardList}">
                         <td th:text="${board.id}"></td>
-                        <td><a th:href="@{|/board/${board.id}}" th:text="${board.boardTitle}">d</a></td>
+                        <td><a th:href="@{|/board/${board.id}}" th:text="${board.boardTitle}"></a></td>
                         <td th:text="*{#temporals.format(board.boardCreatedTime, 'yyyy-MM-dd HH:mm:ss')}">d</td>
                         <td>답변 여부</td>
                     </tr>

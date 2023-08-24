@@ -16,11 +16,24 @@ public class AdminService {
 
     private final UserRepository userRepository;
 
+    // 회원 조회
     public List<UserDTO> findAll(){
         List<UserEntity> userEntityList = userRepository.findAll();
         List<UserDTO> userDTOList = new ArrayList<>();
         for(UserEntity userEntity : userEntityList){
             if(userEntity.getAuthority() == UserRole.USER){
+                userDTOList.add(UserDTO.toUserDTO(userEntity));
+            }
+        }
+        return userDTOList;
+    }
+
+    // 관리자 조회
+    public List<UserDTO> findAdminAll(){
+        List<UserEntity> userEntityList = userRepository.findAll();
+        List<UserDTO> userDTOList = new ArrayList<>();
+        for(UserEntity userEntity : userEntityList){
+            if(userEntity.getAuthority() == UserRole.ADMIN){
                 userDTOList.add(UserDTO.toUserDTO(userEntity));
             }
         }

@@ -41,11 +41,11 @@ public class PaymentService {
 
 
     // 전체 조회
-    public List<PaymentDTO> findAll(UserEntity userEntity){
+    public List<PaymentDTO> findAll(Long id){
         List<PaymentEntity> paymentEntityList = paymentRepository.findAll();
         List<PaymentDTO> paymentDTOList = new ArrayList<>();
         for(PaymentEntity paymentEntity : paymentEntityList){
-            if(paymentEntity.getUserEntity().getId() == userEntity.getId()){
+            if(paymentEntity.getUserEntity().getId() == id){
                 paymentDTOList.add(PaymentDTO.toPaymentDTO(paymentEntity));
             }
         }

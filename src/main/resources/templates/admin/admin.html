@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
   <meta name="description" content="" />
   <meta name="author" content="" />
-  <title>관리자 페이지 - 관리자</title>
+  <title>관리자 페이지 - 관리자 조회</title>
   <link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" />
   <link href="/css/admin/styles.css" rel="stylesheet" />
   <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
@@ -52,25 +52,24 @@
       <main>
         <div class="container-fluid px-4">
           <h1 class="mt-4">전체 유저(몇명)</h1>
+          <a href="/admin/admin/join">관리자 생성</a>
           <div class="card mb-4">
             <div class="card-body">
               <table id="datatablesSimple">
                 <thead>
                 <tr>
                   <th>Idx</th>
-                  <th>Nickname</th>
                   <th>Id</th>
-                  <th>Password</th>
+                  <th>Created Time</th>
                   <th>delete</th>
                 </tr>
                 </thead>
                 <tbody>
-                <tr>
-                  <td>Tiger Nixon</td>
-                  <td>System Architect</td>
-                  <td>Edinburgh</td>
-                  <td>61</td>
-                  <td><a href="#">X</a></td>
+                <tr th:each="admin : ${adminList}">
+                  <td><a th:href="@{|/admin/user/edit/${admin.id}}" th:text="${admin.id}" class="userId"></a></td>
+                  <td th:text="${admin.userEmail}"></td>
+                  <td th:text="${admin.userCreatedTime}"></td>
+                  <td><a th:href="@{|/admin/admin/delete/${admin.id}}">X</a></td>
                 </tr>
                 </tbody>
               </table>

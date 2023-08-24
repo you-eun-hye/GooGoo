@@ -23,7 +23,7 @@ public class BoardController {
     // 게시물 작성
     @GetMapping("/board/save")
     public String saveForm(){
-        return "board/save";
+        return "user/board/save";
     }
 
     @PostMapping("/board/save")
@@ -46,7 +46,7 @@ public class BoardController {
         model.addAttribute("startPage", startPage);
         model.addAttribute("endPage", endPage);
 
-        return "board/board";
+        return "user/board/board";
     }
 
     // 게시물 상세 조회
@@ -54,7 +54,7 @@ public class BoardController {
     public String findById(@PathVariable Long id, Model model){
         BoardDTO boardDTO = boardService.findById(id);
         model.addAttribute("board", boardDTO);
-        return "board/detail";
+        return "user/board/detail";
     }
 
     // 게시물 수정
@@ -62,14 +62,14 @@ public class BoardController {
     public String editForm(@PathVariable Long id, Model model){
         BoardDTO boardDTO = boardService.findById(id);
         model.addAttribute("editBoard", boardDTO);
-        return "board/editBoard";
+        return "user/board/editBoard";
     }
 
     @PostMapping("/board/edit")
     public String edit(@AuthenticationPrincipal SecurityDetails securityDetails, @ModelAttribute BoardDTO boardDTO, Model model){
         BoardDTO board = boardService.edit(boardDTO, securityDetails.getUserEntity());
         model.addAttribute("board", board);
-        return "board/detail";
+        return "user/board/detail";
     }
 
     // 게시물 삭제

@@ -33,7 +33,7 @@ public class UserController {
     // 회원가입
     @GetMapping("/join")
     public String joinForm() {
-        return "user/join";
+        return "user/info/join";
     }
 
     @PostMapping( "/join")
@@ -43,31 +43,17 @@ public class UserController {
         return "redirect:/login";
     }
 
-    // 회원가입 -> 닉네임 중복 체크
+    // 닉네임 중복 체크
     @PostMapping("/checkNickname")
     @ResponseBody
     public boolean checkNickname(@RequestParam("userNickname") String userNickname){
         return userService.checkUserNicknameDuplication(userNickname);
     }
 
-    // 회원가입 -> 이메일 중복 체크
+    // 이메일 중복 체크
     @PostMapping("/checkEmail")
     @ResponseBody
     public boolean checkEmail(@RequestParam("userEmail") String userEmail){
-        return userService.checkUserEmailDuplication(userEmail);
-    }
-
-    // 정보수정 -> 닉네임 중복 체크
-    @PostMapping("/user/mypage/checkNickname")
-    @ResponseBody
-    public boolean correctionNickname(@RequestParam("userNickname") String userNickname){
-        return userService.checkUserNicknameDuplication(userNickname);
-    }
-
-    // 정보수정 -> 이메일 중복 체크
-    @PostMapping("/user/mypage/checkEmail")
-    @ResponseBody
-    public boolean correctionEmail(@RequestParam("userEmail") String userEmail){
         return userService.checkUserEmailDuplication(userEmail);
     }
 
@@ -88,26 +74,26 @@ public class UserController {
                             Model model){
         model.addAttribute("error", error);
         model.addAttribute("exception", exception);
-        return "user/login";
+        return "user/info/login";
     }
 
     // 이메일 찾기
     @GetMapping("/findUserEmail")
     public String findUserEmailForm(){
-        return "user/findUserEmail";
+        return "user/info/findUserEmail";
     }
 
     @PostMapping("/findUserEmail")
     public String findUserEmail(String userNickname, Model model){
         String userEmail = userService.findUserEmail(userNickname);
         model.addAttribute("message", userEmail);
-        return "user/findUserEmail";
+        return "user/info/findUserEmail";
     }
 
     // 비밀번호 찾기(비밀번호 재전송)
     @GetMapping("/findUserPassword")
     public String findUserPasswordForm(){
-        return "user/findUserPassword";
+        return "user/info/findUserPassword";
     }
 
     @PostMapping("/findUserPassword")
@@ -120,7 +106,7 @@ public class UserController {
     // 마이페이지
     @GetMapping("/user/mypage")
     public String mypageForm(){
-        return "user/mypage";
+        return "user/info/mypage";
     }
 
     // 회원 정보 수정
@@ -128,7 +114,7 @@ public class UserController {
     public String editUserForm(@AuthenticationPrincipal SecurityDetails securityDetails, Model model){
         UserDTO userDTO = userService.findById(securityDetails.getUserEntity().getId());
         model.addAttribute("userDTO", userDTO);
-        return "user/editUser";
+        return "user/info/editUser";
     }
 
     @PostMapping("/user/mypage/editUserEmail")
@@ -140,11 +126,12 @@ public class UserController {
         return message;
     }
 
+    // 회원 정보 수정
     @PostMapping("/user/mypage/editUser")
     public String editUser(@AuthenticationPrincipal SecurityDetails securityDetails, String userEmail, String userNickname, String userPassword){
         UserDTO userDTO = userService.findById(securityDetails.getUserEntity().getId());
         userService.editUser(userDTO, userEmail, userNickname, userPassword);
-        return "user/mypage";
+        return "user/info/mypage";
     }
 
     // 회원 탈퇴
@@ -152,22 +139,22 @@ public class UserController {
     public String deleteById(@AuthenticationPrincipal SecurityDetails securityDetails){
         userService.deleteById(securityDetails.getUserEntity().getId());
 
-        List<BoardDTO> boardList = boardService.findAll(securityDetails.getUserEntity());
+        List<BoardDTO> boardList = boardService.findAll(securityDetails.getUserEntity().getId());
         for(long i = 0; i < boardList.size(); i++){
             boardService.deleteById(i);
         }
 
-        List<PaymentDTO> paymentList = paymentService.findAll(securityDetails.getUserEntity());
+        List<PaymentDTO> paymentList = paymentService.findAll(securityDetails.getUserEntity().getId());
         for(long i = 0; i < paymentList.size(); i++){
             paymentService.deleteById(i);
         }
 
-        return "user/login";
+        return "user/info/login";
     }
 
     // 로그아웃
     @GetMapping("/logout")
     public String logout(){
-        return "/login";
+        return "/user/info/login";
     }
 }

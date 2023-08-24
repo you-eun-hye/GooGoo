@@ -22,7 +22,7 @@ public class FlaskController {
 
     @GetMapping("/googlePassword")
     public String googlePasswordForm(){
-        return "payment/googlePassword";
+        return "user/payment/googlePassword";
     }
 
     @PostMapping("/googlePassword")
@@ -56,6 +56,6 @@ public class FlaskController {
         });
 
         flaskService.delete();
-        return "payment/buyCheck";
+        return "user/payment/buyCheck";
     }
 }

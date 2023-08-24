@@ -1,4 +1,4 @@
-package eunhye.GooGoo.controller.board;
+package eunhye.GooGoo.controller.admin;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
