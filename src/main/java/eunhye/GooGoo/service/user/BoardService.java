@@ -1,7 +1,6 @@
 package eunhye.GooGoo.service.user;
 
 import eunhye.GooGoo.dto.BoardDTO;
-import eunhye.GooGoo.dto.UserDTO;
 import eunhye.GooGoo.entity.BoardEntity;
 import eunhye.GooGoo.entity.BoardFileEntity;
 import eunhye.GooGoo.entity.UserEntity;
@@ -21,6 +20,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
+@Transactional
 @RequiredArgsConstructor
 public class BoardService {
     private final BoardRepository boardRepository;
@@ -51,8 +51,7 @@ public class BoardService {
         }
     }
 
-    @Transactional
-    public List<BoardDTO> findAll(Long id) {
+    public List<BoardDTO> findUserBoard(Long id) {
         List<BoardEntity> boardEntityList = boardRepository.findAll();
         List<BoardDTO> boardDTOList = new ArrayList<>();
         for(BoardEntity boardEntity: boardEntityList){
@@ -63,7 +62,27 @@ public class BoardService {
         return boardDTOList;
     }
 
-    @Transactional
+    // 공지글 조회
+    public List<BoardDTO> findNoti() {
+        List<BoardEntity> boardEntityList = boardRepository.boardNotiList();
+        List<BoardDTO> boardDTOList = new ArrayList<>();
+        for (BoardEntity boardEntity : boardEntityList) {
+            boardDTOList.add(BoardDTO.toBoardDTO(boardEntity));
+        }
+        return boardDTOList;
+    }
+
+    // 문의글 조회
+    public List<BoardDTO> findBoard() {
+        List<BoardEntity> boardEntityList = boardRepository.boardEntityList();
+        List<BoardDTO> boardDTOList = new ArrayList<>();
+        for (BoardEntity boardEntity : boardEntityList) {
+            boardDTOList.add(BoardDTO.toBoardDTO(boardEntity));
+        }
+        return boardDTOList;
+    }
+
+    // 페이징 처리
     public Page<BoardDTO> paging(Pageable pageable, UserEntity userEntity){
         Page<BoardEntity> boardEntityList = boardRepository.pagingList(userEntity.getId(), pageable);
         Page<BoardDTO> boardDTOList = new BoardDTO().toDTOList(boardEntityList);
@@ -71,7 +90,6 @@ public class BoardService {
     }
 
 
-    @Transactional
     public BoardDTO findById(Long id) {
         Optional<BoardEntity> optionalBoardEntity = boardRepository.findById(id);
         if(optionalBoardEntity.isPresent()){

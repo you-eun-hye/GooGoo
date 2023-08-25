@@ -1,11 +1,13 @@
 package eunhye.GooGoo.controller.admin;
 
+import eunhye.GooGoo.config.security.SecurityDetails;
 import eunhye.GooGoo.dto.UserDTO;
 import eunhye.GooGoo.entity.UserEntity;
 import eunhye.GooGoo.service.admin.AdminService;
 import eunhye.GooGoo.service.user.UserService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -38,9 +40,11 @@ public class AdminController {
 
     // 관리자 조회
     @GetMapping("/admin/admin")
-    public String adminAll(Model model) {
+    public String adminAll(Model model, @AuthenticationPrincipal SecurityDetails securityDetails) {
         List<UserDTO> adminDTOList = adminService.findAdminAll();
         model.addAttribute("adminList", adminDTOList);
+        model.addAttribute("countAdmin", adminService.countAdmin());
+        model.addAttribute("adminName", securityDetails.getUserEntity().getUserEmail());
         return "admin/admin";
     }
 

@@ -1,5 +1,6 @@
 package eunhye.GooGoo.entity;
 
+import eunhye.GooGoo.dto.CommentDTO;
 import eunhye.GooGoo.dto.UserDTO;
 import jakarta.persistence.*;
 import lombok.*;
@@ -33,6 +34,9 @@ public class UserEntity extends BaseEntity{
 //    // google 관련
     private String provider;
     private String providerId;
+
+    @OneToMany(mappedBy = "userEntity", cascade = CascadeType.REMOVE, orphanRemoval = true, fetch = FetchType.LAZY)
+    private List<CommentEntity> commentEntityList = new ArrayList<>();
 
     @OneToMany(mappedBy = "userEntity", cascade = CascadeType.REMOVE, orphanRemoval = true, fetch = FetchType.LAZY)
     private List<BoardEntity> boardEntityList = new ArrayList<>();

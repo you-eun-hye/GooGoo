@@ -7,9 +7,19 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
+import java.util.List;
+
 public interface BoardRepository extends JpaRepository<BoardEntity, Long> {
 
+    // 페이징 조회
     @Query("SELECT b FROM BoardEntity b where b.userEntity.id = ?1")
     Page<BoardEntity> pagingList(Long id, Pageable pageable);
 
+    // 문의글 조회
+    @Query("SELECT b FROM BoardEntity b WHERE b.noti = 0")
+    List<BoardEntity> boardEntityList();
+
+    // 공지글 조회
+    @Query("SELECT b FROM BoardEntity b WHERE b.noti = 1")
+    List<BoardEntity> boardNotiList();
 }

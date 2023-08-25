@@ -1,5 +1,6 @@
 package eunhye.GooGoo.controller.admin;
 
+import eunhye.GooGoo.config.security.SecurityDetails;
 import eunhye.GooGoo.dto.BoardDTO;
 import eunhye.GooGoo.dto.PaymentDTO;
 import eunhye.GooGoo.dto.UserDTO;
@@ -10,6 +11,7 @@ import eunhye.GooGoo.service.user.BoardService;
 import eunhye.GooGoo.service.user.PaymentService;
 import eunhye.GooGoo.service.user.UserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -30,9 +32,11 @@ public class AdminUserController {
 
     // 회원 조회
     @GetMapping("/admin")
-    public String userAll(Model model) {
-        List<UserDTO> userDTOList = adminService.findAll();
+    public String userAll(Model model, @AuthenticationPrincipal SecurityDetails securityDetails) {
+        List<UserDTO> userDTOList = adminService.findUserAll();
         model.addAttribute("userList", userDTOList);
+        model.addAttribute("countUser", adminService.countUser());
+        model.addAttribute("adminName", securityDetails.getUserEntity().getUserEmail());
         return "admin/index";
     }
 
@@ -57,7 +61,7 @@ public class AdminUserController {
     public String deleteById(@PathVariable Long id) {
         userService.deleteById(id);
 
-        List<BoardDTO> boardList = boardService.findAll(id);
+        List<BoardDTO> boardList = boardService.findUserBoard(id);
         for (long i = 0; i < boardList.size(); i++) {
             boardService.deleteById(i);
         }

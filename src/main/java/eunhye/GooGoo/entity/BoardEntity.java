@@ -30,23 +30,55 @@ public class BoardEntity extends BaseEntity{
     @Column
     private int fileAttached;
 
+    @Column
+    private int noti;
+
     @OneToMany(mappedBy = "boardEntity", cascade = CascadeType.REMOVE, orphanRemoval = true, fetch = FetchType.LAZY)
     private List<BoardFileEntity> boardFileEntityList = new ArrayList<>();
 
+    @OneToMany(mappedBy = "boardEntity", cascade = CascadeType.REMOVE, orphanRemoval = true, fetch = FetchType.LAZY)
+    private List<CommentEntity> commentEntityList = new ArrayList<>();
+
+    // 문의글 + 사진 미첨부
     public static BoardEntity toSaveEntity(BoardDTO boardDTO){
         BoardEntity boardEntity = new BoardEntity();
         boardEntity.boardTitle = boardDTO.getBoardTitle();
         boardEntity.boardContent = boardDTO.getBoardContent();
         boardEntity.userEntity = boardDTO.getUserEntity();
+        boardEntity.noti = 0;
         boardEntity.fileAttached = 0;
         return boardEntity;
     }
 
-    public static BoardEntity toSaveFileEntity(BoardDTO boardDTO) {
+    // 문의글 + 사진 첨부
+    public static BoardEntity toSaveFileEntity(BoardDTO boardDTO){
         BoardEntity boardEntity = new BoardEntity();
         boardEntity.boardTitle = boardDTO.getBoardTitle();
         boardEntity.boardContent = boardDTO.getBoardContent();
         boardEntity.userEntity = boardDTO.getUserEntity();
+        boardEntity.noti = 0;
+        boardEntity.fileAttached = 1;
+        return boardEntity;
+    }
+
+    // 공지글 + 사진 미첨부
+    public static BoardEntity toSaveFNoti(BoardDTO boardDTO) {
+        BoardEntity boardEntity = new BoardEntity();
+        boardEntity.boardTitle = boardDTO.getBoardTitle();
+        boardEntity.boardContent = boardDTO.getBoardContent();
+        boardEntity.userEntity = boardDTO.getUserEntity();
+        boardEntity.noti = 1;
+        boardEntity.fileAttached = 0;
+        return boardEntity;
+    }
+
+    // 공지글 + 사진 첨부
+    public static BoardEntity toSaveNotiFile(BoardDTO boardDTO) {
+        BoardEntity boardEntity = new BoardEntity();
+        boardEntity.boardTitle = boardDTO.getBoardTitle();
+        boardEntity.boardContent = boardDTO.getBoardContent();
+        boardEntity.userEntity = boardDTO.getUserEntity();
+        boardEntity.noti = 1;
         boardEntity.fileAttached = 1;
         return boardEntity;
     }

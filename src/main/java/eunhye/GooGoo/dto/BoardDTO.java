@@ -23,6 +23,7 @@ public class BoardDTO {
     private String boardContent;
     private LocalDateTime boardCreatedTime;
     private UserEntity userEntity;
+    private int noti;
 
     private MultipartFile boardFile; // save.html -> controller 파일 담는 용도
     private String originalFileName; // 원본 파일 이름
@@ -36,6 +37,8 @@ public class BoardDTO {
         boardDTO.setBoardTitle(boardEntity.getBoardTitle());
         boardDTO.setBoardContent(boardEntity.getBoardContent());
         boardDTO.setBoardCreatedTime(boardEntity.getCreatedTime());
+        boardDTO.setUserEntity(boardEntity.getUserEntity());
+        boardDTO.setNoti(boardEntity.getNoti());
         if(boardEntity.getFileAttached() == 0){
             boardDTO.setFileAttached(boardEntity.getFileAttached());
         }else{

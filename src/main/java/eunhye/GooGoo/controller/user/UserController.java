@@ -139,7 +139,7 @@ public class UserController {
     public String deleteById(@AuthenticationPrincipal SecurityDetails securityDetails){
         userService.deleteById(securityDetails.getUserEntity().getId());
 
-        List<BoardDTO> boardList = boardService.findAll(securityDetails.getUserEntity().getId());
+        List<BoardDTO> boardList = boardService.findUserBoard(securityDetails.getUserEntity().getId());
         for(long i = 0; i < boardList.size(); i++){
             boardService.deleteById(i);
         }

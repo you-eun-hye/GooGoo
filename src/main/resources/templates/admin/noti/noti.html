@@ -22,7 +22,7 @@
         <div class="sb-sidenav-menu">
           <div class="nav">
             <div class="subTitle">
-              <p>~~님</p>
+              <p th:utext="${adminName + '님'}"></p>
               <p>환영합니다</p>
             </div>
             <div class="sb-sidenav-menu-heading">회원 관리</div>
@@ -43,6 +43,9 @@
             <a class="nav-link" href="/admin/board">
               <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
               문의 내역
+            </a>
+            <a class="nav-link" href="/logout">
+              로그아웃
             </a>
           </div>
         </div>
