@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.w3.org/1999/html">
 <head>
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -54,7 +54,7 @@
     <div id="layoutSidenav_content">
       <main>
         <div class="container-fluid px-4">
-          <h1 class="mt-4">답변 미완료(789789)</h1>
+          <h1 class="mt-4" th:utext="${'답변 대기중(' + waitComment + ')'}"></h1>
           <div class="card mb-4">
             <div class="card-body">
               <table id="datatablesSimple">
@@ -70,12 +70,17 @@
                 </thead>
                 <tbody>
                 <tr th:each="board : ${boardList}">
-                  <td><a th:href="@{|/admin/board/detail/${board.id}}" th:text="${board.id}"></a></td>
+                  <td th:text="${board.id}"></td>
 <!--                  <td th:text="${board.userEntity.userNickname}"></td>-->
 <!--                  <td th:text="${board.userEntity.userEmail}"></td>-->
                   <td th:text="${board.boardTitle}"></td>
-                  <td th:text="${board.boardCreatedTime}"></td>
-                  <td>답변 여부</td>
+                  <td th:text="*{#temporals.format(board.boardCreatedTime, 'yyyy-MM-dd HH:mm:ss')}"></td>
+                  <th:block th:unless="${board.commentAttached} == 0">
+                    <td><a th:href="@{|/admin/board/detail/${board.id}}" style="color: black">답변 완료</a></td>
+                  </th:block>
+                  <th:block th:if="${board.commentAttached} == 0">
+                    <td><a th:href="@{|/admin/board/detail/${board.id}}" style="color: red">답변 대기</a></td>
+                  </th:block>
                 </tr>
                 </tbody>
               </table>

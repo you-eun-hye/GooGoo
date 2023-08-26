@@ -33,6 +33,9 @@ public class BoardEntity extends BaseEntity{
     @Column
     private int noti;
 
+    @Column
+    private int commentAttached;
+
     @OneToMany(mappedBy = "boardEntity", cascade = CascadeType.REMOVE, orphanRemoval = true, fetch = FetchType.LAZY)
     private List<BoardFileEntity> boardFileEntityList = new ArrayList<>();
 
@@ -47,6 +50,7 @@ public class BoardEntity extends BaseEntity{
         boardEntity.userEntity = boardDTO.getUserEntity();
         boardEntity.noti = 0;
         boardEntity.fileAttached = 0;
+        boardEntity.commentAttached = 0;
         return boardEntity;
     }
 
@@ -58,6 +62,7 @@ public class BoardEntity extends BaseEntity{
         boardEntity.userEntity = boardDTO.getUserEntity();
         boardEntity.noti = 0;
         boardEntity.fileAttached = 1;
+        boardEntity.commentAttached = 0;
         return boardEntity;
     }
 
@@ -69,6 +74,7 @@ public class BoardEntity extends BaseEntity{
         boardEntity.userEntity = boardDTO.getUserEntity();
         boardEntity.noti = 1;
         boardEntity.fileAttached = 0;
+        boardEntity.commentAttached = 0;
         return boardEntity;
     }
 
@@ -80,6 +86,7 @@ public class BoardEntity extends BaseEntity{
         boardEntity.userEntity = boardDTO.getUserEntity();
         boardEntity.noti = 1;
         boardEntity.fileAttached = 1;
+        boardEntity.commentAttached = 0;
         return boardEntity;
     }
 
@@ -90,6 +97,8 @@ public class BoardEntity extends BaseEntity{
         boardEntity.boardContent = boardDTO.getBoardContent();
         boardEntity.userEntity = boardDTO.getUserEntity();
         boardEntity.fileAttached = boardDTO.getFileAttached();
+        boardEntity.commentAttached = boardDTO.getCommentAttached();
+        boardEntity.noti = boardDTO.getNoti();
         return boardEntity;
     }
 }

@@ -31,6 +31,23 @@
         </div>
     </div>
 
+    <div id="comment-list">
+        <table>
+            <tr>
+                <th>댓글번호</th>
+                <th>작성자</th>
+                <th>내용</th>
+                <th>작성시간</th>
+            </tr>
+            <tr th:each="comment: ${commentList}">
+                <td th:text="${comment.id}"></td>
+                <td th:text="${comment.commentWriter}"></td>
+                <td th:text="${comment.commentContents}"></td>
+                <td th:text="${comment.commentCreatedTime}"></td>
+            </tr>
+        </table>
+    </div>
+
     <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
     <script rel="script" type="text/javascript" src="/js/user/save.js"></script>
 

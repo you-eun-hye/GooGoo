@@ -26,6 +26,7 @@ public class AdminBoardController {
     public String boardAll(Model model) {
         List<BoardDTO> boardDTOList = boardService.findBoard();
         model.addAttribute("boardList", boardDTOList);
+        model.addAttribute("waitComment", adminService.waitComment());
 //        List<UserDTO> userDTOList = new ArrayList<>();
 //        for(BoardDTO boardDTO : boardDTOList){
 //            userDTOList.add(UserDTO.toUserDTO(boardDTO.getUserEntity()));
@@ -39,6 +40,10 @@ public class AdminBoardController {
     public String boardDetail(@PathVariable Long id, @AuthenticationPrincipal SecurityDetails securityDetails, Model model) {
         BoardDTO boardDTO = boardService.findById(id);
         model.addAttribute("board", boardDTO);
+
+        List<CommentDTO> commentDTOList = adminService.findCommentAll(id);
+        model.addAttribute("commentList", commentDTOList);
+
         model.addAttribute("loginAdmin", securityDetails.getUserEntity());
         return "admin/board/detail";
     }
@@ -46,7 +51,7 @@ public class AdminBoardController {
     @PostMapping("/admin/board/detail/comment")
     public ResponseEntity comment(@ModelAttribute CommentDTO commentDTO){
         System.out.println("commentDTO" + commentDTO);
-        Long saveResult = adminService.save(commentDTO);
+        Long saveResult = adminService.saveComment(commentDTO);
         if(saveResult != null){
             List<CommentDTO> commentDTOList = adminService.findCommentAll(commentDTO.getBoardId());
             return new ResponseEntity<>(commentDTOList, HttpStatus.OK);

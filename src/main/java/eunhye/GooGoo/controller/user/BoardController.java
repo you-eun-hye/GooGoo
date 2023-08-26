@@ -2,6 +2,8 @@ package eunhye.GooGoo.controller.user;
 
 import eunhye.GooGoo.config.security.SecurityDetails;
 import eunhye.GooGoo.dto.BoardDTO;
+import eunhye.GooGoo.dto.CommentDTO;
+import eunhye.GooGoo.service.admin.AdminService;
 import eunhye.GooGoo.service.user.BoardService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -14,11 +16,13 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
+import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
 public class BoardController {
     private final BoardService boardService;
+    private final AdminService adminService;
 
     // 게시물 작성
     @GetMapping("/board/save")
@@ -37,7 +41,7 @@ public class BoardController {
     public String findAll(@PageableDefault(page = 0, size = 5, sort = "id", direction = Sort.Direction.DESC) Pageable pageable, Model model, @AuthenticationPrincipal SecurityDetails securityDetails){
         Page<BoardDTO> list = boardService.paging(pageable, securityDetails.getUserEntity());
 
-        int nowPage = list.getPageable().getPageNumber() +1 ;
+        int nowPage = list.getPageable().getPageNumber() +1;
         int startPage = Math.max(nowPage -4, 1);
         int endPage = Math.min(nowPage +5, list.getTotalPages());
 
@@ -54,6 +58,9 @@ public class BoardController {
     public String findById(@PathVariable Long id, Model model){
         BoardDTO boardDTO = boardService.findById(id);
         model.addAttribute("board", boardDTO);
+
+        List<CommentDTO> commentDTOList = adminService.findCommentAll(id);
+        model.addAttribute("commentList", commentDTOList);
         return "user/board/detail";
     }
 

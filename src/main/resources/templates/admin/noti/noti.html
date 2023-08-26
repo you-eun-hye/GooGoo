@@ -54,26 +54,24 @@
     <div id="layoutSidenav_content">
       <main>
         <div class="container-fluid px-4">
-          <h1 class="mt-4">전체 유저(몇명)</h1>
+          <h1 class="mt-4" th:utext="${'공지글(' + boardListCount + ')'}"></h1>
           <div class="card mb-4">
             <div class="card-body">
               <table id="datatablesSimple">
                 <thead>
                 <tr>
                   <th>Idx</th>
-                  <th>Nickname</th>
+<!--                  <th>Nickname</th>-->
                   <th>Title</th>
                   <th>CreateDate</th>
-                  <th>delete</th>
                 </tr>
                 </thead>
                 <tbody>
-                <tr>
-                  <td><a href="/admin/noti/detail">Tiger Nixon</a></td>
-                  <td>System Architect</td>
-                  <td>Edinburgh</td>
-                  <td>61</td>
-                  <td><a href="#">X</a></td>
+                <tr th:each="board : ${boardList}">
+                  <td><a th:href="@{|/admin/noti/detail/${board.id}}" th:text="${board.id}"></a></td>
+<!--                  <td>System Architect</td>-->
+                  <td th:text="${board.boardTitle}"></td>
+                  <td th:text="*{#temporals.format(board.boardCreatedTime, 'yyyy-MM-dd HH:mm:ss')}"></td>
                 </tr>
                 </tbody>
               </table>

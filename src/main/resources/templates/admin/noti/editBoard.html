@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>게시물 수정</title>
+  <link rel="stylesheet" href="/css/user/board/editBoard.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+<div class="container">
+  <form action="/admin/noti/edit" method="post">
+    <div class="title">게시물 수정</div>
+    <input type="hidden" name="id" th:value="${editBoard.id}"><br>
+
+    <div class="input-box underline">
+      <span class="subtitle">title: </span>
+      <input type="text" name="boardTitle" th:value="${editBoard.boardTitle}"><br>
+      <div class="underline"></div>
+    </div>
+
+    <div class="input-box underline">
+      <span class="subtitle">content: </span>
+      <input type="text" name="boardContent" id="boardContent" th:value="${editBoard.boardContent}"><br>
+      <div class="underline"></div>
+    </div>
+
+    <button type="submit" id="editBtn">게시물 수정</button>
+  </form>
+</div>
+</body>
+</html>

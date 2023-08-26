@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>관리자 페이지 - Q&A - Detail</title>
+  <title>관리자 페이지 - 공지 - Detail</title>
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
   <meta name="description" content="" />
@@ -15,17 +15,17 @@
 
 <body>
 <div class="container">
-  <div class="title">제목ㅇㅁ</div>
+  <div class="title" th:text="${board.boardTitle}"></div>
   <div class="input-box">
     <b>작성일</b>
-    <p>2020.2020.2020</p>
+    <p th:text="*{#temporals.format(board.boardCreatedTime, 'yyyy-MM-dd HH:mm:ss')}"></p>
   </div>
-  <div >
-    <img src="" alt="image">
+  <div th:if="${board.fileAttached == 1}">
+    <img th:src="@{|/upload/${board.storedFileName}|}" alt="image">
   </div>
   <div class="input-box underline">
     <b>내용</b>
-    <p>내용임</p>
+    <p th:text="${board.boardContent}"></p>
   </div>
 
   <div id="btns">
@@ -39,6 +39,21 @@
 <script rel="script" type="text/javascript" src="/js/user/save.js"></script>
 
 </body>
+<script th:inline="javascript">
+  const listReq = () => {
+    location.href = "/admin/noti";
+  }
+
+  const updateReq = () => {
+    const id = [[${board.id}]];
+    location.href = "/admin/noti/edit/" + id;
+  }
+
+  const deleteReq = () => {
+    const id = [[${board.id}]];
+    location.href = "/admin/noti/delete/" + id;
+  }
+</script>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
 <script src="/js/admin/scripts.js"></script>
