@@ -40,14 +40,13 @@ public class BoardDTO {
         boardDTO.setBoardCreatedTime(boardEntity.getCreatedTime());
         boardDTO.setUserEntity(boardEntity.getUserEntity());
         boardDTO.setNoti(boardEntity.getNoti());
-        boardDTO.setNoti(boardEntity.getCommentAttached());
+        boardDTO.setCommentAttached(boardEntity.getCommentAttached());
         if(boardEntity.getFileAttached() == 0){
             boardDTO.setFileAttached(boardEntity.getFileAttached());
         }else{
             boardDTO.setFileAttached(boardEntity.getFileAttached());
             boardDTO.setOriginalFileName(boardEntity.getBoardFileEntityList().get(0).getOriginalFileName());
             boardDTO.setStoredFileName(boardEntity.getBoardFileEntityList().get(0).getStoredFileName());
-
         }
         return boardDTO;
     }

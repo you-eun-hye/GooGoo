@@ -3,6 +3,7 @@ package eunhye.GooGoo.controller.user;
 import eunhye.GooGoo.config.security.SecurityDetails;
 import eunhye.GooGoo.dto.BoardDTO;
 import eunhye.GooGoo.dto.CommentDTO;
+import eunhye.GooGoo.entity.BoardEntity;
 import eunhye.GooGoo.service.admin.AdminService;
 import eunhye.GooGoo.service.user.BoardService;
 import lombok.RequiredArgsConstructor;
@@ -12,6 +13,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
@@ -76,12 +78,12 @@ public class BoardController {
     public String edit(@AuthenticationPrincipal SecurityDetails securityDetails, @ModelAttribute BoardDTO boardDTO, Model model){
         BoardDTO board = boardService.edit(boardDTO, securityDetails.getUserEntity());
         model.addAttribute("board", board);
-        return "user/board/detail";
+        return "redirect:/board";
     }
 
     // 게시물 삭제
     @GetMapping("/board/delete/{id}")
-    public String delete(@PathVariable Long id){
+    public String delete(@PathVariable Long id) throws IOException {
         boardService.deleteById(id);
         return "redirect:/board";
     }

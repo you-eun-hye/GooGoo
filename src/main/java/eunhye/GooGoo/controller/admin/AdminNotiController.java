@@ -68,7 +68,7 @@ public class AdminNotiController {
 
     // 공지 삭제
     @GetMapping("/admin/noti/delete/{id}")
-    public String delete(@PathVariable Long id){
+    public String delete(@PathVariable Long id) throws IOException {
         boardService.deleteById(id);
         return "redirect:/admin/noti";
     }

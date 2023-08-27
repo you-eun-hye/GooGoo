@@ -92,23 +92,7 @@ public class AdminService {
 
     // 답변 미완료 문의글 갯수
     public Integer waitComment(){
-        List<BoardEntity> boardEntityList = boardRepository.findAll();
-        List<BoardEntity> commentBoardEntityList = commentRepository.findBoardEntity();
-        int index = 0;
-        for(BoardEntity boardEntity : boardEntityList){
-            if(commentBoardEntityList.size() == 0){
-                break;
-            }
-            else if(boardEntity.getId() == commentBoardEntityList.get(index).getId()){
-                boardEntityList.remove(index);
-                if(index == 1){
-                    break;
-                }else{
-                    index++;
-                }
-            }
-        }
-        return boardEntityList.size();
+        return boardRepository.waitAnswer();
     }
 
     // 공지글 작성

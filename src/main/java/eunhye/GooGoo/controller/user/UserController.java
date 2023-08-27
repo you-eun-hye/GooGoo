@@ -17,6 +17,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
 import java.util.List;
 
 
@@ -136,7 +137,7 @@ public class UserController {
 
     // 회원 탈퇴
     @GetMapping("/user/mypage/delete")
-    public String deleteById(@AuthenticationPrincipal SecurityDetails securityDetails){
+    public String deleteById(@AuthenticationPrincipal SecurityDetails securityDetails) throws IOException {
         userService.deleteById(securityDetails.getUserEntity().getId());
 
         List<BoardDTO> boardList = boardService.findUserBoard(securityDetails.getUserEntity().getId());

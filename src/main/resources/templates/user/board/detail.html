@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="/css/user/board/detail.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="https://code.jquery.com/jquery-3.6.3.min.js" integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
 </head>
 
 <body>
@@ -26,27 +26,31 @@
 
         <div id="btns">
             <button class="write" onclick="listReq()">목록</button>
-            <button class="write" onclick="updateReq()">수정</button>
-            <button class="write" onclick="deleteReq()">삭제</button>
+            <th:block th:if="${board.commentAttached} == 0 and ${board.noti} == 0">
+                <button class="write" onclick="updateReq()">수정</button>
+                <button class="write" onclick="deleteReq()">삭제</button>
+            </th:block>
         </div>
     </div>
 
-    <div id="comment-list">
-        <table>
-            <tr>
-                <th>댓글번호</th>
-                <th>작성자</th>
-                <th>내용</th>
-                <th>작성시간</th>
-            </tr>
-            <tr th:each="comment: ${commentList}">
-                <td th:text="${comment.id}"></td>
-                <td th:text="${comment.commentWriter}"></td>
-                <td th:text="${comment.commentContents}"></td>
-                <td th:text="${comment.commentCreatedTime}"></td>
-            </tr>
-        </table>
-    </div>
+    <th:block th:if="${board.noti == 0}">
+        <div id="comment-list">
+            <table>
+                <tr>
+                    <th>댓글번호</th>
+                    <th>작성자</th>
+                    <th>내용</th>
+                    <th>작성시간</th>
+                </tr>
+                <tr th:each="comment: ${commentList}">
+                    <td th:text="${comment.id}"></td>
+                    <td th:text="${comment.commentWriter}"></td>
+                    <td th:text="${comment.commentContents}"></td>
+                    <td th:text="${comment.commentCreatedTime}"></td>
+                </tr>
+            </table>
+        </div>
+    </th:block>
 
     <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
     <script rel="script" type="text/javascript" src="/js/user/save.js"></script>

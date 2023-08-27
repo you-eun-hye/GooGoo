@@ -108,8 +108,11 @@ public class BoardService {
         return findById(boardDTO.getId());
     }
 
-    public void deleteById(Long id) {
-
+    public void deleteById(Long id) throws IOException {
+        Optional<BoardEntity> optionalBoardEntity = boardRepository.findById(id);
+        BoardDTO boardDTO = BoardDTO.toBoardDTO(optionalBoardEntity.get());
+        File boardFile = new File("D:/GooGoo_img/" + boardDTO.getStoredFileName());
+        boardFile.delete();
         boardRepository.deleteById(id);
     }
 

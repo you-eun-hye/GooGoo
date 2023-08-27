@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import java.io.IOException;
 import java.util.List;
 
 @Controller
@@ -58,7 +59,7 @@ public class AdminUserController {
 
     // 회원 삭제
     @GetMapping("/admin/user/delete/{id}")
-    public String deleteById(@PathVariable Long id) {
+    public String deleteById(@PathVariable Long id) throws IOException {
         userService.deleteById(id);
 
         List<BoardDTO> boardList = boardService.findUserBoard(id);

@@ -22,4 +22,8 @@ public interface BoardRepository extends JpaRepository<BoardEntity, Long> {
     // 공지글 조회
     @Query("SELECT b FROM BoardEntity b WHERE b.noti = 1")
     List<BoardEntity> boardNotiList();
+
+    // 미답변 문의글 갯수 조회
+    @Query("SELECT COUNT(b) FROM BoardEntity b WHERE b.commentAttached =0")
+    Integer waitAnswer();
 }
