@@ -24,7 +24,7 @@ public class UserDTO {
     private String provider;
     private String providerId;
 
-    // 회원 생성
+    // Entity -> DTO 회원용
     public static UserDTO toUserDTO(UserEntity userEntity){
         UserDTO userDTO = new UserDTO();
         userDTO.setId(userEntity.getId());
@@ -38,7 +38,7 @@ public class UserDTO {
         return userDTO;
     }
 
-    // 관리자 생성
+    // Entity -> DTO 관리자용
     public static UserDTO toAdminDTO(UserEntity userEntity){
         UserDTO userDTO = new UserDTO();
         userDTO.setId(userEntity.getId());

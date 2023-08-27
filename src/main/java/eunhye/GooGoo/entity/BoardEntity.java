@@ -28,13 +28,13 @@ public class BoardEntity extends BaseEntity{
     private UserEntity userEntity;
 
     @Column
-    private int fileAttached;
+    private int fileAttached; // 사진 첨부 유무
 
     @Column
-    private int noti;
+    private int noti; // 공지 유무
 
     @Column
-    private int commentAttached;
+    private int commentAttached; // 답글 유무
 
     @OneToMany(mappedBy = "boardEntity", cascade = CascadeType.REMOVE, orphanRemoval = true, fetch = FetchType.LAZY)
     private List<BoardFileEntity> boardFileEntityList = new ArrayList<>();
@@ -90,6 +90,7 @@ public class BoardEntity extends BaseEntity{
         return boardEntity;
     }
 
+    // 문의글 혹은 공지글 수정
     public static BoardEntity toEditEntity(BoardDTO boardDTO) {
         BoardEntity boardEntity = new BoardEntity();
         boardEntity.id = boardDTO.getId();

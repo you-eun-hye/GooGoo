@@ -2,7 +2,6 @@ package eunhye.GooGoo.dto;
 
 import eunhye.GooGoo.entity.PaymentEntity;
 import eunhye.GooGoo.entity.UserEntity;
-import eunhye.GooGoo.entity.UserRole;
 import lombok.*;
 
 @Getter
@@ -13,14 +12,15 @@ import lombok.*;
 public class PaymentDTO {
 
     private Long id;
-    private String imgSrc;
-    private String name;
-    private int price;
-    private int year;
-    private int month;
-    private int date;
+    private String imgSrc; // 앱 이미지 SRC
+    private String name; // 앱 이름
+    private int price; // 결제 금액
+    private int year; // 결제 연도
+    private int month; // 결제 달
+    private int date; // 결제 일
     private UserEntity userEntity;
 
+    // Entity -> DTO
     public static PaymentDTO toPaymentDTO(PaymentEntity paymentEntity){
         PaymentDTO paymentDTO = new PaymentDTO();
         paymentDTO.setId(paymentEntity.getId());

@@ -1,8 +1,8 @@
-package eunhye.GooGoo.controller.user;
+package eunhye.GooGoo.controller;
 
 import eunhye.GooGoo.config.security.SecurityDetails;
 import eunhye.GooGoo.dto.FlaskDTO;
-import eunhye.GooGoo.service.user.FlaskService;
+import eunhye.GooGoo.service.FlaskService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
@@ -33,7 +33,7 @@ public class FlaskController {
 
     // Flask 연결
     @GetMapping("/buyCheck")
-    public String create(@AuthenticationPrincipal SecurityDetails securityDetails){
+    public String connectFlask(@AuthenticationPrincipal SecurityDetails securityDetails){
         Long userId = securityDetails.getUserEntity().getId();
         String userEmail = securityDetails.getUserEntity().getUserEmail();
         String userPassword = flaskService.getGooglePassword();

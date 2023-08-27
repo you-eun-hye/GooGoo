@@ -26,15 +26,4 @@ public class PaymentEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private UserEntity userEntity;
-
-    public static PaymentEntity toSaveEntity(PaymentDTO paymentDTO){
-        PaymentEntity paymentEntity = new PaymentEntity();
-        paymentEntity.imgSrc = paymentDTO.getImgSrc();
-        paymentEntity.name = paymentDTO.getName();
-        paymentEntity.price = paymentDTO.getPrice();
-        paymentEntity.year = paymentDTO.getYear();
-        paymentEntity.month = paymentDTO.getMonth();
-        paymentEntity.date = paymentDTO.getDate();
-        return paymentEntity;
-    }
 }

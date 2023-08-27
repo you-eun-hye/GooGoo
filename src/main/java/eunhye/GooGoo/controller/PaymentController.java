@@ -1,9 +1,9 @@
-package eunhye.GooGoo.controller.user;
+package eunhye.GooGoo.controller;
 
 import eunhye.GooGoo.config.security.SecurityDetails;
 import eunhye.GooGoo.dto.PaymentDTO;
 import eunhye.GooGoo.entity.PaymentEntity;
-import eunhye.GooGoo.service.user.PaymentService;
+import eunhye.GooGoo.service.PaymentService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -23,9 +23,9 @@ public class PaymentController {
     private final PaymentService paymentService;
 
 
-    // 조회
-    @GetMapping("/calendar")
-    public String calendarForm(@PageableDefault(page = 0, size = 5, sort = "id", direction = Sort.Direction.ASC) Pageable pageable, @AuthenticationPrincipal SecurityDetails securityDetails, Model model){
+    // 결제 내역 5개씩 최신순 페이징 조회
+    @GetMapping("/buyList")
+    public String buyListForm(@PageableDefault(page = 0, size = 5, sort = "id", direction = Sort.Direction.ASC) Pageable pageable, @AuthenticationPrincipal SecurityDetails securityDetails, Model model){
         Page<PaymentEntity> list = paymentService.paging(pageable, securityDetails.getUserEntity());
 
         int nowPage = list.getPageable().getPageNumber() +1 ;
@@ -37,23 +37,8 @@ public class PaymentController {
         model.addAttribute("startPage", startPage);
         model.addAttribute("endPage", endPage);
 
-        return "user/payment/calendar";
+        return "user/payment/buyList";
     }
-
-//    @GetMapping("/calendar")
-//    @ResponseBody
-//    public List<Map<String, Object>> findAll(@AuthenticationPrincipal SecurityDetails securityDetails){
-//        List<PaymentDTO> paymentDTOList = paymentService.findAll(securityDetails.getUserEntity());
-//
-//        Map<String, Object> event = new HashMap<String, Object>();
-//        List<Map<String, Object>> eventList = new ArrayList<Map<String, Object>>();
-//
-//        event.put("start", paymentDTOList.get(0).getYear() + "-" + paymentDTOList.get(0).getMonth() + "-" + paymentDTOList.get(0).getDate());
-//        event.put("title", paymentDTOList.get(0).getName());
-//        eventList.add(event);
-//        return eventList;
-//    }
-
 
     // 결제 금액 TOP3 겸 Main 페이지
     @GetMapping("/home")

@@ -1,10 +1,8 @@
 package eunhye.GooGoo.entity;
 
-import eunhye.GooGoo.dto.CommentDTO;
 import eunhye.GooGoo.dto.UserDTO;
 import jakarta.persistence.*;
 import lombok.*;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.ArrayList;
@@ -21,11 +19,13 @@ public class UserEntity extends BaseEntity{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(unique = true)
     private String userNickname;
 
     @Column(unique = true)
     private String userEmail;
 
+    @Column
     private String userPassword;
 
     @Enumerated(EnumType.STRING)
@@ -68,7 +68,7 @@ public class UserEntity extends BaseEntity{
         return userEntity;
     }
 
-    // 유저 정보 수정
+    // 정보 수정
     public static UserEntity toEditUserEntity(UserDTO userDTO, PasswordEncoder passwordEncoder){
         UserEntity userEntity = new UserEntity();
         userEntity.id = userDTO.getId();

@@ -1,4 +1,4 @@
-package eunhye.GooGoo.service.user;
+package eunhye.GooGoo.service;
 
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
@@ -16,11 +16,16 @@ public class EmailService {
     private static int number;
     private static String newPassword;
 
-    // 이메일 인증
+    /*
+    * 이메일 인증
+    */
+
+    // 랜덤 번호 새성
     public static void createNumber(){
         number = (int)(Math.random() * (90000)) + 100000;// (int) Math.random() * (최댓값-최소값+1) + 최소값
     }
 
+    // 메일 문구 생성
     public MimeMessage CreateMail(String mail){
         createNumber();
         MimeMessage message = javaMailSender.createMimeMessage();
@@ -41,6 +46,7 @@ public class EmailService {
         return message;
     }
 
+    // 메일 전송
     public int sendMail(String mail){
         MimeMessage message = CreateMail(mail);
         javaMailSender.send(message);
@@ -48,7 +54,11 @@ public class EmailService {
         return number;
     }
 
-    // 비밀번호 재설정
+    /*
+    * 임시 비밀번호 생성
+    */
+
+    // 임시 비밀번호 생성
     public static String randomPassword(){
         StringBuffer key = new StringBuffer();
         Random rnd = new Random();
@@ -74,7 +84,7 @@ public class EmailService {
         return key.toString();
     }
 
-
+    // 메일 문구 생성
     public MimeMessage CreatePassword(String mail){
         newPassword = randomPassword();
         MimeMessage message = javaMailSender.createMimeMessage();
@@ -95,6 +105,7 @@ public class EmailService {
         return message;
     }
 
+    // 메일 전송
     public String sendNewPassword(String mail){
         MimeMessage message = CreatePassword(mail);
         javaMailSender.send(message);

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="/css/user/info/editUser.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css"/>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script rel="script" type="text/javascript" src="/js/admin/editUser.js"></script>
+  <title>관리자 - 회원 정보 수정</title>
+</head>
+<body>
+<div class="container">
+  <form action="/admin/user/edit" method="post">
+    <div class="title">회원 정보 수정</div>
+    <input th:value="${user.id}" style="display: none">
+    <div class="input-box underline">
+      <span class="subtitle">닉네임: </span>
+      <input type="text" th:value="${user.userNickname}" id="userNickname" name="userNickname" onchange="checkNickname()"><br>
+      <span class="nicknameOk">사용 가능한 닉네임입니다.</span>
+      <span class="nicknackNo">중복되는 닉네임입니다.</span>
+      <hr>
+    </div>
+
+    <div class="input-box underline bottom1">
+      <span class="subtitle">이메일: </span>
+      <input type="text" th:value="${user.userEmail}" id="userEmail" name="userEmail" onchange="checkEmail()"><br>
+      <hr>
+      <span class="emailOk">사용 가능한 이메일입니다.</span>
+      <span class="emailNo">중복되는 이메일입니다.</span>
+    </div>
+
+    <div class="input-box underline bottom3">
+      <span class="subtitle">비밀번호: </span>
+      <input type="password" th:value="${user.userPassword}" id="userPassword" name="userPassword"><br>
+      <hr>
+    </div>
+
+    <br>
+    <button type="submit" id="editBtn" class="editBtn">정보 수정</button>
+  </form>
+</div>
+
+
+</body>
+</html>

@@ -12,10 +12,10 @@ public class BoardFileEntity {
     private Long id;
 
     @Column
-    private String originalFileName;
+    private String originalFileName; // 사진명
 
     @Column
-    private String storedFileName;
+    private String storedFileName; // 저장 시 사진명
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "board_id")

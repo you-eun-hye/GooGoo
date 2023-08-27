@@ -1,7 +1,6 @@
 package eunhye.GooGoo.repository;
 
 import eunhye.GooGoo.entity.BoardEntity;
-import eunhye.GooGoo.entity.PaymentEntity;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -24,6 +23,6 @@ public interface BoardRepository extends JpaRepository<BoardEntity, Long> {
     List<BoardEntity> boardNotiList();
 
     // 미답변 문의글 갯수 조회
-    @Query("SELECT COUNT(b) FROM BoardEntity b WHERE b.commentAttached =0")
+    @Query("SELECT COUNT(b) FROM BoardEntity b WHERE b.commentAttached = 0 AND b.noti = 0")
     Integer waitAnswer();
 }

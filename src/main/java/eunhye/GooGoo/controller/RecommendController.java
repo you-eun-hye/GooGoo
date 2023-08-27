@@ -1,4 +1,4 @@
-package eunhye.GooGoo.controller.user;
+package eunhye.GooGoo.controller;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.PageLoadStrategy;

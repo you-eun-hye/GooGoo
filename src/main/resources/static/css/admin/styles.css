@@ -6,6 +6,13 @@
   padding-left: 1rem !important;
 }
 
+.plus{
+  float: right;
+  text-decoration: none;
+  color: black;
+  margin-right: 110px;
+}
+
 @charset "UTF-8";
 /*!
 * Start Bootstrap - SB Admin v7.0.7 (https://startbootstrap.com/template/sb-admin)

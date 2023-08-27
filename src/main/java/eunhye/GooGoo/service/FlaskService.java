@@ -1,4 +1,4 @@
-package eunhye.GooGoo.service.user;
+package eunhye.GooGoo.service;
 
 import eunhye.GooGoo.dto.FlaskDTO;
 import eunhye.GooGoo.entity.FlaskEntity;
@@ -18,16 +18,15 @@ public class FlaskService {
         flaskRepository.save(flaskEntity);
     }
 
-    // 구글 비번 삭제
-    public void delete(){
-        flaskRepository.deleteById(1L);
-    }
-
-
     // 구글 비번 조회
     public String getGooglePassword(){
         FlaskEntity flaskEntity = flaskRepository.findAll().get(0);
         return flaskEntity.getGooglePassword();
+    }
+
+    // 구글 비번 삭제
+    public void delete(){
+        flaskRepository.deleteById(1L);
     }
 
 }

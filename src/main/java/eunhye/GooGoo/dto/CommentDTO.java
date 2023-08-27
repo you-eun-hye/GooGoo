@@ -17,6 +17,7 @@ public class CommentDTO {
     private Long boardId;
     private LocalDateTime commentCreatedTime;
 
+    // Entity -> DTO
     public static CommentDTO toCommentDTO(CommentEntity commentEntity) {
         CommentDTO commentDTO = new CommentDTO();
         commentDTO.setId(commentEntity.getId());

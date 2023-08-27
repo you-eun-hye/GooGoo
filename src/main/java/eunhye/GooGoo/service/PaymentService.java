@@ -1,4 +1,4 @@
-package eunhye.GooGoo.service.user;
+package eunhye.GooGoo.service;
 
 import eunhye.GooGoo.dto.PaymentDTO;
 import eunhye.GooGoo.entity.PaymentEntity;
@@ -6,9 +6,7 @@ import eunhye.GooGoo.entity.UserEntity;
 import eunhye.GooGoo.repository.PaymentRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

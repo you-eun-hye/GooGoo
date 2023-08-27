@@ -47,7 +47,7 @@ function checkEmail(){
 
 function sendNumber(){
     $.ajax({
-        url:"/user/mypage/editUserEmail",
+        url:"/mail",
         type:"post",
         dataType:"json",
         data:{"mail" : $("#userEmail").val()},
