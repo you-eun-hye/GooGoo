@@ -141,6 +141,7 @@ public class BoardService {
     public BoardDTO edit(BoardDTO boardDTO, UserEntity userEntity) {
         boardDTO.setUserEntity(userEntity);
         BoardEntity boardEntity = BoardEntity.toEditEntity(boardDTO);
+        boardEntity.getBoardFileEntityList().add(0, BoardFileEntity.toBoardFileEntity(boardEntity, boardDTO.getOriginalFileName(), boardDTO.getStoredFileName()));
         boardRepository.save(boardEntity);
         return findById(boardDTO.getId());
     }
@@ -151,6 +152,7 @@ public class BoardService {
         boardDTO.setUserEntity(userEntity);
         boardDTO.setNoti(1);
         BoardEntity boardEntity = BoardEntity.toEditEntity(boardDTO);
+        boardEntity.getBoardFileEntityList().add(0, BoardFileEntity.toBoardFileEntity(boardEntity, boardDTO.getOriginalFileName(), boardDTO.getStoredFileName()));
         boardRepository.save(boardEntity);
         return findById(boardDTO.getId());
     }

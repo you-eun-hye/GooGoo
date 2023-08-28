@@ -9,6 +9,22 @@
     <title>결제내역 조회</title>
 </head>
 <body>
+    <nav role="navigation" class="webNav">
+        <div id="menuToggle">
+            <input type="checkbox"/>
+            <span></span>
+            <span></span>
+            <span></span>
+
+            <ul id="menu">
+                <a href="/home"><li>홈</li></a>
+                <a href="/buyList"><li>조회</li></a>
+                <a href="/recommend"><li>추천</li></a>
+                <a href="/board"><li>문의</li></a>
+            </ul>
+        </div>
+    </nav>
+
     <div class="content">
         <div class="subscribeList">
             <h3 class="title">결제 내역</h3>
@@ -27,7 +43,7 @@
 
             <div class="pagination">
                 <th:block th:each="page : ${#numbers.sequence(startPage, endPage)}">
-                    <a class="pageText" th:if="${page != nowPage}" th:href="@{/calendar(page = ${page -1})}" th:text="${page}"></a>
+                    <a class="pageText" th:if="${page != nowPage}" th:href="@{/buyList(page = ${page -1})}" th:text="${page}"></a>
                     <strong class="selectPage" th:if="${page == nowPage}" th:text="${page}"></strong>
                 </th:block>
             </div>

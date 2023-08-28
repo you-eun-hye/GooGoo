@@ -2,6 +2,8 @@
 <html lang="en" xmlns:th="http://www.w3.org/1999/html">
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="/css/user/payment/home.css">
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
@@ -9,10 +11,26 @@
 </head>
 
 <body>
+    <nav role="navigation" class="webNav">
+        <div id="menuToggle">
+            <input type="checkbox"/>
+            <span></span>
+            <span></span>
+            <span></span>
+
+            <ul id="menu">
+                <a href="/home"><li>홈</li></a>
+                <a href="/buyList"><li>조회</li></a>
+                <a href="/recommend"><li>추천</li></a>
+                <a href="/board"><li>문의</li></a>
+            </ul>
+        </div>
+    </nav>
+
     <div class="wrapper">
         <div class="innerwapper">
-            <div class="testDiv">
-                <div>
+            <div class="topBtn">
+                <div class="totalMoney">
                     <th:block th:if="${not #strings.isEmpty(sumPrice)}">
                         <h3 class="text">누적 금액</h3>
                         <h3 class="money" th:utext="${sumPrice + '원'}"></h3>

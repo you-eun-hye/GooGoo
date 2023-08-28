@@ -12,6 +12,9 @@
   <form action="/admin/noti/edit" method="post">
     <div class="title">게시물 수정</div>
     <input type="hidden" name="id" th:value="${editBoard.id}"><br>
+    <input type="hidden" name="originalFileName" th:value="${editBoard.originalFileName}">
+    <input type="hidden" name="storedFileName" th:value="${editBoard.storedFileName}">
+    <input type="hidden" name="fileAttached" th:value="${editBoard.fileAttached}">
 
     <div class="input-box underline">
       <span class="subtitle">title: </span>
