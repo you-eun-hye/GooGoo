@@ -17,6 +17,6 @@ public class SecurityDetailsService  implements UserDetailsService {
     public UserDetails loadUserByUsername(String userEmail) throws UsernameNotFoundException {
         UserEntity userEntity = userRepository.findByUserEmail(userEmail);
         if(userEntity != null) return new SecurityDetails(userEntity);
-        return null;
+        else throw new UsernameNotFoundException(userEmail + "사용자 없음");
     }
 }

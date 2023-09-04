@@ -32,30 +32,30 @@ public class FlaskController {
     }
 
     // Flask 연결
-    @GetMapping("/buyCheck")
-    public String connectFlask(@AuthenticationPrincipal SecurityDetails securityDetails){
-        Long userId = securityDetails.getUserEntity().getId();
-        String userEmail = securityDetails.getUserEntity().getUserEmail();
-        String userPassword = flaskService.getGooglePassword();
-
-        WebClient webClient = WebClient.create("http://127.0.0.1:5000");
-
-        Mono<String> response = webClient.method(HttpMethod.GET)
-                .uri(uriBuilder -> uriBuilder
-                        .path("/test")
-                        .queryParam("id", userId)
-                        .queryParam("email", userEmail)
-                        .queryParam("password", userPassword)
-                        .build())
-                .accept(MediaType.APPLICATION_JSON)
-                .retrieve()
-                .bodyToMono(String.class).log();
-
-        response.subscribe(s -> {
-            System.out.println("controller" + s);
-        });
-
-        flaskService.delete();
-        return "user/payment/buyCheck";
-    }
+//    @GetMapping("/buyCheck")
+//    public String connectFlask(@AuthenticationPrincipal SecurityDetails securityDetails){
+//        Long userId = securityDetails.getUserEntity().getId();
+//        String userEmail = securityDetails.getUserEntity().getUserEmail();
+//        String userPassword = flaskService.getGooglePassword();
+//
+//        WebClient webClient = WebClient.create("http://127.0.0.1:5000");
+//
+//        Mono<String> response = webClient.method(HttpMethod.GET)
+//                .uri(uriBuilder -> uriBuilder
+//                        .path("/test")
+//                        .queryParam("id", userId)
+//                        .queryParam("email", userEmail)
+//                        .queryParam("password", userPassword)
+//                        .build())
+//                .accept(MediaType.APPLICATION_JSON)
+//                .retrieve()
+//                .bodyToMono(String.class).log();
+//
+//        response.subscribe(s -> {
+//            System.out.println("controller" + s);
+//        });
+//
+//        flaskService.delete();
+//        return "user/payment/buyCheck";
+//    }
 }

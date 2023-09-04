@@ -82,11 +82,11 @@ public class BoardService {
 
 
     // 페이징 처리
-    public Page<BoardDTO> paging(Pageable pageable, UserEntity userEntity){
-        Page<BoardEntity> boardEntityList = boardRepository.pagingList(userEntity.getId(), pageable);
-        Page<BoardDTO> boardDTOList = new BoardDTO().toDTOList(boardEntityList);
-        return boardDTOList;
-    }
+//    public Page<BoardDTO> paging(Pageable pageable, UserEntity userEntity){
+//        Page<BoardEntity> boardEntityList = boardRepository.pagingList(userEntity.getId(), pageable);
+//        Page<BoardDTO> boardDTOList = new BoardDTO().toDTOList(boardEntityList);
+//        return boardDTOList;
+//    }
 
 
     // id로 게시물 조회
@@ -114,16 +114,16 @@ public class BoardService {
 
 
     // 내가 쓴 문의글 조회
-    public List<BoardDTO> findUserBoard(Long id) {
-        List<BoardEntity> boardEntityList = boardRepository.findAll();
-        List<BoardDTO> boardDTOList = new ArrayList<>();
-        for(BoardEntity boardEntity: boardEntityList){
-            if(boardEntity.getUserEntity().getId() == id){
-                boardDTOList.add(BoardDTO.toBoardDTO(boardEntity));
-            }
-        }
-        return boardDTOList;
-    }
+//    public List<BoardDTO> findUserBoard(Long id) {
+//        List<BoardEntity> boardEntityList = boardRepository.findAll();
+//        List<BoardDTO> boardDTOList = new ArrayList<>();
+//        for(BoardEntity boardEntity: boardEntityList){
+//            if(boardEntity.getUserEntity().getId() == id){
+//                boardDTOList.add(BoardDTO.toBoardDTO(boardEntity));
+//            }
+//        }
+//        return boardDTOList;
+//    }
 
 
     // 공지글 조회

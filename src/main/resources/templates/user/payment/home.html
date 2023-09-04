@@ -2,8 +2,8 @@
 <html lang="en" xmlns:th="http://www.w3.org/1999/html">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!--    <meta http-equiv="X-UA-Compatible" content="IE=edge">-->
+<!--    <meta name="viewport" content="width=device-width, initial-scale=1.0">-->
     <link rel="stylesheet" type="text/css" href="/css/user/payment/home.css">
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
@@ -11,103 +11,103 @@
 </head>
 
 <body>
-    <nav role="navigation" class="webNav">
-        <div id="menuToggle">
-            <input type="checkbox"/>
-            <span></span>
-            <span></span>
-            <span></span>
+<nav role="navigation" class="webNav">
+    <div id="menuToggle">
+        <input type="checkbox"/>
+        <span></span>
+        <span></span>
+        <span></span>
 
-            <ul id="menu">
-                <a href="/home"><li>홈</li></a>
-                <a href="/buyList"><li>조회</li></a>
-                <a href="/recommend"><li>추천</li></a>
-                <a href="/board"><li>문의</li></a>
-            </ul>
-        </div>
-    </nav>
+        <ul id="menu">
+            <a href="/home"><li>홈</li></a>
+            <a href="/buyList"><li>조회</li></a>
+            <a href="/recommend"><li>추천</li></a>
+            <a href="/board"><li>문의</li></a>
+        </ul>
+    </div>
+</nav>
 
-    <div class="wrapper">
-        <div class="innerwapper">
-            <div class="topBtn">
-                <div class="totalMoney">
-                    <th:block th:if="${not #strings.isEmpty(sumPrice)}">
-                        <h3 class="text">누적 금액</h3>
-                        <h3 class="money" th:utext="${sumPrice + '원'}"></h3>
-                    </th:block>
-                </div>
-
-                <div class="imgParent">
-                    <a class="person" href="/user/mypage">
-                        <ion-icon name="person-circle-outline"></ion-icon>
-                    </a>
-
-                    <a href="/googlePassword" class="googlePassword">
-                        <ion-icon name="reload-outline"></ion-icon>
-                    </a>
-                </div>
+<div class="wrapper">
+    <div class="innerwapper">
+        <div class="topBtn">
+            <div class="totalMoney">
+                <th:block th:if="${not #strings.isEmpty(sumPrice)}">
+                    <h3 class="text">누적 금액</h3>
+                    <h3 class="money" th:utext="${sumPrice + '원'}"></h3>
+                </th:block>
             </div>
 
-            <div class="content">
-                <div class="subscribeList">
-                    <th:block th:if="${#strings.isEmpty(sumPrice)}">
-                        <h3 class="text">환영합니다👋</h3>
-                        <h3 class="text">로딩 버튼으로</h3>
-                        <h3 class="text">결제 내역을 확인하세요🤩</h3>
-                    </th:block>
-                    <div class="paddingClass" th:each="payment: ${top3}">
-                        <div class="parent">
-                            <img class="appimg" th:src="${payment.imgSrc}">
-                            <div>
-                                <h4 th:text="${payment.name}" id="paymentName" class="paymentText"></h4>
-                                <h4 th:text="${payment.year + '년 ' + payment.month + '월 ' + payment.date + '일'}" class="paymentText"></h4>
-                            </div>
-                            <div class="displayRight">
-                                <h4 th:text="${'₩' + payment.price}" class="paymentTextBig"></h4>
-                            </div>
+            <div class="imgParent">
+                <a class="person" href="/user/mypage">
+                    <ion-icon name="person-circle-outline"></ion-icon>
+                </a>
+
+                <a href="/googlePassword" class="googlePassword">
+                    <ion-icon name="reload-outline"></ion-icon>
+                </a>
+            </div>
+        </div>
+
+        <div class="content">
+            <div class="subscribeList">
+                <th:block th:if="${#strings.isEmpty(sumPrice)}">
+                    <h3 class="text">환영합니다👋</h3>
+                    <h3 class="text">로딩 버튼으로</h3>
+                    <h3 class="text">결제 내역을 확인하세요🤩</h3>
+                </th:block>
+                <div class="paddingClass" th:each="payment: ${top3}">
+                    <div class="parent">
+                        <img class="appimg" th:src="${payment.imgSrc}">
+                        <div>
+                            <h4 th:text="${payment.name}" id="paymentName" class="paymentText"></h4>
+                            <h4 th:text="${payment.year + '년 ' + payment.month + '월 ' + payment.date + '일'}" class="paymentText"></h4>
                         </div>
-                        <progress class="progress" th:value="${payment.price * 1.0/sumPrice*100.0}" min="0" max="100"></progress>
+                        <div class="displayRight">
+                            <h4 th:text="${'₩' + payment.price}" class="paymentTextBig"></h4>
+                        </div>
                     </div>
+                    <progress class="progress" th:value="${payment.price * 1.0/sumPrice*100.0}" min="0" max="100"></progress>
                 </div>
             </div>
         </div>
+    </div>
 
-        <div class="navigation">
-            <ul>
-                <li class="list">
-                    <a href="/home">
+    <div class="navigation">
+        <ul>
+            <li class="list">
+                <a href="/home">
                         <span class="icon">
                             <ion-icon name="home-outline"></ion-icon>
                         </span>
-                        <span class="text">홈</span>
-                    </a>
-                </li>
-                <li class="list">
-                    <a href="/buyList">
+                    <span class="text">홈</span>
+                </a>
+            </li>
+            <li class="list">
+                <a href="/buyList">
                         <span class="icon">
                             <ion-icon name="calendar-outline"></ion-icon>
                         </span>
-                        <span class="text">조회</span>
-                    </a>
-                </li>
-                <li class="list">
-                    <a href="/recommend">
+                    <span class="text">조회</span>
+                </a>
+            </li>
+            <li class="list">
+                <a href="/recommend">
                         <span class="icon">
                             <ion-icon name="thumbs-up-outline"></ion-icon>
                         </span>
-                        <span class="text">추천</span>
-                    </a>
-                </li>
-                <li class="list">
-                    <a href="/board">
+                    <span class="text">추천</span>
+                </a>
+            </li>
+            <li class="list">
+                <a href="/board">
                         <span class="icon">
                             <ion-icon name="help-outline"></ion-icon>
                         </span>
-                        <span class="text">Q&A</span>
-                    </a>
-                </li>
-            </ul>
-        </div>
+                    <span class="text">Q&A</span>
+                </a>
+            </li>
+        </ul>
     </div>
+</div>
 </body>
 </html>

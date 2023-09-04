@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 
 @Entity
 @Getter
-@Table(name = "google_password")
+@Table(name = "FLASK")
 @NoArgsConstructor
 @AllArgsConstructor
 public class FlaskEntity {

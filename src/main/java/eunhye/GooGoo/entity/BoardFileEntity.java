@@ -5,7 +5,7 @@ import lombok.Getter;
 
 @Entity
 @Getter
-@Table(name = "board_file_table")
+@Table(name = "BOARD_FILE")
 public class BoardFileEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

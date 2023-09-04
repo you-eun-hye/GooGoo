@@ -1,10 +1,14 @@
 package eunhye.GooGoo.controller;
 
+import eunhye.GooGoo.config.error.CustomException;
+import eunhye.GooGoo.config.error.ErrorCode;
+import eunhye.GooGoo.config.jwt.JwtTokenProvider;
 import eunhye.GooGoo.config.security.SecurityDetails;
 import eunhye.GooGoo.dto.BoardDTO;
 import eunhye.GooGoo.dto.PaymentDTO;
 import eunhye.GooGoo.dto.UserDTO;
 import eunhye.GooGoo.entity.UserEntity;
+import eunhye.GooGoo.entity.UserRole;
 import eunhye.GooGoo.repository.UserRepository;
 import eunhye.GooGoo.service.BoardService;
 import eunhye.GooGoo.service.EmailService;
@@ -20,7 +24,8 @@ import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
 import java.util.List;
-import java.util.Optional;
+import java.util.Map;
+import java.util.UUID;
 
 
 @Controller
@@ -37,56 +42,33 @@ public class UserController {
     * 공용
     */
 
-    // 닉네임 중복 체크
-    @PostMapping("/checkNickname")
-    @ResponseBody
-    public boolean checkNickname(@RequestParam("userNickname") String userNickname){
-        return userService.checkUserNicknameDuplication(userNickname);
-    }
-
-    // 이메일 중복 체크
-    @PostMapping("/checkEmail")
-    @ResponseBody
-    public boolean checkEmail(@RequestParam("userEmail") String userEmail){
-        return userService.checkUserEmailDuplication(userEmail);
-    }
-
-    // 이메일 인증
-    @ResponseBody
-    @PostMapping("/mail")
-    public String MailSend(String mail){
-        String message = "";
-        int number = emailService.sendMail(mail);
-        message = "" + number;
-        return message;
-    }
-
     // 로그인
-    @GetMapping("/login")
-    public String loginForm(@RequestParam(value="error", required = false) String error,
-                            @RequestParam(value = "exception", required = false) String exception,
-                            Model model){
-        model.addAttribute("error", error);
-        model.addAttribute("exception", exception);
-        return "user/info/login";
-    }
+//    @GetMapping("/login")
+//    public String loginForm(@RequestParam(value="error", required = false) String error,
+//                            @RequestParam(value = "exception", required = false) String exception,
+//                            Model model){
+//        model.addAttribute("error", error);
+//        model.addAttribute("exception", exception);
+//        return "user/info/login";
+//    }
 
     /*
     * 사용자
     */
 
     // 회원가입
-    @GetMapping("/join")
-    public String joinUserForm() {
-        return "user/info/join";
-    }
-
-    @PostMapping( "/join")
-    public String joinUser(@Valid UserDTO userDTO) {
-        UserEntity userEntity = UserEntity.toUserEntity(userDTO, passwordEncoder);
-        userService.save(userEntity);
-        return "redirect:/login";
-    }
+//    @GetMapping("/join")
+//    public String joinUserForm() {
+//        return "user/info/join";
+//    }
+//
+//    @PostMapping( "/join")
+//    @ResponseBody
+//    public String joinUser(@Valid @RequestBody UserDTO userDTO) {
+//        UserEntity userEntity = UserEntity.toUserEntity(userDTO, passwordEncoder);
+//        userService.save(userEntity);
+//        return "redirect:/login";
+//    }
 
     // 이메일 찾기
     @GetMapping("/findUserEmail")
@@ -107,13 +89,6 @@ public class UserController {
         return "user/info/findUserPassword";
     }
 
-    @PostMapping("/findUserPassword")
-    @ResponseBody
-    public void sendNewPassword(String mail){
-        String newPassword = emailService.sendNewPassword(mail);
-        userService.editPassword(mail, newPassword);
-    }
-
     // 마이페이지
     @GetMapping("/user/mypage")
     public String mypage(){
@@ -121,20 +96,20 @@ public class UserController {
     }
 
     // 회원 정보 수정
-    @GetMapping("/user/mypage/editUser")
-    public String editMypageUserForm(@AuthenticationPrincipal SecurityDetails securityDetails, Model model){
-        UserDTO userDTO = userService.findById(securityDetails.getUserEntity().getId());
-        model.addAttribute("userDTO", userDTO);
-        return "user/info/editUser";
-    }
-
-    // 회원 정보 수정
-    @PostMapping("/user/mypage/editUser")
-    public String editMypageUser(@AuthenticationPrincipal SecurityDetails securityDetails, String userEmail, String userNickname, String userPassword){
-        UserDTO userDTO = userService.findById(securityDetails.getUserEntity().getId());
-        userService.editUser(userDTO, userEmail, userNickname, userPassword);
-        return "user/info/mypage";
-    }
+//    @GetMapping("/user/mypage/editUser")
+//    public String editMypageUserForm(@AuthenticationPrincipal SecurityDetails securityDetails, Model model){
+//        UserDTO userDTO = userService.findById(securityDetails.getUserEntity().getId());
+//        model.addAttribute("userDTO", userDTO);
+//        return "user/info/editUser";
+//    }
+//
+//    // 회원 정보 수정
+//    @PostMapping("/user/mypage/editUser")
+//    public String editMypageUser(@AuthenticationPrincipal SecurityDetails securityDetails, String userEmail, String userNickname, String userPassword){
+//        UserDTO userDTO = userService.findById(securityDetails.getUserEntity().getId());
+//        userService.editUser(userDTO, userEmail, userNickname, userPassword);
+//        return "user/info/mypage";
+//    }
 
     // 로그아웃
     @GetMapping("/logout")
@@ -143,22 +118,22 @@ public class UserController {
     }
 
     // 회원 탈퇴
-    @GetMapping("/user/mypage/delete")
-    public String deleteMypageUser(@AuthenticationPrincipal SecurityDetails securityDetails) throws IOException {
-        userService.deleteById(securityDetails.getUserEntity().getId());
-
-        List<BoardDTO> boardList = boardService.findUserBoard(securityDetails.getUserEntity().getId());
-        for(long i = 0; i < boardList.size(); i++){
-            boardService.deleteById(i);
-        }
-
-        List<PaymentDTO> paymentList = paymentService.findAll(securityDetails.getUserEntity().getId());
-        for(long i = 0; i < paymentList.size(); i++){
-            paymentService.deleteById(i);
-        }
-
-        return "user/info/login";
-    }
+//    @GetMapping("/user/mypage/delete")
+//    public String deleteMypageUser(@AuthenticationPrincipal SecurityDetails securityDetails) throws IOException {
+//        userService.deleteById(securityDetails.getUserEntity().getId());
+//
+//        List<BoardDTO> boardList = boardService.findUserBoard(securityDetails.getUserEntity().getId());
+//        for(long i = 0; i < boardList.size(); i++){
+//            boardService.deleteById(i);
+//        }
+//
+//        List<PaymentDTO> paymentList = paymentService.findAll(securityDetails.getUserEntity().getId());
+//        for(long i = 0; i < paymentList.size(); i++){
+//            paymentService.deleteById(i);
+//        }
+//
+//        return "user/info/login";
+//    }
 
     /*
     * 관리자
@@ -227,28 +202,28 @@ public class UserController {
         return "admin/user/edit";
     }
 
-    @PostMapping("/admin/user/edit")
-    public String editAdminUser(String userEmail, String userNickname, String userPassword){
-        UserEntity userEntity = userService.findByUserEmail(userEmail);
-        UserDTO userDTO = userService.findById(userEntity.getId());
-        userService.editUser(userDTO, userEmail, userNickname, userPassword);
-        return "redirect:/admin";
-    }
+//    @PostMapping("/admin/user/edit")
+//    public String editAdminUser(String userEmail, String userNickname, String userPassword){
+//        UserEntity userEntity = userService.findByUserEmail(userEmail);
+//        UserDTO userDTO = userService.findById(userEntity.getId());
+//        userService.editUser(userDTO, userEmail, userNickname, userPassword);
+//        return "redirect:/admin";
+//    }
 
     // 회원 삭제
-    @GetMapping("/admin/user/delete/{id}")
-    public String deleteAdminUser(@PathVariable Long id) throws IOException {
-        userService.deleteById(id);
-
-        List<BoardDTO> boardList = boardService.findUserBoard(id);
-        for (long i = 0; i < boardList.size(); i++) {
-            boardService.deleteById(i);
-        }
-
-        List<PaymentDTO> paymentList = paymentService.findAll(id);
-        for (long i = 0; i < paymentList.size(); i++) {
-            paymentService.deleteById(i);
-        }
-        return "admin/user/index";
-    }
+//    @GetMapping("/admin/user/delete/{id}")
+//    public String deleteAdminUser(@PathVariable Long id) throws IOException {
+//        userService.deleteById(id);
+//
+//        List<BoardDTO> boardList = boardService.findUserBoard(id);
+//        for (long i = 0; i < boardList.size(); i++) {
+//            boardService.deleteById(i);
+//        }
+//
+//        List<PaymentDTO> paymentList = paymentService.findAll(id);
+//        for (long i = 0; i < paymentList.size(); i++) {
+//            paymentService.deleteById(i);
+//        }
+//        return "admin/user/index";
+//    }
 }

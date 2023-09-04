@@ -43,21 +43,21 @@ public class BoardController {
     }
 
     // 내가 쓴 문의글 5개씩 최신순 페이징 조회
-    @GetMapping("/board")
-    public String findMyQuestion(@PageableDefault(page = 0, size = 5, sort = "id", direction = Sort.Direction.DESC) Pageable pageable, Model model, @AuthenticationPrincipal SecurityDetails securityDetails){
-        Page<BoardDTO> list = boardService.paging(pageable, securityDetails.getUserEntity());
-
-        int nowPage = list.getPageable().getPageNumber() +1;
-        int startPage = Math.max(nowPage -4, 1);
-        int endPage = Math.min(nowPage +5, list.getTotalPages());
-
-        model.addAttribute("boardList", list);
-        model.addAttribute("nowPage", nowPage);
-        model.addAttribute("startPage", startPage);
-        model.addAttribute("endPage", endPage);
-
-        return "user/board/board";
-    }
+//    @GetMapping("/board")
+//    public String findMyQuestion(@PageableDefault(page = 0, size = 5, sort = "id", direction = Sort.Direction.DESC) Pageable pageable, Model model, @AuthenticationPrincipal SecurityDetails securityDetails){
+//        Page<BoardDTO> list = boardService.paging(pageable, securityDetails.getUserEntity());
+//
+//        int nowPage = list.getPageable().getPageNumber() +1;
+//        int startPage = Math.max(nowPage -4, 1);
+//        int endPage = Math.min(nowPage +5, list.getTotalPages());
+//
+//        model.addAttribute("boardList", list);
+//        model.addAttribute("nowPage", nowPage);
+//        model.addAttribute("startPage", startPage);
+//        model.addAttribute("endPage", endPage);
+//
+//        return "user/board/board";
+//    }
 
     // 문의글 상세 조회
     @GetMapping("/board/{id}")

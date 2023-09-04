@@ -5,6 +5,7 @@ import eunhye.GooGoo.entity.UserRole;
 import lombok.*;
 
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 @Getter
 @Setter
@@ -13,7 +14,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 public class UserDTO {
 
-    private Long id;
+    private UUID id;
     private String userNickname;
     private String userEmail;
     private String userPassword;

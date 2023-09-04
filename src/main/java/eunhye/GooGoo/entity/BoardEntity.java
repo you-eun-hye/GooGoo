@@ -10,7 +10,7 @@ import java.util.List;
 
 @Entity
 @Getter
-@Table(name = "board")
+@Table(name = "BOARD")
 @NoArgsConstructor
 public class BoardEntity extends BaseEntity{
     @Id
