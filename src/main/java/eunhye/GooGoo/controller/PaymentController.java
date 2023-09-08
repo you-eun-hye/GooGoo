@@ -2,7 +2,9 @@ package eunhye.GooGoo.controller;
 
 import eunhye.GooGoo.config.security.SecurityDetails;
 import eunhye.GooGoo.dto.PaymentDTO;
+import eunhye.GooGoo.dto.UserDTO;
 import eunhye.GooGoo.entity.PaymentEntity;
+import eunhye.GooGoo.entity.UserEntity;
 import eunhye.GooGoo.service.PaymentService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -39,13 +41,13 @@ public class PaymentController {
 //
 //        return "user/payment/buyList";
 //    }
-//
-//    // 결제 금액 TOP3 겸 Main 페이지
-//    @GetMapping("/home")
-//    public String home(Model model, @AuthenticationPrincipal SecurityDetails securityDetails) {
-//        List<PaymentDTO> paymentDTOList = paymentService.findTop3(securityDetails.getUserEntity());
-//        model.addAttribute("top3", paymentDTOList);
-//        model.addAttribute("sumPrice", paymentService.sumPrice());
-//        return "user/payment/home";
-//    }
+
+    // 결제 금액 TOP3 겸 Main 페이지
+    @GetMapping("/home")
+    public String home(Model model, @AuthenticationPrincipal UserEntity userEntity) {
+        List<PaymentDTO> paymentDTOList = paymentService.findTop3(userEntity);
+        model.addAttribute("top3", paymentDTOList);
+        model.addAttribute("sumPrice", paymentService.sumPrice());
+        return "user/payment/home";
+    }
 }

@@ -12,13 +12,13 @@
 
 <body>
     <div class="container">
-        <form action="/join" method="post">
+        <form>
             <div class="title">회원가입</div>
 
             <div class="input-box underline bottom1">
                 <input type="text" id="userNickname" name="userNickname" placeholder="닉네임" onchange="checkNickname()" required>
                 <span class="nicknameOk">사용 가능한 닉네임입니다.</span>
-                <span class="nicknackNo">중복되는 닉네임입니다.</span>
+                <span class="nicknameNo">중복되는 닉네임입니다.</span>
                 <div class="underline"></div>
             </div>
 
@@ -44,7 +44,7 @@
                 <div class="underline"></div>
             </div>
 
-            <button type="submit" class="btn"> 회원가입</button>
+            <button id="joinUserBtn" class="btn" name="joinUserBtn" type="button" onclick="joinUser()">회원가입</button>
         </form>
     </div>
 </body>

@@ -7,12 +7,13 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
+import java.util.UUID;
 
 public interface PaymentRepository extends JpaRepository<PaymentEntity, Long> {
 
     // 결제 금액이 큰 순으로 3개 조회
     @Query("SELECT p FROM PaymentEntity p where p.userEntity.id = ?1 order by p.price DESC LIMIT 3")
-    List<PaymentEntity> findTOP3List(Long id);
+    List<PaymentEntity> findTOP3List(UUID id);
 
     // 결제 총 액
     @Query("SELECT SUM(p.price) FROM PaymentEntity p")

@@ -3,6 +3,7 @@ package eunhye.GooGoo.controller.RestController;
 import eunhye.GooGoo.config.error.CustomException;
 import eunhye.GooGoo.config.error.ErrorCode;
 import eunhye.GooGoo.config.jwt.JwtTokenProvider;
+import eunhye.GooGoo.dto.UserDTO;
 import eunhye.GooGoo.entity.UserEntity;
 import eunhye.GooGoo.entity.UserRole;
 import eunhye.GooGoo.repository.UserRepository;
@@ -10,7 +11,10 @@ import eunhye.GooGoo.service.BoardService;
 import eunhye.GooGoo.service.EmailService;
 import eunhye.GooGoo.service.PaymentService;
 import eunhye.GooGoo.service.UserService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 

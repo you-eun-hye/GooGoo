@@ -1,6 +1,7 @@
 package eunhye.GooGoo.service;
 
 import eunhye.GooGoo.dto.PaymentDTO;
+import eunhye.GooGoo.dto.UserDTO;
 import eunhye.GooGoo.entity.PaymentEntity;
 import eunhye.GooGoo.entity.UserEntity;
 import eunhye.GooGoo.repository.PaymentRepository;
@@ -28,14 +29,14 @@ public class PaymentService {
 
 
     // 결제 금액 TOP3 조회
-//    public List<PaymentDTO> findTop3(UserEntity userEntity){
-//        List<PaymentEntity> paymentEntityList = paymentRepository.findTOP3List(userEntity.getId());
-//        List<PaymentDTO> paymentDTOList = new ArrayList<>();
-//        for(PaymentEntity paymentEntity : paymentEntityList){
-//            paymentDTOList.add(PaymentDTO.toPaymentDTO(paymentEntity));
-//        }
-//        return paymentDTOList;
-//    }
+    public List<PaymentDTO> findTop3(UserEntity userEntity){
+        List<PaymentEntity> paymentEntityList = paymentRepository.findTOP3List(userEntity.getId());
+        List<PaymentDTO> paymentDTOList = new ArrayList<>();
+        for(PaymentEntity paymentEntity : paymentEntityList){
+            paymentDTOList.add(PaymentDTO.toPaymentDTO(paymentEntity));
+        }
+        return paymentDTOList;
+    }
 
 
     // 전체 조회

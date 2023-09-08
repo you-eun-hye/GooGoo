@@ -43,32 +43,24 @@ public class UserController {
     */
 
     // 로그인
-//    @GetMapping("/login")
-//    public String loginForm(@RequestParam(value="error", required = false) String error,
-//                            @RequestParam(value = "exception", required = false) String exception,
-//                            Model model){
-//        model.addAttribute("error", error);
-//        model.addAttribute("exception", exception);
-//        return "user/info/login";
-//    }
+    @GetMapping("/login")
+    public String loginForm(@RequestParam(value="error", required = false) String error,
+                            @RequestParam(value = "exception", required = false) String exception,
+                            Model model){
+        model.addAttribute("error", error);
+        model.addAttribute("exception", exception);
+        return "user/info/login";
+    }
 
     /*
     * 사용자
     */
 
     // 회원가입
-//    @GetMapping("/join")
-//    public String joinUserForm() {
-//        return "user/info/join";
-//    }
-//
-//    @PostMapping( "/join")
-//    @ResponseBody
-//    public String joinUser(@Valid @RequestBody UserDTO userDTO) {
-//        UserEntity userEntity = UserEntity.toUserEntity(userDTO, passwordEncoder);
-//        userService.save(userEntity);
-//        return "redirect:/login";
-//    }
+    @GetMapping("/join")
+    public String joinUserForm() {
+        return "user/info/join";
+    }
 
     // 이메일 찾기
     @GetMapping("/findUserEmail")

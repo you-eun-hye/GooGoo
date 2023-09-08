@@ -58,12 +58,37 @@ function sendNumber(){
 }
 
 function confirmNumber(){
-    var number1 = $("#number").val();
-    var number2 = $("#Confirm").val();
-
-    if(number1 == number2){
+    if($("#number").val() == $("#Confirm").val()){
         alert("인증되었습니다.");
     }else{
         alert("번호가 다릅니다.");
     }
+}
+
+function joinUser(){
+    $.ajax({
+            url: "/api/v1/join",
+            type: "post",
+            data: JSON.stringify({
+                "userNickname": $("#userNickname").val(),
+                "userEmail": $("#userEmail").val(),
+                "userPassword": $("#userPassword").val()
+            }),
+            contentType : "application/json; charset=utf-8",
+            success : function (data, statusText, jqXHR) {
+                alert("회원가입 성공");
+                location.replace(`/login`);
+
+                console.log(data);
+                console.log(statusText);
+                console.log(jqXHR);
+            },
+            error : function (jqXHR, testStatus, errorThrown) {
+                alert("문제가 발생했습니다. 문의를 남겨주세요.");
+
+                console.log(jqXHR);
+                console.log(testStatus);
+                console.log(errorThrown);
+            }
+    });
 }
