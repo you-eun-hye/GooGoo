@@ -1,90 +1,119 @@
 package eunhye.GooGoo.controller;
 
-import eunhye.GooGoo.config.error.CustomException;
-import eunhye.GooGoo.config.error.ErrorCode;
-import eunhye.GooGoo.config.jwt.JwtTokenProvider;
-import eunhye.GooGoo.config.security.SecurityDetails;
-import eunhye.GooGoo.dto.BoardDTO;
-import eunhye.GooGoo.dto.PaymentDTO;
 import eunhye.GooGoo.dto.UserDTO;
 import eunhye.GooGoo.entity.UserEntity;
 import eunhye.GooGoo.entity.UserRole;
 import eunhye.GooGoo.repository.UserRepository;
-import eunhye.GooGoo.service.BoardService;
 import eunhye.GooGoo.service.EmailService;
-import eunhye.GooGoo.service.PaymentService;
 import eunhye.GooGoo.service.UserService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
-import java.io.IOException;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
-
-
-@Controller
+@RestController
 @RequiredArgsConstructor
-public class UserController {
+public class UserRestController {
+    private final UserRepository userRepository;
 
     private final UserService userService;
     private final EmailService emailService;
-    private final BoardService boardService;
-    private final PaymentService paymentService;
     private final PasswordEncoder passwordEncoder;
 
     /*
-    * 공용
-    */
+     * 공용
+     */
+
+    // 닉네임 중복 체크
+    @GetMapping("/checkNickname")
+    public boolean checkNickname(@RequestParam("userNickname") String userNickname){
+        return userService.checkUserNicknameDuplication(userNickname);
+    }
+
+    // 이메일 중복 체크
+    @GetMapping("/checkEmail")
+    public boolean checkEmail(@RequestParam("userEmail") String userEmail){
+        return userService.checkUserEmailDuplication(userEmail);
+    }
+
+    // 이메일 인증
+    @PostMapping("/mail")
+    public String MailSend(String mail){
+        String message = "";
+        int number = emailService.sendMail(mail);
+        message = "" + number;
+        return message;
+    }
 
     // 로그인
     @GetMapping("/login")
-    public String loginForm(@RequestParam(value="error", required = false) String error,
+    public ModelAndView loginForm(@RequestParam(value="error", required = false) String error,
                             @RequestParam(value = "exception", required = false) String exception,
                             Model model){
         model.addAttribute("error", error);
         model.addAttribute("exception", exception);
-        return "user/info/login";
+        ModelAndView mav = new ModelAndView("user/info/login");
+        return mav;
     }
 
     /*
-    * 사용자
-    */
+     * 사용자
+     */
 
-    // 회원가입
+    // 회원 가입
     @GetMapping("/join")
-    public String joinUserForm() {
-        return "user/info/join";
+    public ModelAndView joinUserForm() {
+        ModelAndView mav = new ModelAndView("user/info/join");
+        return mav;
+    }
+
+    @PostMapping("/api/join")
+    public HttpStatus join(@RequestBody UserDTO userDTO) {
+        userRepository.save(UserEntity.builder()
+                .userNickname(userDTO.getUserNickname())
+                .userEmail(userDTO.getUserEmail())
+                .userPassword(passwordEncoder.encode(userDTO.getUserPassword()))
+                .authority(UserRole.USER)
+                .build());
+        return HttpStatus.CREATED;
     }
 
     // 이메일 찾기
     @GetMapping("/findUserEmail")
-    public String findUserEmailForm(){
-        return "user/info/findUserEmail";
+    public ModelAndView findUserEmailForm(){
+        ModelAndView mav = new ModelAndView("user/info/findUserEmail");
+        return mav;
     }
 
-    @PostMapping("/findUserEmail")
-    public String findUserEmail(String userNickname, Model model){
-        String userEmail = userService.findUserEmail(userNickname);
-        model.addAttribute("message", userEmail);
-        return "user/info/findUserEmail";
-    }
+//    @PostMapping("/findUserEmail")
+//    public String findUserEmail(String userNickname, Model model){
+//        String userEmail = userService.findUserEmail(userNickname);
+//        model.addAttribute("message", userEmail);
+//        return "user/info/findUserEmail";
+//    }
 
-    // 비밀번호 찾기(비밀번호 재전송)
+
+    // 비밀번호 찾기 (임시 비밀번호 메일 전송)
     @GetMapping("/findUserPassword")
-    public String findUserPasswordForm(){
-        return "user/info/findUserPassword";
+    public ModelAndView findUserPasswordForm(){
+        ModelAndView mav = new ModelAndView("user/info/findUserPassword");
+        return mav;
+    }
+
+    @PostMapping("/findUserPassword")
+    public void sendNewPassword(String mail){
+        String newPassword = emailService.sendNewPassword(mail);
+        userService.editPassword(mail, newPassword);
     }
 
     // 마이페이지
     @GetMapping("/user/mypage")
-    public String mypage(){
-        return "user/info/mypage";
+    public ModelAndView mypage(){
+        ModelAndView mav = new ModelAndView("user/info/mypage");
+        return mav;
     }
 
     // 회원 정보 수정
@@ -105,8 +134,9 @@ public class UserController {
 
     // 로그아웃
     @GetMapping("/logout")
-    public String logout(){
-        return "/user/info/login";
+    public ModelAndView logout(){
+        ModelAndView mav = new ModelAndView("user/info/login");
+        return mav;
     }
 
     // 회원 탈퇴
@@ -128,31 +158,32 @@ public class UserController {
 //    }
 
     /*
-    * 관리자
-    */
+     * 관리자
+     */
 
     // 관리자 생성
     @GetMapping("/admin/admin/join")
-    public String saveAdminForm(){
-        return "admin/join";
+    public ModelAndView saveAdminForm(){
+        ModelAndView mav = new ModelAndView("admin/join");
+        return mav;
     }
 
-    @PostMapping("/admin/admin/join")
-    public String saveAdmin(@Valid UserDTO userDTO){
-        UserEntity userEntity = UserEntity.toAdminEntity(userDTO, passwordEncoder);
-        userService.save(userEntity);
-        return "admin/index";
-    }
+//    @PostMapping("/admin/admin/join")
+//    public String saveAdmin(@Valid UserDTO userDTO){
+//        UserEntity userEntity = UserEntity.toAdminEntity(userDTO, passwordEncoder);
+//        userService.save(userEntity);
+//        return "admin/index";
+//    }
 
     // 관리자 조회
-    @GetMapping("/admin/admin")
-    public String findAllAdmin(Model model, @AuthenticationPrincipal SecurityDetails securityDetails) {
-        List<UserDTO> adminDTOList = userService.findAdminAll();
-        model.addAttribute("adminList", adminDTOList);
-        model.addAttribute("countAdmin", userService.countAdmin());
-        model.addAttribute("adminName", securityDetails.getUserEntity().getUserEmail());
-        return "admin/admin";
-    }
+//    @GetMapping("/admin/admin")
+//    public String findAllAdmin(Model model, @AuthenticationPrincipal SecurityDetails securityDetails) {
+//        List<UserDTO> adminDTOList = userService.findAdminAll();
+//        model.addAttribute("adminList", adminDTOList);
+//        model.addAttribute("countAdmin", userService.countAdmin());
+//        model.addAttribute("adminName", securityDetails.getUserEntity().getUserEmail());
+//        return "admin/admin";
+//    }
 
     // 관리자 정보 수정
     @GetMapping("/admin/admin/edit/{id}")
@@ -177,14 +208,14 @@ public class UserController {
     }
 
     // 회원 조회
-    @GetMapping("/admin")
-    public String findAllUser(Model model, @AuthenticationPrincipal SecurityDetails securityDetails) {
-        List<UserDTO> userDTOList = userService.findUserAll();
-        model.addAttribute("userList", userDTOList);
-        model.addAttribute("countUser", userService.countUser());
-        model.addAttribute("adminName", securityDetails.getUserEntity().getUserEmail());
-        return "admin/user/index";
-    }
+//    @GetMapping("/admin")
+//    public String findAllUser(Model model, @AuthenticationPrincipal SecurityDetails securityDetails) {
+//        List<UserDTO> userDTOList = userService.findUserAll();
+//        model.addAttribute("userList", userDTOList);
+//        model.addAttribute("countUser", userService.countUser());
+//        model.addAttribute("adminName", securityDetails.getUserEntity().getUserEmail());
+//        return "admin/user/index";
+//    }
 
     // 회원 수정
     @GetMapping("/admin/user/edit/{id}")

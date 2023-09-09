@@ -20,7 +20,7 @@ public class UserEntity extends BaseEntity{
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
 
-    @Column(length = 30, unique = true)
+    @Column(unique = true)
     private String userNickname;
 
     @Column(unique = true)

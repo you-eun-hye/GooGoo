@@ -2,17 +2,17 @@ function checkNickname(){
     var userNickname = $("#userNickname").val();
     $.ajax({
         url:'/checkNickname',
-        type: 'post',
+        type: 'get',
         data:{userNickname:userNickname},
         success:function (cnt){
             if(cnt){
-                $('.nicknackNo').css("display","inline-block");
+                $('.nicknameNo').css("display","inline-block");
                 $('.nicknameOk').css("display", "none");
                 alert("닉네임을 다시 입력해주세요");
                 $('#userNickname').val('');
             }else{
                 $('.nicknameOk').css("display","inline-block");
-                $('.nicknackNo').css("display", "none");
+                $('.nicknameNo').css("display", "none");
             }
         },
         error:function (){
@@ -25,7 +25,7 @@ function checkEmail(){
     var userEmail = $("#userEmail").val();
     $.ajax({
         url:'/checkEmail',
-        type: 'post',
+        type: 'get',
         data:{userEmail:userEmail},
         success:function (cnt){
             if(cnt){
@@ -67,7 +67,7 @@ function confirmNumber(){
 
 function joinUser(){
     $.ajax({
-            url: "/api/v1/join",
+            url: "/api/join",
             type: "post",
             data: JSON.stringify({
                 "userNickname": $("#userNickname").val(),

@@ -12,7 +12,7 @@
 
 <body>
   <div class="container">
-    <form>
+    <form action="/login" method="post">
       <div class="title">로그인</div>
       <div class="input-box underline">
         <input type="text" id="userEmail" name="userEmail" placeholder="이메일" required>
@@ -29,7 +29,7 @@
         <a href="/findUserPassword">비밀번호 찾기</a>
       </div>
 
-      <button type="button" id="signIn" name="singIn" onclick="loginUser()"> 로그인 </button>
+      <button type="submit" id="signIn"> 로그인 </button>
       <p th:text="${error}" class="errorMessage"></p>
     </form>
 

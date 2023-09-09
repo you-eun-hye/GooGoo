@@ -28,6 +28,10 @@ public class SecurityDetails implements UserDetails, OAuth2User {
         this.attributes = attributes;
     }
 
+    public UserEntity getUser(){
+        return userEntity;
+    }
+
     @Override
     public Map<String, Object> getAttributes() {
         return attributes;

@@ -36,11 +36,11 @@ public class BoardController {
         return "user/board/save";
     }
 
-    @PostMapping("/board/save")
-    public String saveQuestion(@ModelAttribute BoardDTO boardDTO, @AuthenticationPrincipal SecurityDetails securityDetails) throws IOException {
-        boardService.save(boardDTO, securityDetails.getUserEntity());
-        return "redirect:/board";
-    }
+//    @PostMapping("/board/save")
+//    public String saveQuestion(@ModelAttribute BoardDTO boardDTO, @AuthenticationPrincipal SecurityDetails securityDetails) throws IOException {
+//        boardService.save(boardDTO, securityDetails.getUserEntity());
+//        return "redirect:/board";
+//    }
 
     // 내가 쓴 문의글 5개씩 최신순 페이징 조회
 //    @GetMapping("/board")
@@ -78,12 +78,12 @@ public class BoardController {
         return "user/board/editBoard";
     }
 
-    @PostMapping("/board/edit")
-    public String editQuestion(@AuthenticationPrincipal SecurityDetails securityDetails, @ModelAttribute BoardDTO boardDTO, Model model){
-        BoardDTO board = boardService.edit(boardDTO, securityDetails.getUserEntity());
-        model.addAttribute("board", board);
-        return "redirect:/board";
-    }
+//    @PostMapping("/board/edit")
+//    public String editQuestion(@AuthenticationPrincipal SecurityDetails securityDetails, @ModelAttribute BoardDTO boardDTO, Model model){
+//        BoardDTO board = boardService.edit(boardDTO, securityDetails.getUserEntity());
+//        model.addAttribute("board", board);
+//        return "redirect:/board";
+//    }
 
     // 문의글 삭제
     @GetMapping("/board/delete/{id}")
@@ -97,14 +97,14 @@ public class BoardController {
     */
 
     // 문의글 조회
-    @GetMapping("/admin/board")
-    public String findAllQuestion(Model model, @AuthenticationPrincipal SecurityDetails securityDetails) {
-        List<BoardDTO> boardDTOList = boardService.findBoard();
-        model.addAttribute("boardList", boardDTOList);
-        model.addAttribute("waitComment", boardService.waitComment());
-        model.addAttribute("adminName", securityDetails.getUserEntity().getUserEmail());
-        return "admin/board/board";
-    }
+//    @GetMapping("/admin/board")
+//    public String findAllQuestion(Model model, @AuthenticationPrincipal SecurityDetails securityDetails) {
+//        List<BoardDTO> boardDTOList = boardService.findBoard();
+//        model.addAttribute("boardList", boardDTOList);
+//        model.addAttribute("waitComment", boardService.waitComment());
+//        model.addAttribute("adminName", securityDetails.getUserEntity().getUserEmail());
+//        return "admin/board/board";
+//    }
 
     // 문의글 상세 조회 및 답변
     @GetMapping("/admin/board/detail/{id}")

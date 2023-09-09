@@ -11,6 +11,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -44,8 +45,8 @@ public class PaymentController {
 
     // 결제 금액 TOP3 겸 Main 페이지
     @GetMapping("/home")
-    public String home(Model model, @AuthenticationPrincipal UserEntity userEntity) {
-        List<PaymentDTO> paymentDTOList = paymentService.findTop3(userEntity);
+    public String home(Model model, @AuthenticationPrincipal SecurityDetails securityDetails) {
+        List<PaymentDTO> paymentDTOList = paymentService.findTop3(securityDetails.getUserEntity());
         model.addAttribute("top3", paymentDTOList);
         model.addAttribute("sumPrice", paymentService.sumPrice());
         return "user/payment/home";
