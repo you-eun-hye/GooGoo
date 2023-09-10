@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 @Service
 @Transactional
@@ -40,17 +41,17 @@ public class PaymentService {
 
 
     // 전체 조회
-//    public List<PaymentDTO> findAll(Long id){
-//        List<PaymentEntity> paymentEntityList = paymentRepository.findAll();
-//        List<PaymentDTO> paymentDTOList = new ArrayList<>();
-//        for(PaymentEntity paymentEntity : paymentEntityList){
-//            if(paymentEntity.getUserEntity().getId() == id){
-//                paymentDTOList.add(PaymentDTO.toPaymentDTO(paymentEntity));
-//            }
-//        }
-//        return paymentDTOList;
-//    }
-//
+    public List<PaymentDTO> findAll(UUID id){
+        List<PaymentEntity> paymentEntityList = paymentRepository.findAll();
+        List<PaymentDTO> paymentDTOList = new ArrayList<>();
+        for(PaymentEntity paymentEntity : paymentEntityList){
+            if(paymentEntity.getUserEntity().getId() == id){
+                paymentDTOList.add(PaymentDTO.toPaymentDTO(paymentEntity));
+            }
+        }
+        return paymentDTOList;
+    }
+
 //    // 페이징 조회
 //    public Page<PaymentEntity> paging(Pageable pageable, UserEntity userEntity){
 //        Page<PaymentEntity> paymentEntityList = paymentRepository.pagingList(userEntity.getId(), pageable);

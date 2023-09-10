@@ -1,7 +1,7 @@
 function checkNickname(){
     var userNickname = $("#userNickname").val();
     $.ajax({
-        url:'/checkNickname',
+        url:'/api/nickname',
         type: 'get',
         data:{userNickname:userNickname},
         success:function (cnt){
@@ -24,7 +24,7 @@ function checkNickname(){
 function checkEmail(){
     var userEmail = $("#userEmail").val();
     $.ajax({
-        url:'/checkEmail',
+        url:'/api/email',
         type: 'get',
         data:{userEmail:userEmail},
         success:function (cnt){
@@ -46,7 +46,7 @@ function checkEmail(){
 
 function sendNumber(){
     $.ajax({
-        url:"/mail",
+        url:"/api/email",
         type:"post",
         dataType:"json",
         data:{"mail" : $("#userEmail").val()},
@@ -90,5 +90,33 @@ function joinUser(){
                 console.log(testStatus);
                 console.log(errorThrown);
             }
+    });
+}
+
+function editUser(){
+    $.ajax({
+        url: "/api/editUser",
+        type: "patch",
+        data: JSON.stringify({
+            userNickname: $("#userNickname").val(),
+            userEmail: $("#userEmail").val(),
+            userPassword: $("#userPassword").val()
+        }),
+        contentType : "application/json; charset=utf-8",
+        success : function (data, statusText, jqXHR) {
+            alert("회원 정보 수정 성공");
+            location.replace(`/user/mypage`);
+            console.log(this.data);
+            console.log(data);
+            console.log(statusText);
+            console.log(jqXHR);
+        },
+        error : function (jqXHR, testStatus, errorThrown) {
+            alert("문제가 발생했습니다. 문의를 남겨주세요.");
+            console.log(this.data);
+            console.log(jqXHR);
+            console.log(testStatus);
+            console.log(errorThrown);
+        }
     });
 }

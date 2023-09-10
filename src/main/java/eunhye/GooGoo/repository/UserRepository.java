@@ -4,7 +4,12 @@ import eunhye.GooGoo.entity.UserEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
+import java.util.UUID;
+
 public interface UserRepository extends JpaRepository<UserEntity, Long> {
+    // 아이디로 회원 정보 조회
+    UserEntity findById(UUID userId);
+
     // 이메일로 회원 정보 조회(select * from user where user_email=?)
     UserEntity findByUserEmail(String userEmail);
 
@@ -25,4 +30,6 @@ public interface UserRepository extends JpaRepository<UserEntity, Long> {
     // 관리자 수
     @Query("SELECT COUNT(*) FROM UserEntity p WHERE p.authority = 'ADMIN'")
     Long countUAdmin();
+
+    void deleteById(UUID userId);
 }

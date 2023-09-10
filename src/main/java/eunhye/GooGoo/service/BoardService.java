@@ -18,6 +18,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
 @Transactional
@@ -114,16 +115,16 @@ public class BoardService {
 
 
     // 내가 쓴 문의글 조회
-//    public List<BoardDTO> findUserBoard(Long id) {
-//        List<BoardEntity> boardEntityList = boardRepository.findAll();
-//        List<BoardDTO> boardDTOList = new ArrayList<>();
-//        for(BoardEntity boardEntity: boardEntityList){
-//            if(boardEntity.getUserEntity().getId() == id){
-//                boardDTOList.add(BoardDTO.toBoardDTO(boardEntity));
-//            }
-//        }
-//        return boardDTOList;
-//    }
+    public List<BoardDTO> findUserBoard(UUID id) {
+        List<BoardEntity> boardEntityList = boardRepository.findAll();
+        List<BoardDTO> boardDTOList = new ArrayList<>();
+        for(BoardEntity boardEntity: boardEntityList){
+            if(boardEntity.getUserEntity().getId() == id){
+                boardDTOList.add(BoardDTO.toBoardDTO(boardEntity));
+            }
+        }
+        return boardDTOList;
+    }
 
 
     // 공지글 조회

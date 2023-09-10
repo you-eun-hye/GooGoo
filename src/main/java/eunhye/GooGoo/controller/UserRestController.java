@@ -1,26 +1,40 @@
 package eunhye.GooGoo.controller;
 
+import eunhye.GooGoo.config.security.SecurityDetails;
+import eunhye.GooGoo.dto.BoardDTO;
+import eunhye.GooGoo.dto.PaymentDTO;
 import eunhye.GooGoo.dto.UserDTO;
 import eunhye.GooGoo.entity.UserEntity;
 import eunhye.GooGoo.entity.UserRole;
 import eunhye.GooGoo.repository.UserRepository;
+import eunhye.GooGoo.service.BoardService;
 import eunhye.GooGoo.service.EmailService;
+import eunhye.GooGoo.service.PaymentService;
 import eunhye.GooGoo.service.UserService;
-import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.io.IOException;
+import java.util.List;
+import java.util.UUID;
+
+@Slf4j
 @RestController
 @RequiredArgsConstructor
 public class UserRestController {
     private final UserRepository userRepository;
 
     private final UserService userService;
+    private final BoardService boardService;
     private final EmailService emailService;
+    private final PaymentService paymentService;
     private final PasswordEncoder passwordEncoder;
 
     /*
@@ -28,28 +42,28 @@ public class UserRestController {
      */
 
     // 닉네임 중복 체크
-    @GetMapping("/checkNickname")
-    public boolean checkNickname(@RequestParam("userNickname") String userNickname){
-        return userService.checkUserNicknameDuplication(userNickname);
+    @GetMapping("/api/nickname")
+    public ResponseEntity<Boolean> checkNickname(@RequestParam("userNickname") String userNickname){
+        return new ResponseEntity<>(userService.checkUserNicknameDuplication(userNickname), HttpStatus.OK);
     }
 
     // 이메일 중복 체크
-    @GetMapping("/checkEmail")
-    public boolean checkEmail(@RequestParam("userEmail") String userEmail){
-        return userService.checkUserEmailDuplication(userEmail);
+    @GetMapping("/api/email")
+    public ResponseEntity<Boolean> checkEmail(@RequestParam("userEmail") String userEmail){
+        return new ResponseEntity<>(userService.checkUserEmailDuplication(userEmail), HttpStatus.OK);
     }
 
     // 이메일 인증
-    @PostMapping("/mail")
-    public String MailSend(String mail){
+    @PostMapping("/api/email")
+    public ResponseEntity<String> MailSend(String mail){
         String message = "";
         int number = emailService.sendMail(mail);
         message = "" + number;
-        return message;
+        return new ResponseEntity<>(message, HttpStatus.OK);
     }
 
     // 로그인
-    @GetMapping("/login")
+    @RequestMapping("/login")
     public ModelAndView loginForm(@RequestParam(value="error", required = false) String error,
                             @RequestParam(value = "exception", required = false) String exception,
                             Model model){
@@ -64,105 +78,107 @@ public class UserRestController {
      */
 
     // 회원 가입
-    @GetMapping("/join")
+    @RequestMapping("/join")
     public ModelAndView joinUserForm() {
         ModelAndView mav = new ModelAndView("user/info/join");
         return mav;
     }
 
     @PostMapping("/api/join")
-    public HttpStatus join(@RequestBody UserDTO userDTO) {
+    public ResponseEntity<?> join(@RequestBody UserDTO userDTO) {
         userRepository.save(UserEntity.builder()
                 .userNickname(userDTO.getUserNickname())
                 .userEmail(userDTO.getUserEmail())
                 .userPassword(passwordEncoder.encode(userDTO.getUserPassword()))
                 .authority(UserRole.USER)
                 .build());
-        return HttpStatus.CREATED;
+        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     // 이메일 찾기
-    @GetMapping("/findUserEmail")
+    @RequestMapping("/findUserEmail")
     public ModelAndView findUserEmailForm(){
         ModelAndView mav = new ModelAndView("user/info/findUserEmail");
         return mav;
     }
 
-//    @PostMapping("/findUserEmail")
-//    public String findUserEmail(String userNickname, Model model){
-//        String userEmail = userService.findUserEmail(userNickname);
-//        model.addAttribute("message", userEmail);
-//        return "user/info/findUserEmail";
-//    }
+    @GetMapping("/api/userEmail")
+    public ModelAndView findUserEmail(String userNickname, Model model){
+        String userEmail = userService.findUserEmail(userNickname);
+        model.addAttribute("message", userEmail);
+        ModelAndView mav = new ModelAndView("user/info/findUserEmail");
+        return mav;
+    }
 
 
     // 비밀번호 찾기 (임시 비밀번호 메일 전송)
-    @GetMapping("/findUserPassword")
+    @RequestMapping("/findUserPassword")
     public ModelAndView findUserPasswordForm(){
         ModelAndView mav = new ModelAndView("user/info/findUserPassword");
         return mav;
     }
 
-    @PostMapping("/findUserPassword")
+    @PostMapping("/api/userPassword")
     public void sendNewPassword(String mail){
         String newPassword = emailService.sendNewPassword(mail);
         userService.editPassword(mail, newPassword);
     }
 
     // 마이페이지
-    @GetMapping("/user/mypage")
+    @RequestMapping("/user/mypage")
     public ModelAndView mypage(){
         ModelAndView mav = new ModelAndView("user/info/mypage");
         return mav;
     }
 
     // 회원 정보 수정
-//    @GetMapping("/user/mypage/editUser")
-//    public String editMypageUserForm(@AuthenticationPrincipal SecurityDetails securityDetails, Model model){
-//        UserDTO userDTO = userService.findById(securityDetails.getUserEntity().getId());
-//        model.addAttribute("userDTO", userDTO);
-//        return "user/info/editUser";
-//    }
-//
-//    // 회원 정보 수정
-//    @PostMapping("/user/mypage/editUser")
-//    public String editMypageUser(@AuthenticationPrincipal SecurityDetails securityDetails, String userEmail, String userNickname, String userPassword){
-//        UserDTO userDTO = userService.findById(securityDetails.getUserEntity().getId());
-//        userService.editUser(userDTO, userEmail, userNickname, userPassword);
-//        return "user/info/mypage";
-//    }
+    @RequestMapping("/user/mypage/editUser")
+    public ModelAndView editMypageUserForm(@AuthenticationPrincipal SecurityDetails securityDetails, Model model){
+        UserDTO userDTO = userService.findById(securityDetails.getUserEntity().getId());
+        model.addAttribute("userDTO", userDTO);
+        ModelAndView mav = new ModelAndView("user/info/editUser");
+        return mav;
+    }
+
+    // 회원 정보 수정
+    @PatchMapping("/api/editUser")
+    public ResponseEntity editMypageUser(@AuthenticationPrincipal SecurityDetails securityDetails, @RequestBody UserDTO userDTO){
+        UserDTO originalUserDTO = userService.findById(securityDetails.getUserEntity().getId());
+        userService.editUser(originalUserDTO, userDTO);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 
     // 로그아웃
-    @GetMapping("/logout")
+    @RequestMapping("/logout")
     public ModelAndView logout(){
         ModelAndView mav = new ModelAndView("user/info/login");
         return mav;
     }
 
     // 회원 탈퇴
-//    @GetMapping("/user/mypage/delete")
-//    public String deleteMypageUser(@AuthenticationPrincipal SecurityDetails securityDetails) throws IOException {
-//        userService.deleteById(securityDetails.getUserEntity().getId());
-//
-//        List<BoardDTO> boardList = boardService.findUserBoard(securityDetails.getUserEntity().getId());
-//        for(long i = 0; i < boardList.size(); i++){
-//            boardService.deleteById(i);
-//        }
-//
-//        List<PaymentDTO> paymentList = paymentService.findAll(securityDetails.getUserEntity().getId());
-//        for(long i = 0; i < paymentList.size(); i++){
-//            paymentService.deleteById(i);
-//        }
-//
-//        return "user/info/login";
-//    }
+    @RequestMapping("/user/mypage/delete")
+    public ModelAndView deleteMypageUser(@AuthenticationPrincipal SecurityDetails securityDetails) throws IOException {
+        userService.deleteById(securityDetails.getUserEntity().getId());
+
+        List<BoardDTO> boardList = boardService.findUserBoard(securityDetails.getUserEntity().getId());
+        for(long i = 0; i < boardList.size(); i++){
+            boardService.deleteById(i);
+        }
+
+        List<PaymentDTO> paymentList = paymentService.findAll(securityDetails.getUserEntity().getId());
+        for(long i = 0; i < paymentList.size(); i++){
+            paymentService.deleteById(i);
+        }
+        ModelAndView mav = new ModelAndView("user/info/login");
+        return mav;
+    }
 
     /*
      * 관리자
      */
 
     // 관리자 생성
-    @GetMapping("/admin/admin/join")
+    @RequestMapping("/admin/admin/join")
     public ModelAndView saveAdminForm(){
         ModelAndView mav = new ModelAndView("admin/join");
         return mav;
@@ -187,22 +203,22 @@ public class UserRestController {
 
     // 관리자 정보 수정
     @GetMapping("/admin/admin/edit/{id}")
-    public String editAdminForm(@PathVariable Long id, Model model){
+    public String editAdminForm(@PathVariable UUID id, Model model){
         UserDTO userDTO = userService.findById(id);
         model.addAttribute("user", userDTO);
         return "admin/edit";
     }
 
-    @PostMapping("/admin/admin/edit")
-    public String editAdmin(Long id, String userEmail, String userNickname, String userPassword){
-        UserDTO userDTO = userService.findById(id);
-        userService.editAdmin(userDTO, userEmail, userNickname, userPassword);
-        return "redirect:/admin/admin";
-    }
+//    @PostMapping("/admin/admin/edit")
+//    public String editAdmin(UUID id, String userEmail, String userNickname, String userPassword){
+//        UserDTO userDTO = userService.findById(id);
+//        userService.editAdmin(userDTO, userEmail, userNickname, userPassword);
+//        return "redirect:/admin/admin";
+//    }
 
     // 관리자 삭제
     @GetMapping("/admin/admin/delete/{id}")
-    public String deleteAdmin(@PathVariable Long id){
+    public String deleteAdmin(@PathVariable UUID id){
         userService.deleteById(id);
         return "redirect:/admin/admin";
     }
@@ -219,7 +235,7 @@ public class UserRestController {
 
     // 회원 수정
     @GetMapping("/admin/user/edit/{id}")
-    public String editAdminUserForm(@PathVariable Long id, Model model){
+    public String editAdminUserForm(@PathVariable UUID id, Model model){
         UserDTO userDTO = userService.findById(id);
         model.addAttribute("user", userDTO);
         return "admin/user/edit";

@@ -6,12 +6,12 @@
     <link rel="stylesheet" type="text/css" href="/css/user/info/editUser.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css"/>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <script rel="script" type="text/javascript" src="/js/user/editUser.js"></script>
+    <script rel="script" type="text/javascript" src="/js/user/join.js"></script>
     <title>이메일 수정</title>
 </head>
 <body>
     <div class="container">
-        <form action="/user/mypage/editUser" method="post">
+        <form>
             <div class="title">이메일 수정</div>
 
             <div class="input-box underline">
@@ -45,7 +45,7 @@
 
             <br>
             <input type="text" id="confirm" name="confirm" style="display: none" value="">
-            <button type="submit" id="editBtn" class="editBtn">정보 수정</button>
+            <button type="button" id="editBtn" class="editBtn" onclick="editUser()">정보 수정</button>
         </form>
     </div>
 </body>
