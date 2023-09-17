@@ -11,6 +11,9 @@ import eunhye.GooGoo.service.BoardService;
 import eunhye.GooGoo.service.EmailService;
 import eunhye.GooGoo.service.PaymentService;
 import eunhye.GooGoo.service.UserService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -28,6 +31,7 @@ import java.util.UUID;
 @Slf4j
 @RestController
 @RequiredArgsConstructor
+@Tag(name="User Controller", description = "사용자 관련 컨트롤러")
 public class UserRestController {
     private final UserRepository userRepository;
 
@@ -41,31 +45,31 @@ public class UserRestController {
      * 공용
      */
 
-    // 닉네임 중복 체크
+    @Operation(summary = "checkNickname", description = "닉네임 중복 체크")
     @GetMapping("/api/nickname")
-    public ResponseEntity<Boolean> checkNickname(@RequestParam("userNickname") String userNickname){
+    public ResponseEntity<Boolean> checkNickname(@Parameter(description = "조회할 닉네임") @RequestParam("userNickname") String userNickname){
         return new ResponseEntity<>(userService.checkUserNicknameDuplication(userNickname), HttpStatus.OK);
     }
 
-    // 이메일 중복 체크
+    @Operation(summary = "checkEmail", description = "이메일 중복 체크")
     @GetMapping("/api/email")
-    public ResponseEntity<Boolean> checkEmail(@RequestParam("userEmail") String userEmail){
+    public ResponseEntity<Boolean> checkEmail(@Parameter(description = "조회할 이메일") @RequestParam("userEmail") String userEmail){
         return new ResponseEntity<>(userService.checkUserEmailDuplication(userEmail), HttpStatus.OK);
     }
 
-    // 이메일 인증
+    @Operation(summary = "MailSend", description = "인증 메일 전송")
     @PostMapping("/api/email")
-    public ResponseEntity<String> MailSend(String mail){
+    public ResponseEntity<String> MailSend(@Parameter(description = "메일 보낼 주소") String mail){
         String message = "";
         int number = emailService.sendMail(mail);
         message = "" + number;
         return new ResponseEntity<>(message, HttpStatus.OK);
     }
 
-    // 로그인
+    @Operation(summary = "loginForm", description = "로그인 페이지")
     @RequestMapping("/login")
-    public ModelAndView loginForm(@RequestParam(value="error", required = false) String error,
-                            @RequestParam(value = "exception", required = false) String exception,
+    public ModelAndView loginForm(@Parameter(description = "error") @RequestParam(value="error", required = false) String error,
+                                  @Parameter(description = "exception") @RequestParam(value = "exception", required = false) String exception,
                             Model model){
         model.addAttribute("error", error);
         model.addAttribute("exception", exception);
@@ -77,15 +81,16 @@ public class UserRestController {
      * 사용자
      */
 
-    // 회원 가입
+    @Operation(summary = "joinUserForm", description = "회원가입 페이지")
     @RequestMapping("/join")
     public ModelAndView joinUserForm() {
         ModelAndView mav = new ModelAndView("user/info/join");
         return mav;
     }
 
+    @Operation(summary = "join", description = "사용자 생성")
     @PostMapping("/api/join")
-    public ResponseEntity<?> join(@RequestBody UserDTO userDTO) {
+    public ResponseEntity<?> join(@Parameter(description = "가입된 사용자 정보") @RequestBody UserDTO userDTO) {
         userRepository.save(UserEntity.builder()
                 .userNickname(userDTO.getUserNickname())
                 .userEmail(userDTO.getUserEmail())
@@ -95,15 +100,16 @@ public class UserRestController {
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
-    // 이메일 찾기
+    @Operation(summary = "findUserEmailForm", description = "이메일 찾기 페이지")
     @RequestMapping("/findUserEmail")
     public ModelAndView findUserEmailForm(){
         ModelAndView mav = new ModelAndView("user/info/findUserEmail");
         return mav;
     }
 
+    @Operation(summary = "findUserEmail", description = "이메일 찾은 페이지")
     @GetMapping("/api/userEmail")
-    public ModelAndView findUserEmail(String userNickname, Model model){
+    public ModelAndView findUserEmail(@Parameter(description = "찾을 계정의 닉네임") String userNickname, Model model){
         String userEmail = userService.findUserEmail(userNickname);
         model.addAttribute("message", userEmail);
         ModelAndView mav = new ModelAndView("user/info/findUserEmail");
@@ -111,53 +117,54 @@ public class UserRestController {
     }
 
 
-    // 비밀번호 찾기 (임시 비밀번호 메일 전송)
+    @Operation(summary = "findUserPasswordForm", description = "비밀번호 찾기 페이지")
     @RequestMapping("/findUserPassword")
     public ModelAndView findUserPasswordForm(){
         ModelAndView mav = new ModelAndView("user/info/findUserPassword");
         return mav;
     }
 
+    @Operation(summary = "sendNewPassword", description = "임시 비밀번호 메일 전송")
     @PostMapping("/api/userPassword")
-    public void sendNewPassword(String mail){
+    public void sendNewPassword(@Parameter(description = "메일 보낼 주소") String mail){
         String newPassword = emailService.sendNewPassword(mail);
         userService.editPassword(mail, newPassword);
     }
 
-    // 마이페이지
+    @Operation(summary = "mypage", description = "마이페이지 페이지")
     @RequestMapping("/user/mypage")
     public ModelAndView mypage(){
         ModelAndView mav = new ModelAndView("user/info/mypage");
         return mav;
     }
 
-    // 회원 정보 수정
+    @Operation(summary = "editMypageUserForm", description = "회원정보수정 페이지")
     @RequestMapping("/user/mypage/editUser")
-    public ModelAndView editMypageUserForm(@AuthenticationPrincipal SecurityDetails securityDetails, Model model){
+    public ModelAndView editMypageUserForm(@Parameter(description = "로그인 중인 사용자") @AuthenticationPrincipal SecurityDetails securityDetails, Model model){
         UserDTO userDTO = userService.findById(securityDetails.getUserEntity().getId());
         model.addAttribute("userDTO", userDTO);
         ModelAndView mav = new ModelAndView("user/info/editUser");
         return mav;
     }
 
-    // 회원 정보 수정
+    @Operation(summary = "editMypageUser", description = "회원정보 수정 완료")
     @PatchMapping("/api/editUser")
-    public ResponseEntity editMypageUser(@AuthenticationPrincipal SecurityDetails securityDetails, @RequestBody UserDTO userDTO){
+    public ResponseEntity editMypageUser(@Parameter(description = "로그인 중인 계정") @AuthenticationPrincipal SecurityDetails securityDetails, @Parameter(description = "회원 정보 수정할 내용") @RequestBody UserDTO userDTO){
         UserDTO originalUserDTO = userService.findById(securityDetails.getUserEntity().getId());
         userService.editUser(originalUserDTO, userDTO);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    // 로그아웃
+    @Operation(summary = "logout", description = "로그아웃 후 페이지")
     @RequestMapping("/logout")
     public ModelAndView logout(){
         ModelAndView mav = new ModelAndView("user/info/login");
         return mav;
     }
 
-    // 회원 탈퇴
+    @Operation(summary = "deleteMypageUser", description = "회원 탈퇴 후 페이지")
     @RequestMapping("/user/mypage/delete")
-    public ModelAndView deleteMypageUser(@AuthenticationPrincipal SecurityDetails securityDetails) throws IOException {
+    public ModelAndView deleteMypageUser(@Parameter(description = "로그인 중인 계정") @AuthenticationPrincipal SecurityDetails securityDetails) throws IOException {
         userService.deleteById(securityDetails.getUserEntity().getId());
 
         List<BoardDTO> boardList = boardService.findUserBoard(securityDetails.getUserEntity().getId());
@@ -177,7 +184,7 @@ public class UserRestController {
      * 관리자
      */
 
-    // 관리자 생성
+    @Operation(summary = "saveAdminForm", description = "관리자 생성 페이지")
     @RequestMapping("/admin/admin/join")
     public ModelAndView saveAdminForm(){
         ModelAndView mav = new ModelAndView("admin/join");
@@ -201,9 +208,9 @@ public class UserRestController {
 //        return "admin/admin";
 //    }
 
-    // 관리자 정보 수정
+    @Operation(summary = "editAdminForm", description = "관리자 수정 페이지")
     @GetMapping("/admin/admin/edit/{id}")
-    public String editAdminForm(@PathVariable UUID id, Model model){
+    public String editAdminForm(@Parameter(description = "수정할 계정 고유 번호") @PathVariable UUID id, Model model){
         UserDTO userDTO = userService.findById(id);
         model.addAttribute("user", userDTO);
         return "admin/edit";
@@ -216,9 +223,9 @@ public class UserRestController {
 //        return "redirect:/admin/admin";
 //    }
 
-    // 관리자 삭제
+    @Operation(summary = "deleteAdmin", description = "관리자 삭제 후 페이지")
     @GetMapping("/admin/admin/delete/{id}")
-    public String deleteAdmin(@PathVariable UUID id){
+    public String deleteAdmin(@Parameter(description = "삭제 할 계정 고유 번호") @PathVariable UUID id){
         userService.deleteById(id);
         return "redirect:/admin/admin";
     }
@@ -233,9 +240,9 @@ public class UserRestController {
 //        return "admin/user/index";
 //    }
 
-    // 회원 수정
+    @Operation(summary = "editAdminUserForm", description = "관리자 정보 수정 페이지")
     @GetMapping("/admin/user/edit/{id}")
-    public String editAdminUserForm(@PathVariable UUID id, Model model){
+    public String editAdminUserForm(@Parameter(description = "수정 할 계정 고유 번호") @PathVariable UUID id, Model model){
         UserDTO userDTO = userService.findById(id);
         model.addAttribute("user", userDTO);
         return "admin/user/edit";
