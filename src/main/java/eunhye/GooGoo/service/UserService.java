@@ -23,8 +23,13 @@ public class  UserService {
     private final PasswordEncoder passwordEncoder;
 
     // 회원 가입
-    public UserEntity save(UserEntity userEntity){
-        return userRepository.save(userEntity);
+    public UserEntity save(UserDTO userDTO){
+        return userRepository.save(UserEntity.builder()
+                .userNickname(userDTO.getUserNickname())
+                .userEmail(userDTO.getUserEmail())
+                .userPassword(passwordEncoder.encode(userDTO.getUserPassword()))
+                .authority(UserRole.USER)
+                .build());
     }
 
 

@@ -1,7 +1,7 @@
 function checkNickname(){
     var userNickname = $("#userNickname").val();
     $.ajax({
-        url:'/api/nickname',
+        url:'/nickname-validator',
         type: 'get',
         data:{userNickname:userNickname},
         success:function (cnt){
@@ -24,7 +24,7 @@ function checkNickname(){
 function checkEmail(){
     var userEmail = $("#userEmail").val();
     $.ajax({
-        url:'/api/email',
+        url:'/email-validator',
         type: 'get',
         data:{userEmail:userEmail},
         success:function (cnt){
@@ -46,7 +46,7 @@ function checkEmail(){
 
 function sendNumber(){
     $.ajax({
-        url:"/api/email",
+        url:"/email-sender",
         type:"post",
         dataType:"json",
         data:{"mail" : $("#userEmail").val()},
@@ -67,7 +67,7 @@ function confirmNumber(){
 
 function joinUser(){
     $.ajax({
-            url: "/api/join",
+            url: "/join",
             type: "post",
             data: JSON.stringify({
                 "userNickname": $("#userNickname").val(),
