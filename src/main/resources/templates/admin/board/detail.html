@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <link rel="stylesheet" href="/css/user/board/detail.css">
   <script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
-  <script rel="script" type="text/javascript" src="/js/user/save.js"></script>
+  <script rel="script" type="text/javascript" src="/js/save.js"></script>
   <title>관리자 페이지 - Q&A - Detail</title>
 </head>
 
@@ -78,8 +78,12 @@
         document.getElementById('commentWriter').value = '';
         document.getElementById('commentContents').value = '';
       },
-      error : function (err){
-        console.log("요청 실패", err);
+      error : function (jqXHR, testStatus, errorThrown){
+        alert("문제가 발생했습니다. 문의를 남겨주세요.");
+
+        console.log(jqXHR);
+        console.log(testStatus);
+        console.log(errorThrown);
       }
     });
   }

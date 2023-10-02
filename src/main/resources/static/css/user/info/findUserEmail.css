@@ -47,7 +47,7 @@
     margin: 40px 0 20px 0;
 }
 
-#findEmail{
+#find-email-btn{
     width: 100%;
     height: 45px;
     margin-top: 25px;
@@ -58,11 +58,11 @@
     border-radius: 5px;
 }
 
-.findedEmail{
-    width: 100%;
-    margin-top: 30px;
-    border-radius: 5px;
-    text-align: center;
-    background-color: #fff;
-    color: #2d2d2d;
-}
+/*.findedEmail > p{*/
+/*    width: 100%;*/
+/*    margin-top: 30px;*/
+/*    border-radius: 5px;*/
+/*    text-align: center;*/
+/*    background-color: #fff;*/
+/*    color: #2d2d2d;*/
+/*}*/

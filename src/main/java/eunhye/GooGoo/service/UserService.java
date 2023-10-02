@@ -23,12 +23,21 @@ public class  UserService {
     private final PasswordEncoder passwordEncoder;
 
     // 회원 가입
-    public UserEntity save(UserDTO userDTO){
+    public UserEntity userSave(UserDTO userDTO){
         return userRepository.save(UserEntity.builder()
                 .userNickname(userDTO.getUserNickname())
                 .userEmail(userDTO.getUserEmail())
                 .userPassword(passwordEncoder.encode(userDTO.getUserPassword()))
                 .authority(UserRole.USER)
+                .build());
+    }
+
+    public UserEntity adminSave(UserDTO userDTO){
+        return userRepository.save(UserEntity.builder()
+                .userNickname(userDTO.getUserNickname())
+                .userEmail(userDTO.getUserEmail())
+                .userPassword(passwordEncoder.encode(userDTO.getUserPassword()))
+                .authority(UserRole.ADMIN)
                 .build());
     }
 
@@ -83,10 +92,9 @@ public class  UserService {
     // 관리자 정보 수정
     public void editAdmin(UserDTO originalUserDTO, UserDTO userDTO){
         originalUserDTO.setAuthority(UserRole.ADMIN);
-        originalUserDTO.setUserNickname(userDTO.getUserNickname());
         originalUserDTO.setUserEmail(userDTO.getUserEmail());
         originalUserDTO.setUserPassword(userDTO.getUserPassword());
-        userRepository.save(UserEntity.toEditUserEntity(userDTO, passwordEncoder));
+        userRepository.save(UserEntity.toEditUserEntity(originalUserDTO, passwordEncoder));
     }
 
 

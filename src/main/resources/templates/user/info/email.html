@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" xmlns:c="http://www.w3.org/1999/XSL/Transform">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="/css/user/info/findUserEmail.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css"/>
+    <script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+</head>
+
+<body>
+<div class="container">
+    <form action="/findUserEmail" method="post">
+        <div class="title">이메일 찾기</div>
+
+        <div class="input-box underline">
+            <input type="test" id="userNickname" name="userNickname" placeholder="닉네임" required>
+            <div class="underline"></div>
+        </div>
+
+        <button type="button" id="find-email-btn" onclick="findEmail()"> 이메일 찾기 </button>
+
+        <div id="findedEmail"></div>
+    </form>
+</div>
+
+<script th:inline="javascript">
+    const findEmail = () => {
+        const userNickname = document.getElementById("userNickname").value;
+        $.ajax({
+            type : "GET",
+            url : "/api/email",
+            data : {
+                "userNickname" : userNickname
+            },
+            success : function (res){
+                let output = "<p>" + res + "</p>";
+                let obj = document.getElementById('findedEmail');
+                obj.style.width = '100%';
+                obj.style.marginTop = '30px';
+                obj.style.borderRadius = '5px';
+                obj.style.textAlign = 'center';
+                obj.innerHTML = output;
+                document.getElementById('userNickname').value = '';
+            },
+            error : function (jqXHR, testStatus, errorThrown){
+                alert("문제가 발생했습니다. 문의를 남겨주세요.");
+
+                console.log(jqXHR);
+                console.log(testStatus);
+                console.log(errorThrown);
+            }
+        });
+    }
+</script>
+</body>
+</html>

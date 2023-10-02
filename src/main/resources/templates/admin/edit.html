@@ -6,7 +6,7 @@
     <link rel="stylesheet" type="text/css" href="/css/user/info/editUser.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css"/>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <script rel="script" type="text/javascript" src="/js/admin/editUser.js"></script>
+    <script rel="script" type="text/javascript" src="/js/common.js"></script>
     <title>관리자 - 관리자 정보 수정</title>
 </head>
 <body>
@@ -15,11 +15,11 @@
             <div class="title">관리자 정보 수정</div>
             <input th:value="${user.id}" style="display: none" id="id" name="id">
             <div class="input-box underline bottom1">
-                <span class="subtitle">이메일: </span>
+                <span class="subtitle">닉네임: </span>
                 <input type="text" th:value="${user.userEmail}" id="userEmail" name="userEmail" onchange="checkEmail()"><br>
                 <hr>
-                <span class="emailOk">사용 가능한 이메일입니다.</span>
-                <span class="emailNo">중복되는 이메일입니다.</span>
+                <span class="emailOk">사용 가능한 닉네임입니다.</span>
+                <span class="emailNo">중복되는 닉네임입니다.</span>
             </div>
 
             <div class="input-box underline bottom3">
@@ -29,7 +29,7 @@
             </div>
 
             <br>
-            <button type="submit" id="editBtn" class="editBtn">정보 수정</button>
+            <button type="button" id="editBtn" class="editBtn" onclick="editAdmin()">정보 수정</button>
         </form>
     </div>
 </body>
