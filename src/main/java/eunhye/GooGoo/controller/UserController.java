@@ -28,7 +28,7 @@ import java.util.UUID;
 @Controller
 @RequiredArgsConstructor
 @Tag(name="User Controller", description = "사용자 관련 컨트롤러")
-public class UserRestController {
+public class UserController {
 
     private final UserService userService;
     private final BoardService boardService;
@@ -67,7 +67,7 @@ public class UserRestController {
     @GetMapping("/login")
     public String loginForm(@Parameter(description = "error") @RequestParam(value="error", required = false) String error,
                             @Parameter(description = "exception") @RequestParam(value = "exception", required = false) String exception,
-                            Model model){
+                            @Parameter(description = "error와 exception 담을 model") Model model){
         model.addAttribute("error", error);
         model.addAttribute("exception", exception);
         return "user/info/login";
@@ -127,7 +127,8 @@ public class UserRestController {
 
     @Operation(summary = "editMypageUserForm", description = "회원정보수정 페이지")
     @GetMapping("/user/mypage/user")
-    public String editMypageUserForm(@Parameter(description = "로그인 중인 사용자") @AuthenticationPrincipal SecurityDetails securityDetails, Model model){
+    public String editMypageUserForm(@Parameter(description = "로그인 중인 사용자") @AuthenticationPrincipal SecurityDetails securityDetails,
+                                     @Parameter(description = "수정할 회원 정보 담을 model") Model model){
         UserDTO userDTO = userService.findById(securityDetails.getUserEntity().getId());
         model.addAttribute("userDTO", userDTO);
         return "user/info/editUser";
@@ -137,7 +138,8 @@ public class UserRestController {
     @Operation(summary = "editMypageUser", description = "회원정보 수정 완료")
     @ResponseBody
     @PatchMapping("/api/user")
-    public ResponseEntity editMypageUser(@Parameter(description = "로그인 중인 계정") @AuthenticationPrincipal SecurityDetails securityDetails, @Parameter(description = "회원 정보 수정할 내용") @RequestBody UserDTO userDTO){
+    public ResponseEntity editMypageUser(@Parameter(description = "로그인 중인 계정") @AuthenticationPrincipal SecurityDetails securityDetails,
+                                         @Parameter(description = "회원 정보 수정할 내용") @RequestBody UserDTO userDTO){
         UserDTO originalUserDTO = userService.findById(securityDetails.getUserEntity().getId());
         userService.editUser(originalUserDTO, userDTO);
         return new ResponseEntity<>(HttpStatus.OK);
@@ -156,8 +158,8 @@ public class UserRestController {
         userService.deleteById(securityDetails.getUserEntity().getId());
 
         List<BoardDTO> boardList = boardService.findUserBoard(securityDetails.getUserEntity().getId());
-        for(long i = 0; i < boardList.size(); i++){
-            boardService.deleteById(i);
+        for(int i = 0; i < boardList.size(); i++){
+            boardService.deleteById(boardList.get(i).getId());
         }
 
         List<PaymentDTO> paymentList = paymentService.findAll(securityDetails.getUserEntity().getId());
@@ -187,7 +189,8 @@ public class UserRestController {
 
     @Operation(summary = "findAllAdmin", description = "관리자 전체 조회")
     @GetMapping("/admin")
-    public String findAllAdmin(Model model, @Parameter(description = "로그인 중인 계정") @AuthenticationPrincipal SecurityDetails securityDetails) {
+    public String findAllAdmin(@Parameter(description = "관리자 전체 정보, 관리자 전체 수, 현재 로그인 중인 관리자 이름을 담을 model") Model model,
+                               @Parameter(description = "로그인 중인 계정") @AuthenticationPrincipal SecurityDetails securityDetails) {
         List<UserDTO> adminDTOList = userService.findAdminAll();
         model.addAttribute("adminList", adminDTOList);
         model.addAttribute("countAdmin", userService.countAdmin());
@@ -197,7 +200,8 @@ public class UserRestController {
 
     @Operation(summary = "editAdminForm", description = "관리자 수정 페이지")
     @GetMapping("/admin/{id}")
-    public String editAdminForm(@Parameter(description = "수정할 계정 고유 번호") @PathVariable UUID id, Model model){
+    public String editAdminForm(@Parameter(description = "수정할 계정 고유 번호") @PathVariable UUID id,
+                                @Parameter(description = "수정할 관리자 정보 담을 model") Model model){
         UserDTO userDTO = userService.findById(id);
         model.addAttribute("user", userDTO);
         return "admin/edit";
@@ -207,7 +211,8 @@ public class UserRestController {
     @Operation(summary = "editAdmin", description = "관리자 정보 수정")
     @ResponseBody
     @PatchMapping("/api/admin")
-    public ResponseEntity editAdmin(@Parameter(description = "수정할 계정 고유 번호") UUID id, @Parameter(description = "회원 정보 수정할 내용") @RequestBody UserDTO userDTO){
+    public ResponseEntity editAdmin(@Parameter(description = "수정할 계정 고유 번호") UUID id,
+                                    @Parameter(description = "회원 정보 수정할 내용") @RequestBody UserDTO userDTO){
         UserDTO originalUserDTO = userService.findById(id);
         userService.editAdmin(originalUserDTO, userDTO);
         return new ResponseEntity<>(HttpStatus.OK);
@@ -223,7 +228,8 @@ public class UserRestController {
 
     @Operation(summary = "findAllUser", description = "유저 전체 조회")
     @GetMapping("/admin/user")
-    public String findAllUser(Model model, @Parameter(description = "로그인 중인 계정") @AuthenticationPrincipal SecurityDetails securityDetails) {
+    public String findAllUser(@Parameter(description = "유저 전체 정보, 유저 수, 현재 로그인 중인 관리자 이름 담을 model") Model model,
+                              @Parameter(description = "로그인 중인 계정") @AuthenticationPrincipal SecurityDetails securityDetails) {
         List<UserDTO> userDTOList = userService.findUserAll();
         model.addAttribute("userList", userDTOList);
         model.addAttribute("countUser", userService.countUser());
@@ -233,7 +239,8 @@ public class UserRestController {
 
     @Operation(summary = "editAdminUserForm", description = "유저 정보 강제 수정 페이지")
     @GetMapping("/admin/user/{id}")
-    public String editAdminUserForm(@Parameter(description = "수정 할 계정 고유 번호") @PathVariable UUID id, Model model){
+    public String editAdminUserForm(@Parameter(description = "수정 할 계정 고유 번호") @PathVariable UUID id,
+                                    @Parameter(description = "수정 할 유저 정보 담을 model") Model model){
         UserDTO userDTO = userService.findById(id);
         model.addAttribute("user", userDTO);
         return "admin/user/edit";
@@ -255,8 +262,8 @@ public class UserRestController {
         userService.deleteById(id);
 
         List<BoardDTO> boardList = boardService.findUserBoard(id);
-        for (long i = 0; i < boardList.size(); i++) {
-            boardService.deleteById(i);
+        for (int i = 0; i < boardList.size(); i++) {
+            boardService.deleteById(boardList.get(i).getId());
         }
 
         List<PaymentDTO> paymentList = paymentService.findAll(id);

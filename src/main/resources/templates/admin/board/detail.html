@@ -52,8 +52,8 @@
     const contents = document.getElementById("commentContents").value;
     const id = [[${board.id}]];
     $.ajax({
-      type : "post",
-      url : "/admin/board/detail/comment",
+      type : "POST",
+      url : "/api/admin/board/detail/comment",
       data : {
         "commentWriter" : writer,
         "commentContents" : contents,

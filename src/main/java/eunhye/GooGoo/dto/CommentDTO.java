@@ -6,15 +6,16 @@ import lombok.Setter;
 import lombok.ToString;
 
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 @Getter
 @Setter
 @ToString
 public class CommentDTO {
-    private Long id;
+    private UUID id;
     private String commentWriter;
     private String commentContents;
-    private Long boardId;
+    private UUID boardId;
     private LocalDateTime commentCreatedTime;
 
     // Entity -> DTO

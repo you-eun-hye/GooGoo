@@ -36,43 +36,40 @@ public class UserEntity extends BaseEntity{
     private String provider;
     private String providerId;
 
-//    @OneToMany(mappedBy = "userEntity", cascade = CascadeType.REMOVE, orphanRemoval = true, fetch = FetchType.LAZY)
-    @OneToMany
+    @OneToMany(mappedBy = "userEntity", cascade = CascadeType.REMOVE, orphanRemoval = true, fetch = FetchType.LAZY)
     private List<CommentEntity> commentEntityList = new ArrayList<>();
 
-//    @OneToMany(mappedBy = "userEntity", cascade = CascadeType.REMOVE, orphanRemoval = true, fetch = FetchType.LAZY)
-    @OneToMany
+    @OneToMany(mappedBy = "userEntity", cascade = CascadeType.REMOVE, orphanRemoval = true, fetch = FetchType.LAZY)
     private List<BoardEntity> boardEntityList = new ArrayList<>();
 
-//    @OneToMany(mappedBy = "userEntity", cascade = CascadeType.REMOVE, orphanRemoval = true, fetch = FetchType.LAZY)
-    @OneToMany
+    @OneToMany(mappedBy = "userEntity", cascade = CascadeType.REMOVE, orphanRemoval = true, fetch = FetchType.LAZY)
     private List<PaymentEntity> paymentEntityList = new ArrayList<>();
 
-    // 회원 생성
-    public static UserEntity toUserEntity(UserDTO userDTO, PasswordEncoder passwordEncoder){
-        UserEntity userEntity = UserEntity.builder()
-                .userNickname(userDTO.getUserNickname())
-                .userEmail(userDTO.getUserEmail())
-                .userPassword(passwordEncoder.encode((userDTO.getUserPassword())))
-                .authority(UserRole.USER)
-                .provider(userDTO.getProvider())
-                .providerId(userDTO.getProviderId())
-                .build();
-        return userEntity;
-    }
+//    // 회원 생성
+//    public static UserEntity toUserEntity(UserDTO userDTO, PasswordEncoder passwordEncoder){
+//        UserEntity userEntity = UserEntity.builder()
+//                .userNickname(userDTO.getUserNickname())
+//                .userEmail(userDTO.getUserEmail())
+//                .userPassword(passwordEncoder.encode((userDTO.getUserPassword())))
+//                .authority(UserRole.USER)
+//                .provider(userDTO.getProvider())
+//                .providerId(userDTO.getProviderId())
+//                .build();
+//        return userEntity;
+//    }
 
-    // 관리자 생성
-    public static UserEntity toAdminEntity(UserDTO userDTO, PasswordEncoder passwordEncoder){
-        UserEntity userEntity = UserEntity.builder()
-                .userNickname(userDTO.getUserNickname())
-                .userEmail(userDTO.getUserEmail())
-                .userPassword(passwordEncoder.encode((userDTO.getUserPassword())))
-                .authority(UserRole.ADMIN)
-                .provider(userDTO.getProvider())
-                .providerId(userDTO.getProviderId())
-                .build();
-        return userEntity;
-    }
+//    // 관리자 생성
+//    public static UserEntity toAdminEntity(UserDTO userDTO, PasswordEncoder passwordEncoder){
+//        UserEntity userEntity = UserEntity.builder()
+//                .userNickname(userDTO.getUserNickname())
+//                .userEmail(userDTO.getUserEmail())
+//                .userPassword(passwordEncoder.encode((userDTO.getUserPassword())))
+//                .authority(UserRole.ADMIN)
+//                .provider(userDTO.getProvider())
+//                .providerId(userDTO.getProviderId())
+//                .build();
+//        return userEntity;
+//    }
 
     // 정보 수정
     public static UserEntity toEditUserEntity(UserDTO userDTO, PasswordEncoder passwordEncoder){

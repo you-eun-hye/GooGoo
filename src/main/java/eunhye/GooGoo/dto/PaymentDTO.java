@@ -4,6 +4,8 @@ import eunhye.GooGoo.entity.PaymentEntity;
 import eunhye.GooGoo.entity.UserEntity;
 import lombok.*;
 
+import java.util.UUID;
+
 @Getter
 @Setter
 @ToString
@@ -11,7 +13,7 @@ import lombok.*;
 @AllArgsConstructor
 public class PaymentDTO {
 
-    private Long id;
+    private UUID id;
     private String imgSrc; // 앱 이미지 SRC
     private String name; // 앱 이름
     private int price; // 결제 금액

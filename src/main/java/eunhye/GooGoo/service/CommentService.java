@@ -15,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
 @Transactional
@@ -26,11 +27,10 @@ public class CommentService {
     private final CommentRepository commentRepository;
 
     // 댓글 작성
-    public Long saveComment(CommentDTO commentDTO){
+    public UUID saveComment(CommentDTO commentDTO){
         UserEntity userEntity = userRepository.findByUserEmail(commentDTO.getCommentWriter());
-        Optional<BoardEntity> optionalBoardEntity = boardRepository.findById(commentDTO.getBoardId());
-        if (userEntity!=null && optionalBoardEntity.isPresent()){
-            BoardDTO boardDTO = BoardDTO.toBoardDTO(optionalBoardEntity.get());
+        if (userEntity!=null){
+            BoardDTO boardDTO = BoardDTO.toBoardDTO(boardRepository.findById(commentDTO.getBoardId()));
             boardDTO.setCommentAttached(1);
             BoardEntity boardEntity = BoardEntity.toEditEntity(boardDTO);
             boardRepository.save(boardEntity);
@@ -43,8 +43,8 @@ public class CommentService {
 
 
     // 댓글 조회
-    public List<CommentDTO> findCommentAll(Long boardId) {
-        BoardEntity boardEntity = boardRepository.findById(boardId).get();
+    public List<CommentDTO> findCommentAll(UUID boardId) {
+        BoardEntity boardEntity = boardRepository.findById(boardId);
         List<CommentEntity> commentEntityList = commentRepository.findAllByBoardEntityOrderByIdAsc(boardEntity);
         List<CommentDTO> commentDTOList = new ArrayList<>();
         for(CommentEntity commentEntity : commentEntityList){

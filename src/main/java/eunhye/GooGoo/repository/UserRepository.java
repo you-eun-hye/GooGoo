@@ -7,7 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 import java.util.UUID;
 
 public interface UserRepository extends JpaRepository<UserEntity, Long> {
-    // 아이디로 회원 정보 조회
+    // 고유번호로 회원 정보 조회
     UserEntity findById(UUID userId);
 
     // 이메일로 회원 정보 조회(select * from user where user_email=?)

@@ -7,6 +7,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css"/>
   <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
   <script rel="script" type="text/javascript" src="/js/save.js"></script>
+  <script src="/js/common.js"></script>
   <title>boardSave</title>
 </head>
 <body>
@@ -28,7 +29,7 @@
       <label for="input_file">업로드</label>
       <input type="file" id="input_file" class="upload-hidden" name="boardFile">
     </div>
-    <button type="submit" id="write">작성</button>
+    <button type="button" id="write" onclick="saveNoti()">작성</button>
   </form>
 </div>
 

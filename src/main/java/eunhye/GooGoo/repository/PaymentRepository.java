@@ -21,5 +21,5 @@ public interface PaymentRepository extends JpaRepository<PaymentEntity, Long> {
 
     // 유저 id에 따른 결제 내역 조회
     @Query("SELECT p FROM PaymentEntity p where p.userEntity.id = ?1")
-    Page<PaymentEntity> pagingList(Long id, Pageable pageable);
+    Page<PaymentEntity> pagingList(UUID id, Pageable pageable);
 }

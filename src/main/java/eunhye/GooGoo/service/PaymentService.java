@@ -1,7 +1,6 @@
 package eunhye.GooGoo.service;
 
 import eunhye.GooGoo.dto.PaymentDTO;
-import eunhye.GooGoo.dto.UserDTO;
 import eunhye.GooGoo.entity.PaymentEntity;
 import eunhye.GooGoo.entity.UserEntity;
 import eunhye.GooGoo.repository.PaymentRepository;
@@ -53,10 +52,10 @@ public class PaymentService {
     }
 
 //    // 페이징 조회
-//    public Page<PaymentEntity> paging(Pageable pageable, UserEntity userEntity){
-//        Page<PaymentEntity> paymentEntityList = paymentRepository.pagingList(userEntity.getId(), pageable);
-//        return paymentEntityList;
-//    }
+    public Page<PaymentEntity> paging(Pageable pageable, UserEntity userEntity){
+        Page<PaymentEntity> paymentEntityList = paymentRepository.pagingList(userEntity.getId(), pageable);
+        return paymentEntityList;
+    }
 
 
     // 결제 내역 삭제

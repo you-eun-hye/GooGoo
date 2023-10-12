@@ -1,5 +1,7 @@
 package eunhye.GooGoo.controller;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
 import org.openqa.selenium.By;
 import org.openqa.selenium.PageLoadStrategy;
 import org.openqa.selenium.WebDriver;
@@ -17,8 +19,9 @@ import java.util.concurrent.TimeUnit;
 @Controller
 public class RecommendController {
 
+    @Operation(summary = "recommend", description = "구글 TOP100 조회 페이지")
     @GetMapping("/recommend")
-    public String recommend(Model model){
+    public String recommend(@Parameter(description = "구글 TOP100 담을 model") Model model){
         ChromeOptions options = new ChromeOptions();
         options.addArguments("--remote-allow-origins=*");
         options.setPageLoadStrategy(PageLoadStrategy.NORMAL);

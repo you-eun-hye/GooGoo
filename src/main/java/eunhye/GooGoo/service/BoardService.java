@@ -42,8 +42,8 @@ public class BoardService {
         else{
             boardDTO.setUserEntity(userEntity);
             BoardEntity boardEntity = BoardEntity.toSaveFileEntity(boardDTO);
-            Long saveId = boardRepository.save(boardEntity).getId(); // board_table에 해당 데이터 save 처리
-            BoardEntity board = boardRepository.findById(saveId).get(); // 부모 객체를 가져옴
+            UUID saveId = boardRepository.save(boardEntity).getId(); // board_table에 해당 데이터 save 처리
+            BoardEntity board = boardRepository.findById(saveId); // 부모 객체를 가져옴
 
             String storeFileName = System.currentTimeMillis() + "_" + originalFilename; // 서버 저장용 이름 만듦
             String savePath = "D:/GooGoo_img/" + storeFileName; // 저장 경로 설정
@@ -69,8 +69,8 @@ public class BoardService {
         else{
             boardDTO.setUserEntity(userEntity);
             BoardEntity boardEntity = BoardEntity.toSaveNotiFile(boardDTO);
-            Long saveId = boardRepository.save(boardEntity).getId(); // board_table에 해당 데이터 save 처리
-            BoardEntity board = boardRepository.findById(saveId).get(); // 부모 객체를 가져옴
+            UUID saveId = boardRepository.save(boardEntity).getId(); // board_table에 해당 데이터 save 처리
+            BoardEntity board = boardRepository.findById(saveId); // 부모 객체를 가져옴
 
             String storeFileName = System.currentTimeMillis() + "_" + originalFilename; // 서버 저장용 이름 만듦
             String savePath = "D:/GooGoo_img/" + storeFileName; // 저장 경로 설정
@@ -83,23 +83,18 @@ public class BoardService {
 
 
     // 페이징 처리
-//    public Page<BoardDTO> paging(Pageable pageable, UserEntity userEntity){
-//        Page<BoardEntity> boardEntityList = boardRepository.pagingList(userEntity.getId(), pageable);
-//        Page<BoardDTO> boardDTOList = new BoardDTO().toDTOList(boardEntityList);
-//        return boardDTOList;
-//    }
+    public Page<BoardDTO> paging(Pageable pageable, UserEntity userEntity){
+        Page<BoardEntity> boardEntityList = boardRepository.pagingList(userEntity.getId(), pageable);
+        Page<BoardDTO> boardDTOList = new BoardDTO().toDTOList(boardEntityList);
+        return boardDTOList;
+    }
 
 
     // id로 게시물 조회
-    public BoardDTO findById(Long id) {
-        Optional<BoardEntity> optionalBoardEntity = boardRepository.findById(id);
-        if(optionalBoardEntity.isPresent()){
-            BoardEntity boardEntity = optionalBoardEntity.get();
-            BoardDTO boardDTO = BoardDTO.toBoardDTO(boardEntity);
-            return boardDTO;
-        }else{
-            return null;
-        }
+    public BoardDTO findById(UUID id) {
+        BoardEntity boardEntity = boardRepository.findById(id);
+        BoardDTO boardDTO = BoardDTO.toBoardDTO(boardEntity);
+        return boardDTO;
     }
 
 
@@ -166,9 +161,8 @@ public class BoardService {
 
 
     // 게시물 삭제
-    public void deleteById(Long id) throws IOException {
-        Optional<BoardEntity> optionalBoardEntity = boardRepository.findById(id);
-        BoardDTO boardDTO = BoardDTO.toBoardDTO(optionalBoardEntity.get());
+    public void deleteById(UUID id) throws IOException {
+        BoardDTO boardDTO = BoardDTO.toBoardDTO(boardRepository.findById(id));
         File boardFile = new File("D:/GooGoo_img/" + boardDTO.getStoredFileName());
         boardFile.delete();
         boardRepository.deleteById(id);

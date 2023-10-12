@@ -304,3 +304,165 @@ function forcingDeleteUser(){
         }
     });
 }
+
+// 구글 비밀번호 임시 저장
+function saveGooglePassword(){
+    $.ajax({
+        url: "/api/googlePassword",
+        type: "POST",
+        data: JSON.stringify({
+            "googlePassword": $("#googlePassword").val()
+        }),
+        contentType : "application/json; charset=utf-8",
+        success : function (data, statusText, jqXHR) {
+            location.replace(`/buyCheck`);
+
+            console.log(data);
+            console.log(statusText);
+            console.log(jqXHR);
+        },
+        error : function (jqXHR, testStatus, errorThrown) {
+            alert("문제가 발생했습니다. 문의를 남겨주세요.");
+
+            console.log(jqXHR);
+            console.log(testStatus);
+            console.log(errorThrown);
+        }
+    });
+}
+
+// 문의글 작성
+function saveBoard(){
+    $.ajax({
+        url: "/api/board/save",
+        type: "POST",
+        data: JSON.stringify({
+            "boardTitle": $("#boardTitle").val(),
+            "boardContent": $("#boardContent").val(),
+            "input_file": $("#input_file").val()
+        }),
+        contentType : "application/json; charset=utf-8",
+        success : function (data, statusText, jqXHR) {
+            alert("문의글 등록");
+            location.replace(`/boad`);
+
+            console.log(data);
+            console.log(statusText);
+            console.log(jqXHR);
+        },
+        error : function (jqXHR, testStatus, errorThrown) {
+            alert("문제가 발생했습니다. 문의를 남겨주세요.");
+
+            console.log(jqXHR);
+            console.log(testStatus);
+            console.log(errorThrown);
+        }
+    });
+}
+
+// 문의글 수정
+function editBoard(){
+    $.ajax({
+        url: "/api/board/edit",
+        type: "PATCH",
+        data: JSON.stringify({
+            "boardTitle": $("#boardTitle").val(),
+            "boardContent": $("#boardContent").val()
+        }),
+        contentType : "application/json; charset=utf-8",
+        success : function (data, statusText, jqXHR) {
+            alert("수정 완료");
+            location.replace(`/redirect:/board`);
+
+            console.log(data);
+            console.log(statusText);
+            console.log(jqXHR);
+        },
+        error : function (jqXHR, testStatus, errorThrown) {
+            alert("문제가 발생했습니다. 문의를 남겨주세요.");
+
+            console.log(jqXHR);
+            console.log(testStatus);
+            console.log(errorThrown);
+        }
+    });
+}
+
+// 공지글 작성
+function saveNoti(){
+    $.ajax({
+        url: "/api/admin/noti/save",
+        type: "POST",
+        data: JSON.stringify({
+            "boardTitle": $("#boardTitle").val(),
+            "boardContent": $("#boardContent").val(),
+            "input_file": $("#input_file").val()
+        }),
+        contentType : "application/json; charset=utf-8",
+        success : function (data, statusText, jqXHR) {
+            alert("공지글 등록");
+            location.replace(`redirect:/admin/noti`);
+
+            console.log(data);
+            console.log(statusText);
+            console.log(jqXHR);
+        },
+        error : function (jqXHR, testStatus, errorThrown) {
+            alert("문제가 발생했습니다. 문의를 남겨주세요.");
+
+            console.log(jqXHR);
+            console.log(testStatus);
+            console.log(errorThrown);
+        }
+    });
+}
+
+// 공지글 수정
+function editNoti(){
+    $.ajax({
+        url: "/api/admin/noti/edit",
+        type: "PATCH",
+        data: JSON.stringify({
+            "boardTitle": $("#boardTitle").val(),
+            "boardContent": $("#boardContent").val()
+        }),
+        contentType : "application/json; charset=utf-8",
+        success : function (data, statusText, jqXHR) {
+            alert("수정 완료");
+            location.replace(`/redirect:/admin/noti`);
+
+            console.log(data);
+            console.log(statusText);
+            console.log(jqXHR);
+        },
+        error : function (jqXHR, testStatus, errorThrown) {
+            alert("문제가 발생했습니다. 문의를 남겨주세요.");
+
+            console.log(jqXHR);
+            console.log(testStatus);
+            console.log(errorThrown);
+        }
+    });
+}
+
+// 공지글 삭제
+function deleteNoti(){
+    $.ajax({
+        url: "/api/admin/noti/delete/{id}",
+        type: "DELETE",
+        success : function (data, statusText, jqXHR) {
+            alert("공지글 삭제 완료");
+            location.replace(`redirect:/admin/noti`);
+            console.log(data);
+            console.log(statusText);
+            console.log(jqXHR);
+        },
+        error : function (jqXHR, testStatus, errorThrown) {
+            alert("문제가 발생했습니다. 문의를 남겨주세요.");
+            console.log(this.data);
+            console.log(jqXHR);
+            console.log(testStatus);
+            console.log(errorThrown);
+        }
+    });
+}

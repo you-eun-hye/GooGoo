@@ -4,13 +4,15 @@ import eunhye.GooGoo.dto.CommentDTO;
 import jakarta.persistence.*;
 import lombok.Getter;
 
+import java.util.UUID;
+
 @Entity
 @Getter
 @Table(name = "COMMENT")
 public class CommentEntity extends BaseEntity{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private UUID id;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")

@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="/css/user/board/editBoard.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css"/>
+  <script src="/js/common.js"></script>
   <title>게시물 수정</title>
 </head>
 <body>
@@ -18,7 +19,7 @@
 
     <div class="input-box underline">
       <span class="subtitle">title: </span>
-      <input type="text" name="boardTitle" th:value="${editBoard.boardTitle}"><br>
+      <input type="text" id="boardTitle" name="boardTitle" th:value="${editBoard.boardTitle}"><br>
       <div class="underline"></div>
     </div>
 
@@ -28,7 +29,7 @@
       <div class="underline"></div>
     </div>
 
-    <button type="submit" id="editBtn">게시물 수정</button>
+    <button type="button" id="editBtn" onclick="editNoti()">게시물 수정</button>
   </form>
 </div>
 </body>

@@ -1,10 +1,11 @@
 package eunhye.GooGoo.entity;
 
-import eunhye.GooGoo.dto.PaymentDTO;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+
+import java.util.UUID;
 
 @Entity
 @Getter
@@ -14,7 +15,7 @@ import lombok.NoArgsConstructor;
 public class PaymentEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private UUID id;
 
     private String imgSrc;
     private String name;

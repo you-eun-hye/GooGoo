@@ -13,14 +13,14 @@
   <div class="container">
     <form action="/board/edit" method="post">
       <div class="title">게시물 수정</div>
-      <input type="hidden" name="id" th:value="${editBoard.id}"><br>
-      <input type="hidden" name="originalFileName" th:value="${editBoard.originalFileName}">
-      <input type="hidden" name="storedFileName" th:value="${editBoard.storedFileName}">
-      <input type="hidden" name="fileAttached" th:value="${editBoard.fileAttached}">
+      <input type="hidden" id="id" name="id" th:value="${editBoard.id}"><br>
+      <input type="hidden" id="originalFileName" name="originalFileName" th:value="${editBoard.originalFileName}">
+      <input type="hidden" id="storedFileName" name="storedFileName" th:value="${editBoard.storedFileName}">
+      <input type="hidden" id="fileAttached" name="fileAttached" th:value="${editBoard.fileAttached}">
 
       <div class="input-box underline">
         <span class="subtitle">title: </span>
-        <input type="text" name="boardTitle" th:value="${editBoard.boardTitle}"><br>
+        <input type="text" id="boardTitle" name="boardTitle" th:value="${editBoard.boardTitle}"><br>
         <div class="underline"></div>
       </div>
 
@@ -34,7 +34,7 @@
         <div class="underline"></div>
       </div>
 
-      <button type="submit" id="editBtn">게시물 수정</button>
+      <button type="button" id="editBtn" onclick="editBoard()">게시물 수정</button>
     </form>
   </div>
 </body>

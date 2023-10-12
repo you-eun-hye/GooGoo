@@ -7,12 +7,19 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
+import java.util.UUID;
 
 public interface BoardRepository extends JpaRepository<BoardEntity, Long> {
 
+    // 고유번호로 문의글 정보 조회
+    BoardEntity findById(UUID boardId);
+
+    // 고유번호로 문의글 삭제
+    BoardEntity deleteById(UUID boardId);
+
     // 페이징 조회
     @Query("SELECT b FROM BoardEntity b WHERE b.userEntity.id = ?1 OR b.noti = 1 ORDER BY b.noti DESC")
-    Page<BoardEntity> pagingList(Long id, Pageable pageable);
+    Page<BoardEntity> pagingList(UUID id, Pageable pageable);
 
     // 문의글 조회
     @Query("SELECT b FROM BoardEntity b WHERE b.noti = 0")

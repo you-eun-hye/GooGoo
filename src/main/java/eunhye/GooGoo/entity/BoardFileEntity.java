@@ -3,13 +3,15 @@ package eunhye.GooGoo.entity;
 import jakarta.persistence.*;
 import lombok.Getter;
 
+import java.util.UUID;
+
 @Entity
 @Getter
 @Table(name = "BOARD_FILE")
 public class BoardFileEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private UUID id;
 
     @Column
     private String originalFileName; // 사진명
